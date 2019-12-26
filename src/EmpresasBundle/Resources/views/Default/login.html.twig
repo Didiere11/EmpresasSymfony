@@ -3,6 +3,70 @@
 
 {% endblock %}
 {% block body %} 
-Login
+ <div class="row">
+        <div class="col s12 m8 offset-m2">
+            <div class="card">
+            <div class="card-image" align="center">
+            <img src="{{asset('img/login.jpg')}}" width="">
+                        <span align="center" class="card-title">
+                            <h3>Control de Acceso</h3>
+                            </span>
+               </div>    
+                <div class="card-content">
+                
+                    <br>
+                    <form id="frm-acceso" method="post">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input type="email" id="correo" name="correo" class="validate">
+                                <label for="correo">Correo electronico:</label>
+                            </div>
+                            <div class="input-field col s12">
+                            <i class="material-icons prefix">lock_outline</i>
+                                <input type="password" id="contra" name="contra" class="validate">
+                                <label for="contra">Contraseña:</label>
+                            </div>
+                            <div class="input-field col s12 offset-m5">
+                                <a id="un_lock" class="btn-floating btn-large waves-effect waves-light blue" >
+                                    <i class="material-icons">lock_open</i>
+                                </a>
+                                <a id="add_record" class="btn-floating btn-large waves-effect waves-light blue" >
+                                    <i class="material-icons">person_add</i>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+     
+    </div>
+   <!-- Ventana Modal -->
+   <div class="modal" id="modalRegistro">
+       <div class="modal-content">
+           <h4>Registro de Usuarios</h4>
+           <br>
+           <form id="frm-registro" method="post">
+              <div class="row">
+                    <div class="input-field col s12">
+                       <input type="email" id="corr" name="corr" class="validate">
+                       <label for="corr">Correo:</label>
+                   </div>
+                   <div class="input-field col s12">
+                      <input type="text" id="nom" name="nom" class="validate">
+                      <label for="nom">Nombre Completo:</label>
+                </div>
+                <div class="input-field col s12">
+                      <input type="password" id="pwd" name="pwd" class="validate">
+                      <label for="pwd">Contraseña:</label>
+                </div>
+             </div>
+           </form>
+       </div>
+       <div class="modal-footer">
+           <a id="guardar" class="modal-action waves-effect waves-green btn-flat" >Guardar Registro</a>
+       </div>
+   </div>
 
 {% endblock %}
