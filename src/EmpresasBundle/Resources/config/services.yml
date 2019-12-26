@@ -1,0 +1,4 @@
+services:
+#    empresas.example:
+#        class: EmpresasBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
