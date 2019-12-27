@@ -21,4 +21,11 @@ class DefaultController extends Controller
     {
         return $this->render('EmpresasBundle:Default:login.html.twig');
     }
+      /**
+     * @Route("/catalogempresas", name="Empresas_catalogempresas")
+     */
+    public function catalogempresasAction()
+    {
+        return $this->render('EmpresasBundle:Default:catalogempresas.html.twig');
+    }
 }

@@ -70,3 +70,8 @@
    </div>
 
 {% endblock %}
+{% block javascript %}
+    {{ parent() }}
+   <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script> 
+   <script type="text/javascript" src="{{ asset('/Resources/Bundleempresas/login.js') }}"></script>
+{% endblock %}
