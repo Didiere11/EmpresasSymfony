@@ -1,13 +1,10 @@
 $(init);
-
-
 function init(){
     // Inicializa el NavBar
     $(document).ready(function(){
         $('.sidenav').sidenav();
     });
 
-    
     //Iniciliza la ventana Modal y la Validación
     $("#modalRegistro").modal();
     validateForm();
@@ -33,7 +30,8 @@ function init(){
     });
        
 }
-
+//valida el formulario y el login ademas
+ //asignan las reglas
 function validateForm(){
     $('#frm-acceso').validate({
         rules: {
