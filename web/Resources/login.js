@@ -22,6 +22,7 @@ function init(){
         $("#corr").val('');
         $("#nom").val('');
         $("#pwd").val('');
+        $("#dom").val('');
         $("#modalRegistro").modal('open');
         $("#corr").focus();
     });
@@ -57,11 +58,15 @@ function validateForm(){
             corr:{required:true, email:true, minlength:4, maxlength:120},
             nom:{required:true, minlength:4, maxlength:100},
             pwd:{required:true, minlength:4, maxlength:32},
+            dom:{required:true, minlength:4, maxlength:100},
+
         },
         messages: {
             corr:{required:"No puedes dejar este campo vacío",email:"Se requiere correo valido",minlength:"Debes ingresar al menos 4 caracteres", maxlength:"No puedes ingresar más de 120 caracteres"},
             nom:{required:"No se puede dejar el campo vacio",minlength:"Debes ingresar al menos 4 caracteres", maxlength:"No puedes ingresar más de 100 caracteres"},
             pwd:{required:"No puedes dejar este campo vacío",minlength:"Debes ingresar al menos 4 caracteres", maxlength:"No puedes ingresar más de 32 caracteres"},
+            dom:{required:"No se puede dejar el campo vacio",minlength:"Debes ingresar al menos 4 caracteres", maxlength:"No puedes ingresar más de 100 caracteres"},
+
         },
         errorElement: "div",
         errorClass: "invalid",
