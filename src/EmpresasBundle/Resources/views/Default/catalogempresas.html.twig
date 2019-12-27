@@ -18,7 +18,9 @@
                             <tr><th>Nombre</th><th>Direccion</th><th>Correo</th><th>Descripción</th><th>Telefono</th><th></th></tr>
                         </thead>
                         <tbody>
-                            <tr id="10"><td>InfoExpo S.C</td><td>Parque bajio 118</td><td>infoexpor@info.com</td><td>Desarrollo de software</td><td>4612304897</td></tr>
+                            <tr id="10"><td>InfoExpo S.C</td><td>Parque bajio 118</td><td>infoexpor@info.com</td><td>Desarrollo de software</td><td>4612304897</td><td>
+                              <i class = "material-icons edit" >create</i>
+                              <i class = "material-icons delete" >delete_forever</i></td></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -33,7 +35,7 @@
             <form method="post" id="frmEmp">
                 <div class="row">
                     <div class="input-field s12">
-                        <input type="text" id="pk" name="pk">
+                        <input type="hidden" id="pk" name="pk">
                         <input type="text" id="nombreEmp" name="nombreEmp" class="validate">
                         <label for="nombreEmp">Nombre Empresa:</label>
                     </div>
@@ -64,6 +66,11 @@
 
 {% block javascripts %}
     {{ parent() }}
-   <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script> 
-   <script type="text/javascript" src="{{ asset('/Resources/Bundleempresas/empresas.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('Resources/catalogoEmp.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/Resources/Bundleempresas/empresas.js') }}"></script>
 {% endblock %}
