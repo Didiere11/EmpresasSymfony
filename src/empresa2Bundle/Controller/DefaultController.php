@@ -58,11 +58,10 @@ class DefaultController extends Controller
             $insert = 'INSERT INTO usuario ' ;
             $insert .= '(nomusuario,correo,contraseña,domicilio,idtipousr)';
             $insert .= 'VALUES ('."'".$post['nom']."'".','."'".$post['corr']."'".','."'".$post['pwd']."'".','."'".$post['dom']."'".',1)';
-            
         
             $result = $this->SQLPrueba->executeQuery($insert);
         }
-        return jsonResponse($result);
+            return jsonResponse($result);
     }
    
 }
