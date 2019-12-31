@@ -15,8 +15,9 @@ class DefaultController extends Controller
        
     }
 
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+
         return $this->render('empresa2Bundle:Default:index.html.twig');
     }
     public function loginAction(Request $request)
@@ -27,12 +28,16 @@ class DefaultController extends Controller
             $query .= ' WHERE correo= ' ."'" .$post["correo"]."'";
             $query .= ' AND contraseña=' ."'".$post['contra']."'";
             $result = $this->SQLPrueba->executeQuery($query);
-           //if ($result['data'] == null) {
-               // print_r('no entra');
-                //die();
-           // }else{}
-           //print_r($result['status']);
-            //die();
+           /*if ($result['data'] == null) {
+               print_r('no entra');
+                die();
+             }else{
+                print_r('si entra');
+                die();
+                 
+             }*/
+          // print_r($result);
+           //die();
         }
         return $this->render('empresa2Bundle:Default:login.html.twig');
     }
