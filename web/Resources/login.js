@@ -83,18 +83,15 @@ function validateForm(){
 }
 // Envia los datos del formulario de registro a la base de datos
 function saveData(){
-    var sURL = "actRegistroGuarda.php";
-    var parametros = 'corr=' + $("#corr").val() + 
-                     '&nom=' + $("#nom").val() + 
-                     '&pwd=' + $("#pwd").val();
+    //var sURL = "actRegistroGuarda.php";
     $.ajax({
         type:"post",
-        url:sURL,
+        url:urlvalidausr,
         dataType:'json',
-        data:parametros,
-        success: function(respuesta){
-            if (respuesta['status']){
-                $("#correo").val($("#corr").val());
+        data: $("#frm-registro").serialize(),
+        success: function(response){
+            if (response['status']==1){
+               $("#correo").val($("#corr").val());
                 M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
                 $("#modalRegistro").modal('close');
                 $("#contra").focus();
@@ -114,8 +111,11 @@ function validaData(){
         data: $("#frm-acceso").serialize(), // datos a pasar al servidor, en caso de necesitarlo
         success: function(resultado){
             if (resultado['status']){
+<<<<<<< HEAD
                 print_r(resultado);
                 die();
+=======
+>>>>>>> 785d21ebe479bcb239adffb3ecbd0bfff83aebb6
                 window.location.href='http://127.0.0.1/symfony/EmpresasSymfony/web/app_dev.php/Empresas'
                 M.toast({html: 'Acceso Permitido', classes: 'rounded', displayLength: 4000});
             }
