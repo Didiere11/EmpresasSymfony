@@ -1,9 +1,9 @@
 $(init);
 var table = null;
-var Empresa = null;
+var empresa = null;
 var tr = null;
 function init() {
-    table = $("#estu").DataTable({
+    table = $("#empre").DataTable({
         "aLengthMenu": [[10, 25, 50, 75, 100], [10, 25, 50, 75, 100]],
         "iDisplayLength": 15
     });//definiendo las caracteristicas del datatable 
@@ -24,7 +24,11 @@ function init() {
                     M.toast({html: 'Empresa no Eliminada',classes: 'rounded',displayLenght: 4000});
                     // setRow(respuesta['data'],'delete');
                 } else
+<<<<<<< HEAD
                 M.toast({html: 'Empresa Eliminada',classes: 'rounded',displayLenght: 4000});
+=======
+                    Materialize.toast('Error al eliminar Empresa', 5000);
+>>>>>>> 907f6cd49b1a2cffced0cbe6f9919de477f09aa1
             }
         });
     });
@@ -39,7 +43,7 @@ function init() {
 
     $("#add-record").on("click", function () {
         $("#modalReg").modal('open');
-        $("#no").focus();
+        $("#nomempresa").focus();
     });
 
     $("#guardar").on("click", function () {
@@ -47,13 +51,13 @@ function init() {
     });
 
     $(".edit").on("click", function () {
-        $("#pk").val($(this).attr("data-id"));
-        $("#nombreEmp").val($(this).attr("data-no"));
-        $("#dirEmp").val($(this).attr("data-nom"));
-        $("#corrEmp").val($(this).attr("data-eda"));
-        $("#descripEmp").val($(this).attr("data-eda"));
-        $("#telEmp").val($(this).attr("data-eda"));
-        $("#nombreEmp").focus();
+        $("#pk").val($(this).attr("data-idempresa"));
+        $("#nomempresa").val($(this).attr("data-nomempresa"));
+        $("#dirempresa").val($(this).attr("data-dirempresa"));
+        $("#correoempresa").val($(this).attr("data-correoempresa"));
+        $("#descripempresa").val($(this).attr("data-descripempresa"));
+        $("#telefonoempresa").val($(this).attr("data-telefonoempresa"));
+        $("#nomempresa").focus();
         $("#modalReg").modal('open');
     });
 
@@ -69,7 +73,7 @@ function init() {
                    Materialize.toast('Registro eliminado', 5000);
                    setRow(respuesta['data'],'delete');
                   }else
-                  Materialize.toast('Error al eliminar estudiante', 5000);
+                  Materialize.toast('Error al eliminar Empresa', 5000);
                }
           });//fin ajax
    
@@ -81,19 +85,19 @@ function validateform() {
     $("#frmEmp").validate({
         rules: {
             
-            'nombreEmp': { required: true },
-            'dirEmp': { required: true },
-            'corrEmp': { required: true },
-            'descripEmp': { required: true },
-            'telEmp': { required: true },
+            'nomempresa': { required: true },
+            'dirempresa': { required: true },
+            'correoempresa': { required: true },
+            'descripempresa': { required: true },
+            'telefonoempresa': { required: true },
         },
 
         messages: {
-            'nombreEmp': { required: 'campo requerido' },
-            'dirEmp': { required: 'falta el nombre del estudiante' },
-            'corrEmp': { required: 'falta la edad del estudiante' },
-            'descripEmp': { required: 'falta el nombre del estudiante' },
-            'telEmp': { required: 'falta la edad del estudiante' }
+            'nomempresa': { required: 'Ingresar el nombre de la empresa' },
+            'dirempresa': { required: 'Ingresar la direccion de la Empresa' },
+            'correoempresa': { required: 'Ingresar el correo de la empresa' },
+            'descripempresa': { required: 'Ingresar una brebe descripcion de la empresa' },
+            'telefonoempresa': { required: 'ingresar numero telefonico' }
         },
         errorElement: "div",
         errorClass: "invalid",
@@ -121,11 +125,12 @@ function saveClick() {
         success: function (respuesta) {
             if (respuesta['status']) {
                 $("#pk").val("0");
-                $("#nombreEmp").val("");
-                $("#dirEmp").val("");
-                $("#corrEmp").val("");
-                $("#descripEmp").val("");
-                $("#nombreEmp").focus();
+                $("#nomempresa").val("");
+                $("#dirempresa").val("");
+                $("#correoempresa").val("");
+                $("#descripempresa").val("");
+                $("#telefonoempresa").val("");
+                $("#nomempresa").focus();
                 $("#modalReg").modal('close');
                 if (id === '0') {
                     Materialize.toast('Registro Agregado', 5000);
@@ -149,18 +154,22 @@ function setRow(data, action) {
     if (action == 'insert') {
         console.log("insert");
         var row = table.row.add([
-            data.no,
-            data.nom,
-            data.eda,
-            '<i class="material-icons edit" data-id="' + data.pk + '" data-no="' + data.no + '"data-nom="' + data.nom + '" data-eda="' + data.eda + '">create</i>' +
-            '<i class="material-icons delete" data-id="' + data.pk + '">delete_forever</i>'
+            data.nomempresa,
+            data.dirempresa,
+            data.correoempresa,
+            data.descripempresa,
+            data.telefonoempresa,
+            '<i class="material-icons edit" data-idempresa="' + data.pk + '" data-nomempresa="' + data.nomempresa + '"data-dirempresa="' + data.dirempresa + '" data-correoempresa="' + data.correoempresa + '" data-descripempresa="' + data.descripempresa + '" data-telefonoempresa="' + data.telefonoempresa + '">create</i>' +
+            '<i class="material-icons delete" data-idempresa="' + data.pk + '">delete_forever</i>'
         ]).draw().node();
         $(row).attr('id', data.pk);
-        estudiantes[data.pk] = {
-            "idestu": data.pk,
-            "nocontrol": data.no,
-            "nombre": data.nom,
-            "edad": data.eda,
+        Empresa[data.pk] = {
+            "idempresa": data.pk,
+            "nomempresa": data.nomempresa,
+            "dirempresa": data.dirempresa,
+            "correoempresa": data.correoempresa,
+            "descripempresa": data.descripempresa,
+            "telefonoempresa": data.telefonoempresa,
         }
     }//Fin primer if
     if (action == 'delete') {

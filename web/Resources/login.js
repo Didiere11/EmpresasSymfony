@@ -1,5 +1,8 @@
 $(init);
 function init(){
+
+    //console.log(urlvalidausr);
+
     // Inicializa el NavBar
     $(document).ready(function(){
         $('.sidenav').sidenav();
@@ -103,22 +106,18 @@ function saveData(){
 }
 
 function validaData(){
-    var sURL = "actValidaUsr.php";
-    var parametros = 'correo=' + $("#correo").val() + 
-                     '&contra=' + $("#contra").val();
+    
     $.ajax({
-        type:"post",
-        url:sURL,
-        dataType:'json',
-        data:parametros,
-        success: function(respuesta){
-            if (respuesta['status']){
-                $(location).attr('href',respuesta['data']);
-                M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
-                $("#modalRegistro").modal('close');
+        type: "post", // podría ser get, post, put o delete.
+        url: urlvalidausr, // url del recurso
+        dataType: 'json', // formato que regresa la respuesta
+        data: $("#frm-acceso").serialize(), // datos a pasar al servidor, en caso de necesitarlo
+        success: function(resultado){
+            if ($result['status']){
+                window.location.href='http://127.0.0.1/symfony/EmpresasSymfony/web/app_dev.php/Empresas'
+                M.toast({html: 'Acceso Permitido', classes: 'rounded', displayLength: 4000});
             }
             else{
-                M.toast({html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000});
             }
         }
     });
