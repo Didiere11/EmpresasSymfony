@@ -21,10 +21,10 @@ function init() {
                 if (respuesta['status']) {
                     table.row($tr).remove().draw();
 
-                    Materialize.toast('Registro eliminado', 5000);
+                    M.toast({html: 'Empresa no Eliminada',classes: 'rounded',displayLenght: 4000});
                     // setRow(respuesta['data'],'delete');
                 } else
-                    Materialize.toast('Error al eliminar estudiante', 5000);
+                M.toast({html: 'Empresa Eliminada',classes: 'rounded',displayLenght: 4000});
             }
         });
     });
