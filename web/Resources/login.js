@@ -15,6 +15,7 @@ function init(){
     // Clic del boton circular para validar correo y contraseña
     $("#un_lock").on("click",function(){
         $('#frm-acceso').submit();
+        $resul = $aux;
     });
 
     // Clic del boton circular Agregar Registro Nuevo formulario modal
@@ -103,7 +104,6 @@ function saveData(){
 }
 
 function validaData(){
-    
     $.ajax({
         type: "post", // podría ser get, post, put o delete.
         url: urlvalidausr, // url del recurso
@@ -111,6 +111,11 @@ function validaData(){
         data: $("#frm-acceso").serialize(), // datos a pasar al servidor, en caso de necesitarlo
         success: function(resultado){
             if (resultado['status']){
+<<<<<<< HEAD
+                print_r(resultado);
+                die();
+=======
+>>>>>>> 785d21ebe479bcb239adffb3ecbd0bfff83aebb6
                 window.location.href='http://127.0.0.1/symfony/EmpresasSymfony/web/app_dev.php/Empresas'
                 M.toast({html: 'Acceso Permitido', classes: 'rounded', displayLength: 4000});
             }
