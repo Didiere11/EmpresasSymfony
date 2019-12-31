@@ -5,3 +5,4 @@ empresa2_homepage:
 empresa2_validausr:
     path:  /validausr
     defaults: { _controller: empresa2Bundle:Default:login }
+
