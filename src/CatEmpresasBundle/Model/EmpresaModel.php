@@ -1,6 +1,6 @@
 <?php
 
-namespace empresa2Bundle\Model;
+namespace CatEmpresasBundle\Model;
 
 use Utilerias\SQLBundle\Model\SQLModel;
 

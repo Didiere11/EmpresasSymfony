@@ -1,4 +1,0 @@
-services:
-#    empresa2.example:
-#        class: empresa2Bundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
