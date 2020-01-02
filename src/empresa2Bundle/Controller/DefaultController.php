@@ -27,6 +27,8 @@ class DefaultController extends Controller
     }
     public function insertarEmpresaAction(Request $request){
         $post = $request->request->all();
+        print_r($post);
+        die();
         $data = array(
             "nomempresa"=> "'" . $post["nomempresa"] . "'",
             "dirempresa"=> "'" . $post["dirempresa"] . "'",
@@ -34,8 +36,7 @@ class DefaultController extends Controller
             "descripempresa"=> "'" . $post["descripempresa"] . "'",
             "telefonoempresa"=> "'" . $post["telefonoempresa"] . "'"
         );
-        print_r($data);
-        die();
+       
         $result = $this->EmpresaModel->insertEmpresa($data);
     }
     public function loginAction(Request $request){
