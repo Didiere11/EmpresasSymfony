@@ -14,10 +14,6 @@ cat_empresas:
     resource: "@CatEmpresasBundle/Resources/config/routing.yml"
     prefix:   /
 
-empresa2:
-    resource: "@empresa2Bundle/Resources/config/routing.yml"
-    prefix:   /
-
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

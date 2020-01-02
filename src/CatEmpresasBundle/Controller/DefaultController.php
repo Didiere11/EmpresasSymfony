@@ -6,14 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Utilerias\SQLBundle\Model\SQLModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use empresa2Bundle\Model\EmpresaModel;
+use CatEmpresasBundle\Model\EmpresaModel;
+
 
 class DefaultController extends Controller
 {
     protected $EmpresaModel;
     public function __construct() {
         $this->EmpresaModel = new EmpresaModel();
-    }
+     }
     
     protected function jsonResponse($data) {
         $response = new Response(json_encode($data));

@@ -2,7 +2,6 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-    - { resource: "@empresa2Bundle/Resources/config/services.yml" }
     - { resource: "@CatEmpresasBundle/Resources/config/services.yml" }
     - { resource: "@loginBundle/Resources/config/services.yml" }
     - { resource: "@indexBundle/Resources/config/services.yml" }
