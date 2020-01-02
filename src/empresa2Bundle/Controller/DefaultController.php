@@ -6,13 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Utilerias\SQLBundle\Model\SQLModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use empresa2Bundle\Model\EmpresaModel;
 
 class DefaultController extends Controller
 {
-    protected $SQLPrueba;
+    protected $EmpresaModel;
 
     public function __construct() {
-        $this->SQLPrueba = new SQLModel();
+        $this->EmpresaModel = new EmpresaModel();
        
     }
 
@@ -54,5 +55,7 @@ class DefaultController extends Controller
             //return jsonResponse($result);
             return $this->render('empresa2Bundle:Default:login.html.twig');
     }
+
+   
    
 }

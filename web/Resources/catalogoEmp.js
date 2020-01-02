@@ -2,6 +2,9 @@ $(init);
 var table = null;
 var empresa = null;
 var tr = null;
+$(document).ready(function(){
+    $('.sidenav').sidenav();
+});
 function init() {
     table = $("#empre").DataTable({
         "aLengthMenu": [[10, 25, 50, 75, 100], [10, 25, 50, 75, 100]],
@@ -107,42 +110,23 @@ function validateform() {
 }
 
 function saveClick() {
-    var id = $('#pk').val();
-    var sURL = ''
-    if (id > 0)
-        sURL = urlUpdate;
-    else
-        sURL = urlInsert;
     $.ajax({
-        type: "post",
-        url: sURL,
-        datatype: 'json',
+        type:"post",
+        url:urlinsert,
+        dataType:'json',
         data: $("#frmEmp").serialize(),
-        success: function (respuesta) {
-            if (respuesta['status']) {
-                $("#pk").val("0");
-                $("#nomempresa").val("");
-                $("#dirempresa").val("");
-                $("#correoempresa").val("");
-                $("#descripempresa").val("");
-                $("#telefonoempresa").val("");
-                $("#nomempresa").focus();
-                $("#modalReg").modal('close');
-                if (id === '0') {
-                    Materialize.toast('Registro Agregado', 5000);
-
-                } else {
-                    Materialize.toast('Registro actualizado', 5000);
-                }
-
+        success: function(response){
+            if (response['status']==1){
+               $("#correo").val($("#corr").val());
+                M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
+                $("#modalRegistro").modal('close');
+                $("#contra").focus();
             }
-            setRow(respuesta['data'], 'insert');
-
-
-
-
-        }//fin succes
-    });//fin Ajax
+            else{
+                M.toast({html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000});
+            }
+        }
+    });
 }//fin clic
 
 function setRow(data, action) {
