@@ -22,7 +22,7 @@
                             <th style="width:20%">Correo</th>
                             <th style="width:20%">Descripcion</th>
                             <th style="width:20%">Telefono</th>
-                            <thstyle="width:20%"></th>
+                            <th style="width:20%"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,13 +35,14 @@
                             <td>{{ empresa.descripempresa }}</td>
                             <td>{{ empresa.telefonoempresa }}</td>
                             <td>
-                              <i id="edit"class = "material-icons edit" >create</i>
-                              <i id="delete"class = "material-icons delete" >delete_forever</i>
+                              <i class = "material-icons edit" >create</i>
+                              <i class = "material-icons delete" >delete_forever</i>
                             </td>
                             </tr>
                             {% endfor %}
 
-                           <!-- <tr id="10"><td>InfoExpo S.C</td><td>Parque bajio 118</td><td>infoexpor@info.com</td><td>Desarrollo de software</td><td>4612304897</td><td>
+                           <!-- <tr id="10"><td>InfoExpo S.C</td><td>Parque bajio 118</td><td>infoexpor@info.com</td><td>Desarrollo de software</td><td>4612304897</td>
+                           <td>
                               <i class = "material-icons edit" >create</i>
                               <i class = "material-icons delete" >delete_forever</i></td></td></tr>-->
                         </tbody>
@@ -94,6 +95,8 @@
     <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript">
+                var urlinsert = '{{ path('empresa2_validausr' ) }}';
+            </script>
     <script type="text/javascript" src="{{ asset('Resources/catalogoEmp.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/Resources/Bundleempresas/empresas.js') }}"></script>
 {% endblock %}

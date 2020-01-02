@@ -25,6 +25,19 @@ class DefaultController extends Controller
        
         return $this->render('empresa2Bundle:Default:index.html.twig');
     }
+    public function insertarEmpresaAction(Request $request){
+        $post = $request->request->all();
+        $data = array(
+            "nomempresa"=> "'" . $post["nomempresa"] . "'",
+            "dirempresa"=> "'" . $post["dirempresa"] . "'",
+            "correoempresa"=> "'" . $post["correoempresa"] . "'",
+            "descripempresa"=> "'" . $post["descripempresa"] . "'",
+            "telefonoempresa"=> "'" . $post["telefonoempresa"] . "'"
+        );
+        print_r($data);
+        die();
+        $result = $this->EmpresaModel->insertEmpresa($data);
+    }
     public function loginAction(Request $request){
         $result = $this->EmpresaModel->getEmpresas();
         $empresa = $result['data'];
