@@ -22,9 +22,10 @@ class DefaultController extends Controller
     }
 
     public function insertarEmpresaAction(Request $request){
-        $post = $request->request->all();
-        print_r($post);
-        die();
+        if ($request->getMethod() == 'POST') {
+            //extraccion de parametros
+            $post = $request->request->all();
+            
         $data = array(
             "nomempresa"=> "'" . $post["nomempresa"] . "'",
             "dirempresa"=> "'" . $post["dirempresa"] . "'",
@@ -34,6 +35,19 @@ class DefaultController extends Controller
         );
        
         $result = $this->EmpresaModel->insertEmpresa($data);
+        //print_r($result);
+        //die();
+        if ($result['status']) {
+            $result['data'] = $post;
+            $result['status'] = TRUE;
+            $result['message']="Guardado con exito";
+        }else{
+            $result['status'] = FALSE;
+            $result['message']="ERROR";
+        }
+        return $this->jsonResponse($result);
+        }
+        
     }
     public function catempresasAction(Request $request){
         $result = $this->EmpresaModel->getEmpresas();

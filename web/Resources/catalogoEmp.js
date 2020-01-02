@@ -1,89 +1,43 @@
 $(init);
-var table = null;
-var empresa = null;
-var tr = null;
-$(document).ready(function(){
-    $('.sidenav').sidenav();
-});
-function init() {
-    table = $("#empre").DataTable({
-        "aLengthMenu": [[10, 25, 50, 75, 100], [10, 25, 50, 75, 100]],
-        "iDisplayLength": 15
-    });//definiendo las caracteristicas del datatable 
+function init(){
 
-    table.on('click', '.delete', function () {
-        $tr = $(this).closest('tr');
-        tr = $tr;
-        var id = $(this).attr("data-id");
-        $.ajax({
-            type: "post",
-            url: urlDelete,
-            datatype: 'json',
-            data: { 'pk': id },
-            success: function (respuesta) {
-                if (respuesta['status']) {
-                    table.row($tr).remove().draw();
+    //console.log(urlvalidausr);
 
-                    Materialize.toast('Registro eliminado', 5000);
-                    // setRow(respuesta['data'],'delete');
-                } else
-                    Materialize.toast('Error al eliminar Empresa', 5000);
-            }
-        });
-    });
-    table.on('click', '.edit', function () {
-        $tr = $(this).closest('tr');
-        table.row($tr).remove().draw();
+    // Inicializa el NavBar
+    $(document).ready(function(){
+        $('.sidenav').sidenav();
     });
 
+    //Iniciliza la ventana Modal y la Validación
+    $("#modalRegistro").modal();
+    validateForm();
 
-    $("#modalReg").modal();
-    validateform();
+    // Clic del boton circular para validar correo y contraseña
 
-    $("#add-record").on("click", function () {
-        $("#modalReg").modal('open');
+    // Clic del boton circular Agregar Registro Nuevo formulario modal
+    $("#add-record").on("click",function(){
+        $("#nomempresa").val('');
+        $("#dirempresa").val('');
+        $("#correoempresa").val('');
+        $("#descripempresa").val('');
+        $("#telefonoempresa").val('');
+        $("#modalRegistro").modal('open');
         $("#nomempresa").focus();
-    });
 
-    $("#guardar").on("click", function () {
-        $("#frmEmp").submit();
+        
     });
-
-    $(".edit").on("click", function () {
-        $("#pk").val($(this).attr("data-idempresa"));
-        $("#nomempresa").val($(this).attr("data-nomempresa"));
-        $("#dirempresa").val($(this).attr("data-dirempresa"));
-        $("#correoempresa").val($(this).attr("data-correoempresa"));
-        $("#descripempresa").val($(this).attr("data-descripempresa"));
-        $("#telefonoempresa").val($(this).attr("data-telefonoempresa"));
-        $("#nomempresa").focus();
-        $("#modalReg").modal('open');
+    
+    // clic del boton de guardar
+    $('#guardar').on("click",function(){
+        $('#frm-registro').submit();
     });
-
-    $(".delete").on("click", function () {
-        /*  var id = $(this).attr("data-id");
-          $.ajax({
-              type:"post",
-              url:urlDelete,
-              datatype:'json',
-              data:{'pk':id},
-              success: function(respuesta){
-                  if(respuesta['status']){
-                   Materialize.toast('Registro eliminado', 5000);
-                   setRow(respuesta['data'],'delete');
-                  }else
-                  Materialize.toast('Error al eliminar Empresa', 5000);
-               }
-          });//fin ajax
-   
-          */
-    });
+       
 }
-
-function validateform() {
-    $("#frmEmp").validate({
+//valida el formulario y el login ademas
+ //asignan las reglas
+function validateForm(){
+    $('#frm-registro').validate({
         rules: {
-            
             'nomempresa': { required: true },
             'dirempresa': { required: true },
             'correoempresa': { required: true },
@@ -100,24 +54,26 @@ function validateform() {
         },
         errorElement: "div",
         errorClass: "invalid",
-        errorPlacement: function (error, element) {
-            error.insertAfter(element)
+        errorPlacement: function(error, element){
+            error.insertAfter(element)                
         },
-        submitHandler: function (form) {
-            saveClick();
+        submitHandler: function(form){
+            saveData();
         }
     });
-}
 
-function saveClick() {
+}
+// Envia los datos del formulario de registro a la base de datos
+function saveData(){
+    //var sURL = "actRegistroGuarda.php";
     $.ajax({
         type:"post",
-        url:urlinsert,
+        url: insertarEmpresa,
         dataType:'json',
-        data: $("#frmEmp").serialize(),
+        data: $("#frm-registro").serialize(),
         success: function(response){
             if (response['status']==1){
-               $("#correo").val($("#corr").val());
+               $("#nomempresa").val($("#nomempresa").val());
                 M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
                 $("#modalRegistro").modal('close');
                 $("#contra").focus();
@@ -127,34 +83,5 @@ function saveClick() {
             }
         }
     });
-}//fin clic
+}
 
-function setRow(data, action) {
-    console.log(action);
-    if (action == 'insert') {
-        console.log("insert");
-        var row = table.row.add([
-            data.nomempresa,
-            data.dirempresa,
-            data.correoempresa,
-            data.descripempresa,
-            data.telefonoempresa,
-            '<i class="material-icons edit" data-idempresa="' + data.pk + '" data-nomempresa="' + data.nomempresa + '"data-dirempresa="' + data.dirempresa + '" data-correoempresa="' + data.correoempresa + '" data-descripempresa="' + data.descripempresa + '" data-telefonoempresa="' + data.telefonoempresa + '">create</i>' +
-            '<i class="material-icons delete" data-idempresa="' + data.pk + '">delete_forever</i>'
-        ]).draw().node();
-        $(row).attr('id', data.pk);
-        Empresa[data.pk] = {
-            "idempresa": data.pk,
-            "nomempresa": data.nomempresa,
-            "dirempresa": data.dirempresa,
-            "correoempresa": data.correoempresa,
-            "descripempresa": data.descripempresa,
-            "telefonoempresa": data.telefonoempresa,
-        }
-    }//Fin primer if
-    if (action == 'delete') {
-        console.log("delete");
-
-        table.row('#' + data.pk).remove.draw();
-    }//fin segundo if
-}//fin setRow

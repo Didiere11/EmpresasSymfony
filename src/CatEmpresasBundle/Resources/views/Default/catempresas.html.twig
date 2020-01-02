@@ -52,18 +52,19 @@
         </div>
     </div>
    <!--F o r m u l a r i o        M o d a l-->
-   <div class="modal" id="modalReg">
-        <div class="modal-content">
-            <h4 align="center">Nueva Empresa</h4>
-            <br>
-            <form method="post" id="frmEmp">
-                <div class="row">
+
+ <div class="modal" id="modalRegistro">
+       <div class="modal-content">
+           <h4>Registro de Usuarios</h4>
+           <br>
+           <form id="frm-registro" method="post">
+              <div class="row">
                     <div class="input-field s12">
                         <input type="hidden" id="pk" name="pk">
                         <input type="text" id="nomempresa" name="nomempresa" class="validate">
                         <label for="nomempresa">Direccion Empresa:</label>
                     </div>
-                    <div class="input-field s12">
+                  <div class="input-field s12">
                         <input type="text" id="dirempresa" name="dirempresa" class="validate">
                         <label for="dirempresa">Direccion Empresa:</label>
                     </div>
@@ -95,6 +96,8 @@
     <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
-   
+    <script type="text/javascript">
+                var insertarEmpresa =  '{{ path('cat_empresas_insertarEmpresa' ) }}';
+    </script>
     <script type="text/javascript" src="{{ asset('Resources/catalogoEmp.js') }}"></script>
 {% endblock %}
