@@ -86,7 +86,7 @@ function saveData(){
     //var sURL = "actRegistroGuarda.php";
     $.ajax({
         type:"post",
-        url:urlvalidausr,
+        url:urlinsertusr,
         dataType:'json',
         data: $("#frm-registro").serialize(),
         success: function(response){
@@ -111,11 +111,8 @@ function validaData(){
         data: $("#frm-acceso").serialize(), // datos a pasar al servidor, en caso de necesitarlo
         success: function(resultado){
             if (resultado['status']){
-<<<<<<< HEAD
                 print_r(resultado);
                 die();
-=======
->>>>>>> 785d21ebe479bcb239adffb3ecbd0bfff83aebb6
                 window.location.href='http://127.0.0.1/symfony/EmpresasSymfony/web/app_dev.php/Empresas'
                 M.toast({html: 'Acceso Permitido', classes: 'rounded', displayLength: 4000});
             }

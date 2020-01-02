@@ -1,0 +1,75 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col s12 m8 offset-m2">
+            <div class="card">
+                <a id="add-record" class="btn-floating btn-large waves-effect waves-light right blue">
+                   <i class="material-icons">add</i> 
+                </a>
+                <div class="card-content">
+                    <span class="card-title" align="center">Usuarios</span>
+                    <table id="empre" class="highlight border datatable">
+                        <thead>
+                            <tr><th>Nombre</th><th>Correo</th><th>Contraseña</th><th>Domicilio</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                            
+                            
+
+                            <tr id="10"><td>Marco Velazquez</td><td>marco.balderaspq@gmail.com</td><td>ferrari22</td><td>Encino #1006 col, del bosque</td><td>
+                              <i class = "material-icons edit" >create</i>
+                              <i class = "material-icons delete" >delete_forever</i></td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+   <!--F o r m u l a r i o        M o d a l-->
+   <div class="modal" id="modalReg">
+        <div class="modal-content">
+            <h4 align="center">Nuevo Usuario</h4>
+            <br>
+            <form method="post" id="frmEmp">
+                <div class="row">
+                    <div class="input-field s12">
+                        <input type="hidden" id="pk" name="pk">
+                        <input type="text" id="nomusuario" name="nomusuario" class="validate">
+                        <label for="nomusuario">Nombre Usuario:</label>
+                    </div>
+                    <div class="input-field s12">
+                        <input type="text" id="correousuario" name="correousuario" class="validate">
+                        <label for="correousuario">Correo Usuario:</label>
+                    </div>
+                    <div class="input-field s12">
+                        <input type="text" id="pwdusuario" name="pwdusuario" class="validate">
+                        <label for="pwdusuario">Contraseña Usuario:</label>
+                    </div>
+                    <div class="input-field s12">
+                        <input type="text" id="domusuario" name="domusuario" class="validate">
+                        <label for="domusuario">Domicilio Usuario:</label>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <a id="guardar" class="modal-action waves-effect waves-green btn-flat" >Guardar</a>
+            </div>
+        </div>
+   </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('Resources/catalogoEmp.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/Resources/Bundleempresas/empresas.js') }}"></script>
+{% endblock %}

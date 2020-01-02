@@ -1,0 +1,3 @@
+catusuarios_homepage:
+    path:     /catusuarios
+    defaults: { _controller: catusuariosBundle:Default:catusuarios }

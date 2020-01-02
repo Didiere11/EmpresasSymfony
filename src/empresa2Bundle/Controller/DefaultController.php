@@ -18,7 +18,6 @@ class DefaultController extends Controller
 
     public function indexAction(Request $request)
     {
-
         return $this->render('empresa2Bundle:Default:index.html.twig');
     }
     protected function jsonResponse($data) {
@@ -37,26 +36,7 @@ class DefaultController extends Controller
             $query .= ' WHERE correo= ' ."'" .$post["correo"]."'";
             $query .= ' AND contraseña=' ."'".$post['contra']."'";
             $result = $this->SQLPrueba->executeQuery($query);
-<<<<<<< HEAD
-=======
-
-          
->>>>>>> 785d21ebe479bcb239adffb3ecbd0bfff83aebb6
-           /*if ($result['data'] == null) {
-               print_r('no entra');
-                die();
-             }else{
-                print_r('si entra');
-                die();
-<<<<<<< HEAD
-                 
-             }*/
-          // print_r($result);
-=======
-             }*/
-          // print_r($insert);
->>>>>>> 785d21ebe479bcb239adffb3ecbd0bfff83aebb6
-           //die();
+           
         }
         return $this->render('empresa2Bundle:Default:login.html.twig');
     }
@@ -71,7 +51,8 @@ class DefaultController extends Controller
         
             $result = $this->SQLPrueba->executeQuery($insert);
         }
-            return jsonResponse($result);
+            //return jsonResponse($result);
+            return $this->render('empresa2Bundle:Default:login.html.twig');
     }
    
 }
