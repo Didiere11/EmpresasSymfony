@@ -8,12 +8,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use CatEmpresasBundle\Model\EmpresaModel;
 
+
 class DefaultController extends Controller
 {
     protected $EmpresaModel;
     public function __construct() {
         $this->EmpresaModel = new EmpresaModel();
-    }
+     }
     
     protected function jsonResponse($data) {
         $response = new Response(json_encode($data));
