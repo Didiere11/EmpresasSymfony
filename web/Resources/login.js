@@ -26,6 +26,8 @@ function init(){
         $("#dom").val('');
         $("#modalRegistro").modal('open');
         $("#corr").focus();
+
+        
     });
     
     // clic del boton de guardar
