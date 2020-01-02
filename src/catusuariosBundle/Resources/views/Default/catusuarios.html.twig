@@ -13,14 +13,29 @@
                 </a>
                 <div class="card-content">
                     <span class="card-title" align="center">Usuarios</span>
-                    <table id="empre" class="highlight border datatable">
+                    <table id="usr" class="highlight border datatable">
                         <thead>
-                            <tr><th>Nombre</th><th>Correo</th><th>Contraseña</th><th>Domicilio</th><th></th></tr>
+                            <tr>
+                            <th style="width:20%">Nombre</th>
+                            <th style="width:20%">Correo</th>
+                            <th style="width:20%">Contraseña</th>
+                            <th style="width:20%">Domicilio</th>
+                            <th style="width:20%">Operaciones</th>
+                            </tr>
                         </thead>
                         <tbody>
-                             <tr id="10"><td>Marco Velazquez</td><td>marco.balderaspq@gmail.com</td><td>ferrari22</td><td>Encino #1006 col, del bosque</td><td>
+                             {% for usuario in content['usuario'] %}
+                            <tr>
+                            <td>{{ usuario.nomusuario }}</td>
+                            <td>{{ usuario.correo }}</td>
+                            <td>{{ usuario.contraseña }}</td>
+                            <td>{{ usuario.domicilio }}</td>
+                            <td>
                               <i class = "material-icons edit" >create</i>
-                              <i class = "material-icons delete" >delete_forever</i></td></td></tr>
+                              <i class = "material-icons delete" >delete_forever</i>
+                            </td>
+                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -30,9 +45,9 @@
    <!--F o r m u l a r i o        M o d a l-->
    <div class="modal" id="modalReg">
         <div class="modal-content">
-            <h4 align="center">Nuevo Usuario</h4>
+            <h4 align="center">Usuarios</h4>
             <br>
-            <form method="post" id="frmEmp">
+            <form method="post" id="frmUsr">
                 <div class="row">
                     <div class="input-field s12">
                         <input type="hidden" id="pk" name="pk">
@@ -44,7 +59,7 @@
                         <label for="correousuario">Correo Usuario:</label>
                     </div>
                     <div class="input-field s12">
-                        <input type="text" id="pwdusuario" name="pwdusuario" class="validate">
+                        <input type="password" id="pwdusuario" name="pwdusuario" class="validate">
                         <label for="pwdusuario">Contraseña Usuario:</label>
                     </div>
                     <div class="input-field s12">
@@ -67,6 +82,5 @@
     <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('Resources/catalogoEmp.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/Resources/Bundleempresas/empresas.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('Resources/catalogousr.js') }}"></script>
 {% endblock %}
