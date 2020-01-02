@@ -1,8 +1,8 @@
-empresa2_homepage:
-    path:     /
-    defaults: { _controller: empresa2Bundle:Default:index }
-
 empresa2_validausr:
-    path:  /validausr
+    path:  /
     defaults: { _controller: empresa2Bundle:Default:login }
+
+
+
+
 

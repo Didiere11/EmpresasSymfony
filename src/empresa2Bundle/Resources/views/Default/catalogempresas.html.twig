@@ -15,15 +15,35 @@
                     <span class="card-title" align="center">Empresas</span>
                     <table id="empre" class="highlight border datatable">
                         <thead>
-                            <tr><th>Nombre</th><th>Direccion</th><th>Correo</th><th>Descripción</th><th>Telefono</th><th></th></tr>
+                            <tr>
+                            <th style="width:20%">Id</th>
+                            <th style="width:20%">Nombre</th>
+                            <th style="width:20%">Direccion</th>
+                            <th style="width:20%">Correo</th>
+                            <th style="width:20%">Descripcion</th>
+                            <th style="width:20%">Telefono</th>
+                            <thstyle="width:20%"></th>
+                            </tr>
                         </thead>
                         <tbody>
-                            
-                            
+                            {% for empresa in content['empresa'] %}
+                            <tr>
+                            <td>{{ empresa.idempresa }}</td>
+                            <td>{{ empresa.nomempresa }}</td>
+                            <td>{{ empresa.dirempresa }}</td>
+                            <td>{{ empresa.correoempresa }}</td>
+                            <td>{{ empresa.descripempresa }}</td>
+                            <td>{{ empresa.telefonoempresa }}</td>
+                            <td>
+                              <i id="edit"class = "material-icons edit" >create</i>
+                              <i id="delete"class = "material-icons delete" >delete_forever</i>
+                            </td>
+                            </tr>
+                            {% endfor %}
 
-                            <tr id="10"><td>InfoExpo S.C</td><td>Parque bajio 118</td><td>infoexpor@info.com</td><td>Desarrollo de software</td><td>4612304897</td><td>
+                           <!-- <tr id="10"><td>InfoExpo S.C</td><td>Parque bajio 118</td><td>infoexpor@info.com</td><td>Desarrollo de software</td><td>4612304897</td><td>
                               <i class = "material-icons edit" >create</i>
-                              <i class = "material-icons delete" >delete_forever</i></td></td></tr>
+                              <i class = "material-icons delete" >delete_forever</i></td></td></tr>-->
                         </tbody>
                     </table>
                 </div>
