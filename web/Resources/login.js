@@ -26,6 +26,8 @@ function init(){
         $("#dom").val('');
         $("#modalRegistro").modal('open');
         $("#corr").focus();
+
+        
     });
     
     // clic del boton de guardar
@@ -86,7 +88,6 @@ function saveData(){
     //var sURL = "actRegistroGuarda.php";
     $.ajax({
         type:"post",
-        url:urlinsert,
         dataType:'json',
         data: $("#frm-registro").serialize(),
         success: function(response){

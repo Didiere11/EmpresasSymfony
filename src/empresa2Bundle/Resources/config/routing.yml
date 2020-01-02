@@ -1,8 +1,0 @@
-empresa2_validausr:
-    path:  /
-    defaults: { _controller: empresa2Bundle:Default:login }
-
-
-
-
-

@@ -1,4 +1,4 @@
 services:
-#    empresa2.example:
-#        class: empresa2Bundle\Example
+#    cat_empresas.example:
+#        class: CatEmpresasBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
