@@ -1,0 +1,4 @@
+cat_empresas_homepage:
+    path:     /catempresas
+    defaults: { _controller: CatEmpresasBundle:Default:catempresas }
+
