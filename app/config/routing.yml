@@ -1,8 +1,18 @@
-empresa2:
-    resource: "@empresa2Bundle/Resources/config/routing.yml"
-    prefix:   /Empresas
+catusuarios:
+    resource: "@catusuariosBundle/Resources/config/routing.yml"
+    prefix:   /
 
+index:
+    resource: "@indexBundle/Resources/config/routing.yml"
+    prefix:   /
 
+login:
+    resource: "@loginBundle/Resources/config/routing.yml"
+    prefix:   /
+
+cat_empresas:
+    resource: "@CatEmpresasBundle/Resources/config/routing.yml"
+    prefix:   /
 
 app:
     resource: "@AppBundle/Controller/"
