@@ -6,8 +6,11 @@ function init(){
     // Inicializa el NavBar
     $(document).ready(function(){
         $('.sidenav').sidenav();
+        $("#frm-content").serialize()
     });
-
+    
+    
+    
     //Iniciliza la ventana Modal y la Validación
     $("#modalRegistro").modal();
     validateForm();
@@ -26,10 +29,28 @@ function init(){
 
         
     });
+    $(document).on("click", '.edit', function(){
+        var IdEmpresa = $(this).attr("data-id");
+        var nombre = $(this).attr("data-nom");
+        var direccion = $(this).attr("data-dir");
+        var correo = $(this).attr("data-corr");
+        var descripcion = $(this).attr("data-des");
+        var telefono = $(this).attr("data-tel");
+        $("#idempresa").val(IdEmpresa);
+        $('#nomempresa').val(nombre);
+        $('#dirempresa').val(direccion);
+        $("#correoempresa").val(correo);
+        $("#descripempresa").val(descripcion);
+        $("#telefonoempresa").val(telefono);
+        $('#modalRegistro').modal('open');
+        $('#nomempresa').focus();
+                 
+    });
     
     // clic del boton de guardar
     $('#guardar').on("click",function(){
         $('#frm-registro').submit();
+        
     });
        
 }
@@ -65,23 +86,48 @@ function validateForm(){
 }
 // Envia los datos del formulario de registro a la base de datos
 function saveData(){
-    //var sURL = "actRegistroGuarda.php";
-    $.ajax({
-        type:"post",
-        url: insertarEmpresa,
-        dataType:'json',
-        data: $("#frm-registro").serialize(),
-        success: function(response){
-            if (response['status']==1){
-               $("#nomempresa").val($("#nomempresa").val());
-                M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
-                $("#modalRegistro").modal('close');
-                $("#nomempresa").focus();
+        $.ajax({
+            type:"post",
+            url: insertarEmpresa,
+            dataType:'json',
+            data: $("#frm-registro").serialize(),
+            success: function(response){
+                if (response['status']==1){
+                   $("#nomempresa").val($("#nomempresa").val());
+                    M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
+                    window.location.href='http://127.0.0.1/symfony/EmpresasSymfony/web/app_dev.php/catempresas'
+                    $("#modalRegistro").modal('close');
+                    $("#contra").focus();
+                }
+                else{
+                    M.toast({html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000});
+                }
             }
-            else{
-                M.toast({html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000});
-            }
+        });  
         }
+    //var sURL = "actRegistroGuarda.php";
+    
+
+$(document).on("click", '.delete', function(){
+    var IdEmpresa = $(this).attr("data-id");
+    $("#idempresa").val(IdEmpresa);
+    $.ajax({
+        type: "post",
+        url: eliminaEmpresa,
+        dataType: 'json',
+        data: $("#frm-registro").serialize(),
+        success: function(result){
+            if (result['status']){
+                var data = result['data'];
+                if (IdEmpresa>0){
+                    M.toast({html: 'Reporte eliminado', classes: 'rounded blue lighten-2'});
+                    window.location.href='http://127.0.0.1/symfony/EmpresasSymfony/web/app_dev.php/catempresas'
+                }else{
+                    M.toast({html: 'Reporte no eliminado', classes: 'rounded blue lighten-2'});
+
+                }
+            }
+        } 
     });
-}
+});
 

@@ -18,4 +18,15 @@ class EmpresaModel {
         $result = $this->SQLModel->insertIntoTable('empresas',$data,'idempresa');
         return $result;
     }
+    public function eliminarEmpresa($data){
+        $result = $this->SQLModel->deleteFromTable('empresas',$data);
+        
+        return $result;
+    }
+    public function editarEmpresa($data,$id){
+      
+      print_r($result = $this->SQLModel->updateFromTable('empresas', $data, $id,'idempresa'));
+        die();
+        return $result;
+    }
 }
