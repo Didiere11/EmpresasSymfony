@@ -1,3 +1,7 @@
 login_homepage:
     path:     /login
     defaults: { _controller: loginBundle:Default:login }
+
+login_insertarUsuario:
+    path:     /insertarUsuario
+    defaults: { _controller: catusuariosBundle:Default:insertarUsuario }

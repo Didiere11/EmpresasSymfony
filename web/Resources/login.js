@@ -9,7 +9,7 @@ function init(){
     });
 
     //Iniciliza la ventana Modal y la Validación
-    $("#modalRegistro").modal();
+    $("#modalReg").modal();
     validateForm();
 
     // Clic del boton circular para validar correo y contraseña
@@ -20,19 +20,18 @@ function init(){
 
     // Clic del boton circular Agregar Registro Nuevo formulario modal
     $("#add_record").on("click",function(){
-        $("#corr").val('');
-        $("#nom").val('');
-        $("#pwd").val('');
-        $("#dom").val('');
-        $("#modalRegistro").modal('open');
-        $("#corr").focus();
-
+        $("#correousuario").val('');
+        $("#nomusuario").val('');
+        $("#pwdusuario").val('');
+        $("#domusuario").val('');
+        $("#modalReg").modal('open');
+        $("#nomusuario").focus();
         
     });
     
     // clic del boton de guardar
     $('#guardar').on("click",function(){
-        $('#frm-registro').submit();
+        $('#frmUsr').submit();
     });
        
 }
@@ -57,52 +56,50 @@ function validateForm(){
             validaData();
         }
     });
-    $('#frm-registro').validate({
+    $("#frmUsr").validate({
         rules: {
-            corr:{required:true, email:true, minlength:4, maxlength:120},
-            nom:{required:true, minlength:4, maxlength:100},
-            pwd:{required:true, minlength:4, maxlength:32},
-            dom:{required:true, minlength:4, maxlength:100},
-
+            'nomusuario': { required: true, minlength:4, maxlength:120 },
+            'correousuario': { required: true, email:true, minlength:4, maxlength:120},
+            'pwdusuario': { required: true, minlength:4, maxlength:40},
+            'domusuario': { required: true, minlength:4, maxlength:250},      
         },
-        messages: {
-            corr:{required:"No puedes dejar este campo vacío",email:"Se requiere correo valido",minlength:"Debes ingresar al menos 4 caracteres", maxlength:"No puedes ingresar más de 120 caracteres"},
-            nom:{required:"No se puede dejar el campo vacio",minlength:"Debes ingresar al menos 4 caracteres", maxlength:"No puedes ingresar más de 100 caracteres"},
-            pwd:{required:"No puedes dejar este campo vacío",minlength:"Debes ingresar al menos 4 caracteres", maxlength:"No puedes ingresar más de 32 caracteres"},
-            dom:{required:"No se puede dejar el campo vacio",minlength:"Debes ingresar al menos 4 caracteres", maxlength:"No puedes ingresar más de 100 caracteres"},
 
+        messages: {
+            'nomusuario': { required: 'Ingresar el nombre del usuario', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 120 caracteres' },
+            'correousuario': { required: 'Ingresar el correo del usuario', email:'Ingrese una direccion de correo valida', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 120 caracteres' },
+            'pwdusuario': { required: 'Ingresar la contraeña del usuario', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 40 caracteres' },
+            'domusuario': { required: 'Ingresar el domicilio del usuario', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 250 caracteres'  },
         },
         errorElement: "div",
         errorClass: "invalid",
-        errorPlacement: function(error, element){
-            error.insertAfter(element)                
+        errorPlacement: function (error, element) {
+            error.insertAfter(element)
         },
-        submitHandler: function(form){
-            saveData();
+        submitHandler: function (form) {
+            saveClick();
         }
     });
 
 }
 // Envia los datos del formulario de registro a la base de datos
-function saveData(){
-    //var sURL = "actRegistroGuarda.php";
+function saveClick() {
     $.ajax({
         type:"post",
+        url:insertarUsuario,
         dataType:'json',
-        data: $("#frm-registro").serialize(),
+        data: $("#frmUsr").serialize(),
         success: function(response){
             if (response['status']==1){
-               $("#correo").val($("#corr").val());
+               $("#nomusuario").val($("#nomusuario").val());
                 M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
-                $("#modalRegistro").modal('close');
-                $("#contra").focus();
+                $("#modalReg").modal('close');
             }
             else{
                 M.toast({html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000});
             }
         }
     });
-}
+}//fin clic
 
 function validaData(){
     $.ajax({

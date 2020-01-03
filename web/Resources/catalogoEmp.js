@@ -76,7 +76,7 @@ function saveData(){
                $("#nomempresa").val($("#nomempresa").val());
                 M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
                 $("#modalRegistro").modal('close');
-                $("#contra").focus();
+                $("#nomempresa").focus();
             }
             else{
                 M.toast({html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000});

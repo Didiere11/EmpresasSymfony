@@ -43,34 +43,40 @@
      
     </div>
    <!-- Ventana Modal -->
-   <div class="modal" id="modalRegistro">
-       <div class="modal-content">
-           <h4>Registro de Usuarios</h4>
-           <br>
-           <form id="frm-registro" method="post">
-              <div class="row">
-                    <div class="input-field col s12">
-                       <input type="email" id="corr" name="corr" class="validate">
-                       <label for="corr">Correo:</label>
-                   </div>
-                   <div class="input-field col s12">
-                      <input type="text" id="nom" name="nom" class="validate">
-                      <label for="nom">Nombre Completo:</label>
+   <div class="modal" id="modalReg">
+        <div class="modal-content">
+            <h4 align="center">Usuarios</h4>
+            <br>
+            <form method="post" id="frmUsr">
+                <div class="row">
+                    <div class="input-field s12">
+                    <i class="material-icons prefix">account_circle</i>
+                        <input type="hidden" id="pk" name="pk">
+                        <input type="text" id="nomusuario" name="nomusuario" class="validate">
+                        <label for="nomusuario">Nombre Usuario:</label>
+                    </div>
+                    <div class="input-field s12">
+                    <i class="material-icons prefix">mail</i>
+                        <input type="text" id="correousuario" name="correousuario" class="validate">
+                        <label for="correousuario">Correo Usuario:</label>
+                    </div>
+                    <div class="input-field s12">
+                    <i class="material-icons prefix">lock_outline</i>
+                        <input type="password" id="pwdusuario" name="pwdusuario" class="validate">
+                        <label for="pwdusuario">Contraseña Usuario:</label>
+                    </div>
+                    <div class="input-field s12">
+                    <i class="material-icons prefix">edit_location</i>
+                     <input type="hidden" id="tipousr" name="tipousr" value=1>
+                        <input type="text" id="domusuario" name="domusuario" class="validate">
+                        <label for="domusuario">Domicilio Usuario:</label>
+                    </div>
                 </div>
-                <div class="input-field col s5">
-                      <input type="password" id="pwd" name="pwd" class="validate">
-                      <label for="pwd">Contraseña:</label>
-                </div>
-                <div class="input-field col s12">
-                      <input type="text" id="dom" name="dom" class="validate">
-                      <label for="dom">Domicilio:</label>
-                </div>
-             </div>
-           </form>
-       </div>
-       <div class="modal-footer">
-           <a id="guardar" class="modal-action waves-effect waves-green btn-flat" >Guardar Registro</a>
-       </div>
+            </form>
+            <div class="modal-footer">
+                <a id="guardar" class="modal-action waves-effect waves-green btn-flat" >Guardar</a>
+            </div>
+        </div>
    </div>
 {% endblock %}
 {% block javascripts %}
@@ -82,6 +88,7 @@
             <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
             <script type="text/javascript">
                 var urllogin = '{{ path('login_homepage' ) }}';
+                 var insertarUsuario =  '{{ path('login_insertarUsuario' ) }}';
             </script>
             <script type="text/javascript" src="{{ asset('Resources/login.js') }}"></script>
             

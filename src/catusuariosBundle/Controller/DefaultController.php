@@ -19,11 +19,50 @@ class DefaultController extends Controller
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
+    public function insertarUsuarioAction(Request $request){
+        if ($request->getMethod() == 'POST') {
+            //extraccion de parametros
+            $post = $request->request->all();
+            
+        $data = array(
+            //--en BD-----------------en formulario
+            "nomusuario"=> "'" . $post["nomusuario"] . "'",
+            "correo"=> "'" . $post["correousuario"] . "'",
+            "contraseña"=> "'" . $post["pwdusuario"] . "'",
+            "domicilio"=> "'" . $post["domusuario"] . "'",
+            "idtipousr"=> "'" . $post["tipousr"] . "'"
+        );
+       
+        $result = $this->UsuarioModel->insertUsuario($data);
+        //print_r($post);
+        //die();
+        if ($result['status']) {
+            $result['data'] = $post;
+            $result['status'] = TRUE;
+            $result['message']="Guardado con exito";
+        }else{
+            $result['status'] = FALSE;
+            $result['message']="ERROR";
+        }
+        return $this->jsonResponse($result);
+        }
+    }
     public function catusuariosAction()
     {
         $result = $this->UsuarioModel->getUsuarios();
-        $usuario = $result['data'];
-        $content['usuario'] = $usuario;
-        return $this->render('catusuariosBundle:Default:catusuarios.html.twig', array('content' => $content));
+        $usuarios=$result['data'];
+        return $this->render('catusuariosBundle:Default:catusuarios.html.twig', array('usuarios'=>$usuarios));
+    }
+
+    public function deleteUsuarioAction(Request $request){
+        if($request->getMethod()== 'POST'){
+            $post = $request->request->all();
+            $result = $this->UsuarioModel->deleteUsuario($post);
+            if($result['status'])
+                return new JsonResponse(array('status'=>TRUE, 'data'=>$post));
+            else
+                return new JsonResponse(array('status'=>FALSE, 'data'=>''));
+        }
+        return $this->render('catusuariosBundle:Default:catusuarios.html.twig', array('usuarios'=>$usuarios));
     }
 }
