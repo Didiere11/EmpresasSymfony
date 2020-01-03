@@ -1,3 +1,11 @@
 catusuarios_homepage:
     path:     /catusuarios
     defaults: { _controller: catusuariosBundle:Default:catusuarios }
+
+catusuario_insertarUsuario:
+    path:     /insertarUsuario
+    defaults: { _controller: catusuariosBundle:Default:insertarUsuario }
+
+catusuario_deleteUsuario:
+    path:     /deleteUsuario
+    defaults: { _controller: catusuariosBundle:Default:deleteUsuario }

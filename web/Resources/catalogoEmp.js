@@ -126,7 +126,6 @@ $(document).on("click", '.delete', function(){
                     M.toast({html: 'Reporte no eliminado', classes: 'rounded blue lighten-2'});
 
                 }
-
             }
         } 
     });

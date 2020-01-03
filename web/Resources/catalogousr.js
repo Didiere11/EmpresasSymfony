@@ -17,17 +17,16 @@ function init() {
         var id = $(this).attr("data-id");
         $.ajax({
             type: "post",
-            url: urlDelete,
+            url: deleteUsuario,
             datatype: 'json',
             data: { 'pk': id },
             success: function (respuesta) {
                 if (respuesta['status']) {
                     table.row($tr).remove().draw();
-
-                    Materialize.toast('Registro eliminado', 5000);
+                M.toast({html: 'Registro Eliminado', classes: 'rounded', displayLength: 4000});
                     // setRow(respuesta['data'],'delete');
                 } else
-                    Materialize.toast('Error al eliminar Empresa', 5000);
+                M.toast({html: 'Registro no eliminado', classes: 'rounded', displayLength: 4000});
             }
         });
     });
@@ -35,7 +34,6 @@ function init() {
         $tr = $(this).closest('tr');
         table.row($tr).remove().draw();
     });
-
 
     $("#modalReg").modal();
     validateform();
@@ -58,12 +56,12 @@ function init() {
         $("#nomusuario").focus();
         $("#modalReg").modal('open');
     });
-
+/*
     $(".delete").on("click", function () {
-        /*  var id = $(this).attr("data-id");
+         var id = $(this).attr("data-id");
           $.ajax({
               type:"post",
-              url:urlDelete,
+              url:deleteUsuario,
               datatype:'json',
               data:{'pk':id},
               success: function(respuesta){
@@ -75,25 +73,24 @@ function init() {
                }
           });//fin ajax
    
-          */
-    });
+          
+    });*/
 }
 
 function validateform() {
     $("#frmUsr").validate({
         rules: {
-            
-            'nomusuario': { required: true },
-            'correousuario': { required: true },
-            'pwdusuario': { required: true },
-            'domusuario': { required: true },      
+            'nomusuario': { required: true, minlength:4, maxlength:120 },
+            'correousuario': { required: true, email:true, minlength:4, maxlength:120},
+            'pwdusuario': { required: true, minlength:4, maxlength:40},
+            'domusuario': { required: true, minlength:4, maxlength:250},      
         },
 
         messages: {
-            'nomusuario': { required: 'Ingresar el nombre del usuario' },
-            'correousuario': { required: 'Ingresar el correo del usuario' },
-            'pwdusuario': { required: 'Ingresar la contraeña del usuario' },
-            'domusuario': { required: 'Ingresar el domicilio del usuario' },
+            'nomusuario': { required: 'Ingresar el nombre del usuario', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 120 caracteres' },
+            'correousuario': { required: 'Ingresar el correo del usuario', email:'Ingrese una direccion de correo valida', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 120 caracteres' },
+            'pwdusuario': { required: 'Ingresar la contraeña del usuario', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 40 caracteres' },
+            'domusuario': { required: 'Ingresar el domicilio del usuario', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 250 caracteres'  },
         },
         errorElement: "div",
         errorClass: "invalid",
@@ -109,15 +106,15 @@ function validateform() {
 function saveClick() {
     $.ajax({
         type:"post",
-        url:urlinsert,
+        url:insertarUsuario,
         dataType:'json',
         data: $("#frmUsr").serialize(),
         success: function(response){
             if (response['status']==1){
-               $("#correo").val($("#corr").val());
+               $("#nomusuario").val($("#nomusuario").val());
                 M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
-                $("#modalRegistro").modal('close');
-                $("#contra").focus();
+                location.reload();
+                $("#modalReg").modal('close');
             }
             else{
                 M.toast({html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000});
@@ -154,3 +151,4 @@ function setRow(data, action) {
         table.row('#' + data.pk).remove.draw();
     }//fin segundo if
 }//fin setRow
+

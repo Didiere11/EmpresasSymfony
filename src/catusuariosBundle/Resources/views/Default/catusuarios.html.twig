@@ -24,15 +24,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                             {% for usuario in content['usuario'] %}
-                            <tr>
-                            <td>{{ usuario.nomusuario }}</td>
-                            <td>{{ usuario.correo }}</td>
-                            <td>{{ usuario.contraseña }}</td>
-                            <td>{{ usuario.domicilio }}</td>
+                             {% for usuarios in usuarios %}
+                            <tr id="{{ usuarios['idusuario'] }}">
+                            <td>{{ usuarios.nomusuario }}</td>
+                            <td>{{ usuarios.correo }}</td>
+                            <td>{{ usuarios.contraseña }}</td>
+                            <td>{{ usuarios.domicilio }}</td>
                             <td>
                               <i class = "material-icons edit" >create</i>
-                              <i class = "material-icons delete" >delete_forever</i>
+                              <i class = "material-icons delete" data-id="{{ usuarios['idusuario'] }}" >delete_forever</i>
                             </td>
                             </tr>
                             {% endfor %}
@@ -50,19 +50,24 @@
             <form method="post" id="frmUsr">
                 <div class="row">
                     <div class="input-field s12">
+                    <i class="material-icons prefix">account_circle</i>
                         <input type="hidden" id="pk" name="pk">
                         <input type="text" id="nomusuario" name="nomusuario" class="validate">
                         <label for="nomusuario">Nombre Usuario:</label>
                     </div>
                     <div class="input-field s12">
+                    <i class="material-icons prefix">mail</i>
                         <input type="text" id="correousuario" name="correousuario" class="validate">
                         <label for="correousuario">Correo Usuario:</label>
                     </div>
                     <div class="input-field s12">
+                    <i class="material-icons prefix">lock_outline</i>
                         <input type="password" id="pwdusuario" name="pwdusuario" class="validate">
                         <label for="pwdusuario">Contraseña Usuario:</label>
                     </div>
                     <div class="input-field s12">
+                    <i class="material-icons prefix">edit_location</i>
+                        <input type="hidden" id="tipousr" name="tipousr" value=1>
                         <input type="text" id="domusuario" name="domusuario" class="validate">
                         <label for="domusuario">Domicilio Usuario:</label>
                     </div>
@@ -82,5 +87,9 @@
     <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript">
+                var insertarUsuario =  '{{ path('catusuario_insertarUsuario' ) }}';
+                var deleteUsuario= '{{ path('catusuario_deleteUsuario') }}';
+    </script>
     <script type="text/javascript" src="{{ asset('Resources/catalogousr.js') }}"></script>
 {% endblock %}
