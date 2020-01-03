@@ -6,3 +6,11 @@ cat_empresas_insertarEmpresa:
     path:     /insertarEmpresa
     defaults: { _controller: CatEmpresasBundle:Default:insertarEmpresa }
 
+cat_empresas_eliminarEmpresa:
+    path:     /eliminarEmpresa
+    defaults: { _controller: CatEmpresasBundle:Default:eliminarEmpresa }
+
+cat_empresas_editarEmpresa:
+    path:     /editarEmpresa
+    defaults: { _controller: CatEmpresasBundle:Default:editarEmpresa }
+
