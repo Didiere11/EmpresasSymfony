@@ -1,8 +1,8 @@
 $(init);
 var table = null;
-var usuario = null;
+var usuarios = null;
 var tr = null;
-$(document).ready(function(){
+$(document).ready(function () {
     $('.sidenav').sidenav();
 });
 function init() {
@@ -10,30 +10,52 @@ function init() {
         "aLengthMenu": [[10, 25, 50, 75, 100], [10, 25, 50, 75, 100]],
         "iDisplayLength": 15
     });//definiendo las caracteristicas del datatable 
-
-    table.on('click', '.delete', function () {
+    // eliminar
+    $(document).on("click", '.delete', function () {
         $tr = $(this).closest('tr');
         tr = $tr;
-        var id = $(this).attr("data-id");
+        var idusuario = $(this).attr("data-id");
         $.ajax({
             type: "post",
-            url: deleteUsuario,
-            datatype: 'json',
-            data: { 'pk': id },
-            success: function (respuesta) {
-                if (respuesta['status']) {
+            url: eliminaUsuario,
+            dataType: 'json',
+            data: { 'idusuario': idusuario },
+            success: function (result) {
+                if (result['status']) {
                     table.row($tr).remove().draw();
-                M.toast({html: 'Registro Eliminado', classes: 'rounded', displayLength: 4000});
-                    // setRow(respuesta['data'],'delete');
-                } else
-                M.toast({html: 'Registro no eliminado', classes: 'rounded', displayLength: 4000});
+                        M.toast({ html: 'Usuario eliminado', classes: 'rounded blue lighten-2' });
+                    } else {
+                        M.toast({ html: 'Usuario no eliminado', classes: 'rounded blue lighten-2' });
+
+                    }
             }
         });
+        //editar
     });
-    table.on('click', '.edit', function () {
+ 
+    /*  table.on('click', '.delete', function () {
+          $tr = $(this).closest('tr');
+          tr = $tr;
+          var id = $(this).attr("data-id");
+          $.ajax({
+              type: "post",
+              url: eliminaUsuario,
+              datatype: 'json',
+              data: { 'pk': id },
+              success: function (respuesta) {
+                  if (respuesta['status']) {
+                      table.row($tr).remove().draw();
+                  M.toast({html: 'Registro Eliminado', classes: 'rounded', displayLength: 4000});
+                      // setRow(respuesta['data'],'delete');
+                } else
+                 M.toast({html: 'Registro no eliminado', classes: 'rounded', displayLength: 4000});
+              }
+          });
+   */
+  /*  table.on('click', '.edit', function () {
         $tr = $(this).closest('tr');
         table.row($tr).remove().draw();
-    });
+    });*/
 
     $("#modalReg").modal();
     validateform();
@@ -48,49 +70,49 @@ function init() {
     });
 
     $(".edit").on("click", function () {
-        $("#pk").val($(this).attr("data-idempresa"));
-        $("#nomusuario").val($(this).attr("data-nomusuario"));
-        $("#correousuario").val($(this).attr("data-correousuario"));
-        $("#pwdusuario").val($(this).attr("data-pwdusuario"));
-        $("#domusuario").val($(this).attr("data-domusuario"));
+        $("#idusuario").val($(this).attr("data-id"));
+        $("#nomusuario").val($(this).attr("data-nomusr"));
+        $("#correousuario").val($(this).attr("data-corrusr"));
+        $("#pwdusuario").val($(this).attr("data-pwdusur"));
+        $("#domusuario").val($(this).attr("data-domusr"));
         $("#nomusuario").focus();
         $("#modalReg").modal('open');
     });
-/*
-    $(".delete").on("click", function () {
-         var id = $(this).attr("data-id");
-          $.ajax({
-              type:"post",
-              url:deleteUsuario,
-              datatype:'json',
-              data:{'pk':id},
-              success: function(respuesta){
-                  if(respuesta['status']){
-                   Materialize.toast('Registro eliminado', 5000);
-                   setRow(respuesta['data'],'delete');
-                  }else
-                  Materialize.toast('Error al eliminar Empresa', 5000);
-               }
-          });//fin ajax
-   
-          
-    });*/
+    /*
+        $(".delete").on("click", function () {
+             var id = $(this).attr("data-id");
+              $.ajax({
+                  type:"post",
+                  url:deleteUsuario,
+                  datatype:'json',
+                  data:{'pk':id},
+                  success: function(respuesta){
+                      if(respuesta['status']){
+                       Materialize.toast('Registro eliminado', 5000);
+                       setRow(respuesta['data'],'delete');
+                      }else
+                      Materialize.toast('Error al eliminar Empresa', 5000);
+                   }
+              });//fin ajax
+       
+              
+        });*/
 }
 
 function validateform() {
     $("#frmUsr").validate({
         rules: {
-            'nomusuario': { required: true, minlength:4, maxlength:120 },
-            'correousuario': { required: true, email:true, minlength:4, maxlength:120},
-            'pwdusuario': { required: true, minlength:4, maxlength:40},
-            'domusuario': { required: true, minlength:4, maxlength:250},      
+            'nomusuario': { required: true, minlength: 4, maxlength: 120 },
+            'correousuario': { required: true, email: true, minlength: 4, maxlength: 120 },
+            'pwdusuario': { required: true, minlength: 4, maxlength: 40 },
+            'domusuario': { required: true, minlength: 4, maxlength: 250 },
         },
 
         messages: {
-            'nomusuario': { required: 'Ingresar el nombre del usuario', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 120 caracteres' },
-            'correousuario': { required: 'Ingresar el correo del usuario', email:'Ingrese una direccion de correo valida', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 120 caracteres' },
-            'pwdusuario': { required: 'Ingresar la contraeña del usuario', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 40 caracteres' },
-            'domusuario': { required: 'Ingresar el domicilio del usuario', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 250 caracteres'  },
+            'nomusuario': { required: 'Ingresar el nombre del usuario', minlength: 'ingrese minimo 4 caracteres', maxlength: 'Ingrese maximo 120 caracteres' },
+            'correousuario': { required: 'Ingresar el correo del usuario', email: 'Ingrese una direccion de correo valida', minlength: 'ingrese minimo 4 caracteres', maxlength: 'Ingrese maximo 120 caracteres' },
+            'pwdusuario': { required: 'Ingresar la contraeña del usuario', minlength: 'ingrese minimo 4 caracteres', maxlength: 'Ingrese maximo 40 caracteres' },
+            'domusuario': { required: 'Ingresar el domicilio del usuario', minlength: 'ingrese minimo 4 caracteres', maxlength: 'Ingrese maximo 250 caracteres' },
         },
         errorElement: "div",
         errorClass: "invalid",
@@ -102,53 +124,101 @@ function validateform() {
         }
     });
 }
-
+/*
 function saveClick() {
     $.ajax({
-        type:"post",
-        url:insertarUsuario,
-        dataType:'json',
+        type: "post",
+        url: insertarUsuario,
+        dataType: 'json',
         data: $("#frmUsr").serialize(),
-        success: function(response){
-            if (response['status']==1){
-               $("#nomusuario").val($("#nomusuario").val());
-                M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
-                location.reload();
+        success: function (response) {
+            if (response['status'] == 1) {
+                $("#nomusuario").val($("#nomusuario").val());
+                M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
+              //  location.reload();
+              setRow(data, action);
                 $("#modalReg").modal('close');
             }
-            else{
-                M.toast({html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000});
+            else {
+                M.toast({ html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000 });
             }
         }
     });
 }//fin clic
+
+*/
+
+
+
+//-----------------------------------
+function saveClick() {
+    var id = $('#idusuario').val();
+    var sURL = ''
+    if (id > 0)
+        sURL = urlUpdate;
+    else
+        sURL = insertarUsuario;
+    $.ajax({
+        type: "post",
+        url: sURL,
+        datatype: 'json',
+        data: $("#frmUsr").serialize(),
+        success: function (respuesta) {
+            if (respuesta['status']) {
+                $("#idusuario").val("");
+                $("#nomusuario").val("");
+                $("#correousuario").val("");
+                $("#pwdusuario").val("");
+                $("#domusuario").val("");
+                $('#nomusuario').focus();
+                $("#modalReg").modal('close');
+                if (id === '0') {
+                    M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
+                    table.row('#' + data.idusuario).remove().draw();
+
+                } else {
+                    M.toast({ html: 'Registro Actualizado', classes: 'rounded', displayLength: 4000 });
+                }
+
+            }
+            setRow(respuesta['data'], 'insert');
+
+        }//fin succes
+    });//fin Ajax
+}//fin clic
+
+
+
+//----------------------------------
 
 function setRow(data, action) {
     console.log(action);
     if (action == 'insert') {
         console.log("insert");
         var row = table.row.add([
-            data.nomusuario,
-            data.correousuario,
-            data.pwdusuario,
-            data.domusuario,
-            '<i class="material-icons edit" data-idempresa="' + data.pk + '" data-nomusuario="' + data.nomusuario + '"data-correousuario="' + data.correousuario + '" data-pwdusuario="' + data.pwdusuario + '" data-domusuario="' + data.domusuario + '">create</i>' +
-            '<i class="material-icons delete" data-idempresa="' + data.pk + '">delete_forever</i>'
+            data.nomusr,
+            data.corrusr,
+            data.pwdusur,
+            data.domusr,
+            
+            '<i class="material-icons edit" data-id="' + data.idusuario + '" data-nomusr="' + data.nomusr + '"data-corrusr="' + data.corrusr + '" data-pwdusur="' + data.pwdusur + '" data-domusr="' + data.domusr + '">create</i>' +
+            '<i class="material-icons delete" data-id="' + data.idusuario + '">delete_forever</i>'
         ]).draw().node();
-        $(row).attr('id', data.pk);
-        Empresa[data.pk] = {
-            "idempresa": data.pk,
-            "nomusuario": data.nomusuario,
-            "correousuario": data.correousuario,
-            "pwdusuario": data.pwdusuario,
-            "domusuario": data.domusuario,
-            "telefonoempresa": data.telefonoempresa,
+        $(row).attr('id', data.idusuario);
+        usuarios[data.idusuario] = {
+            "idusuario":data.idusuario,
+            "nomusuario": data.nomusr,
+            "correo": data.corrusr,
+            "contraseña": data.pwdusur,
+            "domicilio": data.domusr,
         }
+        alert(row);
+
+
     }//Fin primer if
     if (action == 'delete') {
         console.log("delete");
 
-        table.row('#' + data.pk).remove.draw();
+        table.row('#' + data.idusuario).remove.draw();
     }//fin segundo if
 }//fin setRow
-
