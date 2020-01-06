@@ -50,19 +50,30 @@ class DefaultController extends Controller
     public function catusuariosAction()
     {
         $result = $this->UsuarioModel->getUsuarios();
-        $usuarios=$result['data'];
-        return $this->render('catusuariosBundle:Default:catusuarios.html.twig', array('usuarios'=>$usuarios));
+        $usuarios = $result['data'];
+        $content['usuarios'] = $usuarios;
+       
+        return $this->render('catusuariosBundle:Default:catusuarios.html.twig', array('content' => $content));
     }
 
-    public function deleteUsuarioAction(Request $request){
-        if($request->getMethod()== 'POST'){
-            $post = $request->request->all();
-            $result = $this->UsuarioModel->deleteUsuario($post);
-            if($result['status'])
-                return new JsonResponse(array('status'=>TRUE, 'data'=>$post));
-            else
-                return new JsonResponse(array('status'=>FALSE, 'data'=>''));
+    public function eliminarUsuarioAction(Request $request){
+        $post = $request->request->all();
+        $data = array(
+            "idusuario"=> "'" . $post["idusuario"] . "'"
+        );
+        //print_r($data);
+        //die();
+        $result = $this->UsuarioModel->eliminarUsuario($data);
+        if ($result['status']) {
+            $result['data'] = $post;
+            $result['status'] = TRUE;
+            $result['message']="Eliminado con exito";
+        }else{
+            $result['status'] = FALSE;
+            $result['message']="ERRORRRR";
         }
-        return $this->render('catusuariosBundle:Default:catusuarios.html.twig', array('usuarios'=>$usuarios));
+        return $this->jsonResponse($result);
+        
+        
     }
 }

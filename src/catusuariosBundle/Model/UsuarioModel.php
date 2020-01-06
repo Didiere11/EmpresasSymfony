@@ -37,12 +37,9 @@ public function getUsuarios(){
         $result = $this->SQLModel->insertIntoTable('usuario',$data,'idusuario');
         return $result;
     }
-    public function deleteUsuario($post)
-    {
-        $where=array(
-            'idusuario'=>$post['pk']
-        );
-        $result = $this->SQLModel->deleteFromTable('usuario', $where);
+    public function eliminarUsuario($data){
+        $result = $this->SQLModel->deleteFromTable('usuario',$data);
+        
         return $result;
     }
 }
