@@ -153,11 +153,11 @@ function saveClick() {
 //-----------------------------------
 function saveClick() {
     var id = $('#idusuario').val();
-    var sURL = ''
+    var sURL = '';
     if (id > 0)
         sURL = urlUpdate;
     else
-        sURL = insertarUsuario;
+        sURL = insertaUsuario;
     $.ajax({
         type: "post",
         url: sURL,
@@ -172,7 +172,7 @@ function saveClick() {
                 $("#domusuario").val("");
                 $('#nomusuario').focus();
                 $("#modalReg").modal('close');
-                if (id === '0') {
+                if (id == 0) {
                     M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
                     table.row('#' + data.idusuario).remove().draw();
 
@@ -204,7 +204,7 @@ function setRow(data, action) {
             '<i class="material-icons edit" data-id="' + data.idusuario + '" data-nomusr="' + data.nomusr + '"data-corrusr="' + data.corrusr + '" data-pwdusur="' + data.pwdusur + '" data-domusr="' + data.domusr + '">create</i>' +
             '<i class="material-icons delete" data-id="' + data.idusuario + '">delete_forever</i>'
         ]).draw().node();
-        $(row).attr('id', data.idusuario);
+        $(row).attr('data-id', data.idusuario);
         usuarios[data.idusuario] = {
             "idusuario":data.idusuario,
             "nomusuario": data.nomusr,
