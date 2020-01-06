@@ -26,13 +26,13 @@
                         </thead>
                         <tbody>
                             {% for usuarios in content['usuarios'] %}
-                            <tr id="{{ usuarios['idusuario'] }}">
+                            <tr id="'".{{ usuarios.idusuario }}. "'">
                             <td>{{ usuarios.nomusuario }}</td>
                             <td>{{ usuarios.correo }}</td>
                             <td>{{ usuarios.contraseña }}</td>
                             <td>{{ usuarios.domicilio }}</td>
                             <td>
-                              <i class = "material-icons edit" data-id="{{ usuarios['idusuario'] }}" data-nomusr="{{ usuarios['nomusuario'] }}" data-corrusr="{{ usuarios['correo'] }}" data-pwdusur="{{ usuarios['contraseña'] }}" data-domusr="{{ usuarios['domicilio'] }}">create</i>
+                              <i class = "material-icons edit" data-id="{{ usuarios['idusuario'] }}" data-nomusr="{{ usuarios['nomusuario'] }}" data-corrusr="{{ usuarios['correo'] }}" data-pwdusr="{{ usuarios['contraseña'] }}" data-domusr="{{ usuarios['domicilio'] }}">create</i>
                               <i class = "material-icons delete" data-id="{{ usuarios['idusuario'] }}" >delete_forever</i>
                             </td>
                             </tr>
