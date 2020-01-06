@@ -24,9 +24,9 @@ class EmpresaModel {
         return $result;
     }
     public function editarEmpresa($data,$id){
-      
-      print_r($result = $this->SQLModel->updateFromTable('empresas', $data, $id,'idempresa'));
-        die();
+    
+      $result = $this->SQLModel->updateFromTable('empresas', $data, $id,'idempresa');
+    
         return $result;
     }
 }

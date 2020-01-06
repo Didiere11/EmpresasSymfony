@@ -64,7 +64,7 @@ class DefaultController extends Controller
         );
         $id = array(
             "idempresa"=> "'" .$post["idempresa"]."'");
-        $result = $this->EmpresaModel->updateFromTable($data,$id);
+        $result = $this->EmpresaModel->editarEmpresa($data,$id);
        
         if ($result['status']) {
             $result['data'] = $post;

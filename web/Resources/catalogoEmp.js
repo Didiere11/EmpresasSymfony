@@ -26,7 +26,6 @@ function init(){
         $("#telefonoempresa").val('');
         $("#modalRegistro").modal('open');
         $("#nomempresa").focus();
-
         
     });
     $(document).on("click", '.edit', function(){
@@ -44,6 +43,7 @@ function init(){
         $("#telefonoempresa").val(telefono);
         $('#modalRegistro').modal('open');
         $('#nomempresa').focus();
+        
                  
     });
     
@@ -80,15 +80,26 @@ function validateForm(){
         },
         submitHandler: function(form){
             saveData();
+            
         }
     });
 
 }
 // Envia los datos del formulario de registro a la base de datos
 function saveData(){
+        var id = $("#idempresa").val();
+
+        if (id > 0) {
+            var urls= editaEmpresa; 
+        }
+        else{
+            
+            var urls= insertarEmpresa; 
+
+        }
         $.ajax({
             type:"post",
-            url: editaEmpresa,
+            url: urls,
             dataType:'json',
             data: $("#frm-registro").serialize(),
             success: function(response){
@@ -105,6 +116,7 @@ function saveData(){
             }
         });  
         }
+
     //var sURL = "actRegistroGuarda.php";
     
 

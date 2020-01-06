@@ -52,8 +52,8 @@ class SQLModel {
         $qry = 'UPDATE "' . $this->schema . '"."' . $table . '" SET ';
         $qry .= $this->getValuesToUpdate($values);
         $qry .= $this->buildWhere($where);
-        print_r($qry);
-        die();
+        //print_r($qry);
+        //die();
         if ($primaryKey != "") {
             if (substr($primaryKey, 0, 1) == "'" && substr($primaryKey, -1) == "'") {
                 $primaryKey = "'" . substr($primaryKey, 1, -1) . "'";
