@@ -155,7 +155,7 @@ function saveClick() {
     var id = $('#idusuario').val();
     var sURL = '';
     if (id > 0)
-        sURL = urlUpdate;
+        sURL = insertarUsuario;
     else
         sURL = insertaUsuario;
     $.ajax({
@@ -164,17 +164,18 @@ function saveClick() {
         datatype: 'json',
         data: $("#frmUsr").serialize(),
         success: function (respuesta) {
-            if (respuesta['status']) {
-                $("#idusuario").val("");
+            if (respuesta['status']==1) {
+                $("#idusuario").val(0);
                 $("#nomusuario").val("");
                 $("#correousuario").val("");
                 $("#pwdusuario").val("");
                 $("#domusuario").val("");
+                $("#tipousr").val("");
                 $('#nomusuario').focus();
                 $("#modalReg").modal('close');
                 if (id == 0) {
                     M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
-                    table.row('#' + data.idusuario).remove().draw();
+                  
 
                 } else {
                     M.toast({ html: 'Registro Actualizado', classes: 'rounded', displayLength: 4000 });
@@ -188,7 +189,6 @@ function saveClick() {
 }//fin clic
 
 
-
 //----------------------------------
 
 function setRow(data, action) {
@@ -196,21 +196,22 @@ function setRow(data, action) {
     if (action == 'insert') {
         console.log("insert");
         var row = table.row.add([
-            data.nomusr,
-            data.corrusr,
-            data.pwdusur,
-            data.domusr,
+            data.nomusuario,
+            data.correousuario,
+            data.pwdusuario,
+            data.domusuario,
             
-            '<i class="material-icons edit" data-id="' + data.idusuario + '" data-nomusr="' + data.nomusr + '"data-corrusr="' + data.corrusr + '" data-pwdusur="' + data.pwdusur + '" data-domusr="' + data.domusr + '">create</i>' +
+            '<i class="material-icons edit" data-id="' + data.idusuario + '" data-nomusuario="' + data.nomusuario + '"data-correousuario="' + data.correousuario + '" data-pwdusuario="' + data.pwdusuario + '" data-domusuario="' + data.domusuario + '" data-tipousr="' + data.tipousr + '">create</i>' +
             '<i class="material-icons delete" data-id="' + data.idusuario + '">delete_forever</i>'
         ]).draw().node();
         $(row).attr('data-id', data.idusuario);
         usuarios[data.idusuario] = {
             "idusuario":data.idusuario,
-            "nomusuario": data.nomusr,
-            "correo": data.corrusr,
-            "contraseña": data.pwdusur,
-            "domicilio": data.domusr,
+            "nomusuario": data.nomusuario,
+            "correo": data.correousuario,
+            "contraseña": data.pwdusuario,
+            "domicilio": data.domusuario,
+            "idtipousr":data.tipousr,
         }
         alert(row);
 
