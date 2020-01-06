@@ -35,8 +35,6 @@ class DefaultController extends Controller
         );
        
         $result = $this->UsuarioModel->insertUsuario($data);
-        //print_r($result);
-        //die();
         if ($result['status']) {
             $result['data'] = $post;
             $result['status'] = TRUE;
@@ -49,8 +47,34 @@ class DefaultController extends Controller
         }
         
     }
-    public function loginAction()
+    
+    public function loginAction(Request $request)
     {
+        if ($request->getMethod() == 'POST') {
+            //extraccion de parametros
+            $post = $request->request->all();
+            
+            $data = array(
+                "correo"=> "'" . $post["correo"] . "'",
+                "contraseña"=> "'" . $post["contra"] . "'"
+            );
+            $result = $this->UsuarioModel->getUsuarios($data);
+            //print_r($result['data']);
+            //die();
+            if ($result['data']==null) {
+                $result['status'] = FALSE;
+                $result['message']="ERROR";
+            }else{
+               
+                
+                $result['data'] = $post;
+                $result['status'] = TRUE;
+                $result['message']="acceso con exito";
+            }
+            
+            return $this->jsonResponse($result);
+        }
         return $this->render('loginBundle:Default:login.html.twig');
     }
+
 }

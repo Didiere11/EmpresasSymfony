@@ -19,6 +19,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">account_circle</i>
+                               
                                 <input type="email" id="correo" name="correo" class="validate">
                                 <label for="correo">Correo electronico:</label>
                             </div>
@@ -87,7 +88,7 @@
             <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
             <script type="text/javascript">
-                var urllogin = '{{ path('login_homepage' ) }}';
+                 var validacion = '{{ path('login_homepage' ) }}';
                  var insertarUsuario =  '{{ path('login_insertarUsuario' ) }}';
             </script>
             <script type="text/javascript" src="{{ asset('Resources/login.js') }}"></script>

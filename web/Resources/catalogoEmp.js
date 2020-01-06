@@ -88,7 +88,7 @@ function validateForm(){
 function saveData(){
         $.ajax({
             type:"post",
-            url: insertarEmpresa,
+            url: editaEmpresa,
             dataType:'json',
             data: $("#frm-registro").serialize(),
             success: function(response){

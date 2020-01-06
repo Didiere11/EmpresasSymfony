@@ -10,8 +10,8 @@ class UsuarioModel {
     public function __construct() {
         $this->SQLModel = new SQLModel();       
     }
-    public function getUsuarios(){
-        $result = $this->SQLModel->selectFromTable('usuario');
+    public function getUsuarios($data){
+        $result = $this->SQLModel->selectFromTable('usuario','correo,contraseña', $data);
         return $result;
     }
     public function insertUsuario($data){
