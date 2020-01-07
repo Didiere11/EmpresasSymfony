@@ -23,16 +23,16 @@ function init() {
             success: function (result) {
                 if (result['status']) {
                     table.row($tr).remove().draw();
-                        M.toast({ html: 'Usuario eliminado', classes: 'rounded blue lighten-2' });
-                    } else {
-                        M.toast({ html: 'Usuario no eliminado', classes: 'rounded blue lighten-2' });
+                    M.toast({ html: 'Usuario eliminado', classes: 'rounded blue lighten-2' });
+                } else {
+                    M.toast({ html: 'Usuario no eliminado', classes: 'rounded blue lighten-2' });
 
-                    }
+                }
             }
         });
         //editar
     });
- 
+
     /*  table.on('click', '.delete', function () {
           $tr = $(this).closest('tr');
           tr = $tr;
@@ -52,21 +52,27 @@ function init() {
               }
           });
    */
-  /*  table.on('click', '.edit', function () {
-        $tr = $(this).closest('tr');
-        table.row($tr).remove().draw();
-    });*/
+    /*  table.on('click', '.edit', function () {
+          $tr = $(this).closest('tr');
+          table.row($tr).remove().draw();
+      });*/
 
     $("#modalReg").modal();
     validateform();
 
     $("#add-record").on("click", function () {
+        $("#nomusuario").val('');
+        $("#correousuario").val('');
+        $("#pwdusuario").val('');
+        $("#domusuario").val('');
+        $("#tipousr").val(1);
         $("#modalReg").modal('open');
         $("#nomusuario").focus();
     });
 
     $("#guardar").on("click", function () {
         $("#frmUsr").submit();
+
     });
 
     $(".edit").on("click", function () {
@@ -151,11 +157,11 @@ function saveClick() {
 
 
 //-----------------------------------
-function saveClick() {
+/*function saveClick() {
     var id = $('#idusuario').val();
     var sURL = '';
     if (id > 0)
-        sURL = insertarUsuario;
+        sURL = insertarUsu;
     else
         sURL = insertaUsuario;
     $.ajax({
@@ -165,57 +171,72 @@ function saveClick() {
         data: $("#frmUsr").serialize(),
         success: function (respuesta) {
             if (respuesta['status']==1) {
-                $("#idusuario").val(0);
-                $("#nomusuario").val("");
-                $("#correousuario").val("");
-                $("#pwdusuario").val("");
-                $("#domusuario").val("");
-                $("#tipousr").val("");
-                $('#nomusuario').focus();
+               reset();
                 $("#modalReg").modal('close');
-                if (id == 0) {
-                    M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
-                  
-
+                if (id == '0') {
+                    M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 })
+                   
                 } else {
                     M.toast({ html: 'Registro Actualizado', classes: 'rounded', displayLength: 4000 });
+                    
                 }
-
             }
             setRow(respuesta['data'], 'insert');
-
         }//fin succes
     });//fin Ajax
-}//fin clic
-
-
+}//fin clic*/
 //----------------------------------
 
+function saveClick() {
+    var id = $("#idusuario").val();
+
+    if (id > 0) {
+        var urls = editaEmpresa;
+    }
+    else {
+
+        var urls = insertaUsuario;
+
+    }
+    $.ajax({
+        type: "post",
+        url: urls,
+        dataType: 'json',
+        data: $("#frmUsr").serialize(),
+        success: function (response) {
+            if (response['status'] == 1) {
+                $("#nomusuario").val($("#nomusuario").val());
+                M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
+                reset();
+                $("#modalReg").modal('close');
+                setRow(response['data'], 'insert');
+            }
+            else {
+                M.toast({ html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000 });
+            }
+        }
+    });
+}
 function setRow(data, action) {
-    console.log(action);
     if (action == 'insert') {
-        console.log("insert");
         var row = table.row.add([
             data.nomusuario,
             data.correousuario,
             data.pwdusuario,
             data.domusuario,
-            
-            '<i class="material-icons edit" data-id="' + data.idusuario + '" data-nomusuario="' + data.nomusuario + '"data-correousuario="' + data.correousuario + '" data-pwdusuario="' + data.pwdusuario + '" data-domusuario="' + data.domusuario + '" data-tipousr="' + data.tipousr + '">create</i>' +
+            data.tipousr,
+            '<i class="material-icons edit" data-id="' + data.idusuario + '" data-nomusuario"' + data.nomusuario + '" data-correousuario"' + data.correousuario + '" data-pwdusuario"' + data.pwdusuario + '"  data-domusuario"' + data.domusuario + '" data-tipousr"' + data.idtipousr + '">create</i>' +
             '<i class="material-icons delete" data-id="' + data.idusuario + '">delete_forever</i>'
         ]).draw().node();
         $(row).attr('data-id', data.idusuario);
         usuarios[data.idusuario] = {
-            "idusuario":data.idusuario,
-            "nomusuario": data.nomusuario,
-            "correo": data.correousuario,
-            "contraseña": data.pwdusuario,
-            "domicilio": data.domusuario,
-            "idtipousr":data.tipousr,
+            "data-id": data.idusuario,
+            "data-nomusuario": data.nomusuario,
+            "data-correousuario": data.correousuario,
+            "data-pwdusuario": data.pwdusuario,
+            "data-domusuario": data.domusuario,
+            "data-tipousr":data.idtipousr,
         }
-        alert(row);
-
-
     }//Fin primer if
     if (action == 'delete') {
         console.log("delete");
@@ -223,3 +244,11 @@ function setRow(data, action) {
         table.row('#' + data.idusuario).remove.draw();
     }//fin segundo if
 }//fin setRow
+
+function reset() {
+    $("#nomusuario").val('');
+    $("#correousuario").val('');
+    $("#pwdusuario").val('');
+    $("#domusuario").val('');
+    $("#tipousr").val(1);
+}

@@ -32,15 +32,19 @@ class DefaultController extends Controller
             "domicilio"=> "'" . $post["domusuario"] . "'",
             "idtipousr"=> "'" . $post["tipousr"] . "'"
         );
+        
        
         $result = $this->UsuarioModel->insertUsuario($data);
-        //print_r($post);
-        //die();
-        if ($result['status']) {
+        $post['idusuario']=$result["data"][0]['idusuario'];
+        if ($result['status']==1) {
+            //print_r($result['data']);
+            //die();
             $result['data'] = $post;
             $result['status'] = TRUE;
             $result['message']="Guardado con exito";
         }else{
+            //print_r($result['status']);
+            //die();
             $result['status'] = FALSE;
             $result['message']="ERROR";
         }
