@@ -43,4 +43,11 @@ public function getUsuarios(){
         
         return $result;
     }
+
+    public function editarUsuario($data,$id){
+    
+        $result = $this->SQLModel->updateFromTable('usuario', $data, $id,'idusuario');
+      
+          return $result;
+      }
 }
