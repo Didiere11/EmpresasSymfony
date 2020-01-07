@@ -21,6 +21,7 @@ public function getUsuarios(){
         'correo',
         'contraseña',
         'domicilio',
+        'idtipousr'
     );
   //  $where = array(
     //    'nocontrol'->''
