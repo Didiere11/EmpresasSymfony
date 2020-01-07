@@ -33,12 +33,11 @@ class DefaultController extends Controller
             "descripempresa"=> "'" . $post["descripempresa"] . "'",
             "telefonoempresa"=> "'" . $post["telefonoempresa"] . "'"
         );
-        //print_r($data);
-        //die();
-        $result = $this->EmpresaModel->insertEmpresa($data);
         
+        $result = $this->EmpresaModel->insertEmpresa($data);
+        $post['idempresa']=$result["data"][0]['idempresa'];
         if ($result['status']) {
-            $result['data'] = $post;
+            $result['data'] = $post; 
             $result['status'] = TRUE;
             $result['message']="Guardado con exito";
         }else{

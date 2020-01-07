@@ -7,7 +7,7 @@
 {% block body %}
     <div class="row">
         <div class="col s12 m8 offset-m2">
-       <form id="frm-registro" method="post">
+       
             <div class="card">
                 <a id="add-record" class="btn-floating btn-large waves-effect waves-light right blue">
                    <i class="material-icons">add</i> 
@@ -17,7 +17,7 @@
                     <table id="empre" class="highlight border datatable">
                         <thead>
                             <tr>
-                            
+                            <th style="width:20%">ID</th>
                             <th style="width:20%">Nombre</th>
                             <th style="width:20%">Direccion</th>
                             <th style="width:20%">Correo</th>
@@ -29,14 +29,14 @@
                         <tbody>
                             {% for empresa in content['empresa'] %}
                             <tr>
-                            
+                            <td>{{ empresa.idempresa }}</td>
                             <td>{{ empresa.nomempresa }}</td>
                             <td>{{ empresa.dirempresa }}</td>
                             <td>{{ empresa.correoempresa }}</td>
                             <td>{{ empresa.descripempresa }}</td>
                             <td>{{ empresa.telefonoempresa }}</td>
                             <td>
-                              <i class = "material-icons edit" data-id="{{ empresa.idempresa }}" data-nom="{{ empresa.nomempresa }}" data-dir="{{ empresa.dirempresa }}" data-corr="{{ empresa.correoempresa }}" data-des="{{ empresa.descripempresa }}"  data-corr="{{ empresa.correoempresa }}" data-tel="{{ empresa.telefonoempresa }}" >create</i>
+                              <i class = "material-icons edit" data-id="{{ empresa.idempresa }}" data-nom="{{ empresa.nomempresa }}" data-dir="{{ empresa.dirempresa }}" data-corr="{{ empresa.correoempresa }}" data-des="{{ empresa.descripempresa }}"  data-tel="{{ empresa.telefonoempresa }}" >create</i>
                               <i class='material-icons delete' data-id="{{ empresa.idempresa }}">delete_forever</i>
                             </td>
                             </tr>
@@ -53,7 +53,7 @@
        <div class="modal-content">
            <h4>Control de empresas </h4>
            <br>
-           
+           <form id="frm-registro" method="post">
               <div class="row">
                     <div class="input-field s12">
                         <input type="hidden" id="idempresa" name="idempresa">
@@ -81,13 +81,23 @@
                         <input type="text" id="telefonoempresa" name="telefonoempresa" class="validate">
                         <label for="telefonoempresa">Telefono Empresa:</label>
                     </div>
+                    <div class="input-field_col_s12">
+                    <i class="material-icons prefix">photo</i>
+                    <input type="file" name="addfile" id="addfile">
+                    <label for="arch">Foto:</label>
+                </div>
                 </div>
             </form>
             <div class="modal-footer">
                 <a id="guardar" class="modal-action waves-effect waves-green btn-flat" >Guardar</a>
             </div>
+            <form id="archivo" style="display:none">
+        <input type="file" id="archivo" name ="archivo">
+        </form>
         </div>
    </div>
+
+
 {% endblock %}
 
 {% block javascripts %}
