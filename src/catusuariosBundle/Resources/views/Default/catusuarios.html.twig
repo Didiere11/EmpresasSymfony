@@ -74,7 +74,7 @@
                        
                         <input type="text" id="domusuario" name="domusuario" class="validate">
                         <label for="domusuario">Domicilio Usuario:</label>
-                         <input type="hidden" id="tipousr" name="tipousr" >
+                         <input type="hidden" id="tipousr" name="tipousr" value=1>
                     </div>
                 </div>
             </form>
@@ -94,6 +94,7 @@
     <script type="text/javascript">
                 var insertaUsuario =  '{{ path('catusuario_insertarUsuario' ) }}';
                  var eliminaUsuario =  '{{ path('catusuario_eliminarUsuario' ) }}';
+                 var editarUsuario =  '{{ path('catusuario_editarUsuario' ) }}';
     </script>
     <script type="text/javascript" src="{{ asset('Resources/catalogousr.js') }}"></script>
 {% endblock %}

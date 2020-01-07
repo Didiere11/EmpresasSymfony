@@ -80,4 +80,37 @@ class DefaultController extends Controller
         
         
     }
+
+    public function editarUsuarioAction(Request $request){
+        //extraccion de parametros
+    $post = $request->request->all();    
+    
+    //print_r($post);
+    //die();
+    $data = array(
+         //--en BD-----------------en formulario
+         "nomusuario"=> "'" . $post["nomusuario"] . "'",
+         "correo"=> "'" . $post["correousuario"] . "'",
+         "contraseña"=> "'" . $post["pwdusuario"] . "'",
+         "domicilio"=> "'" . $post["domusuario"] . "'",
+         "idtipousr"=> "'" . $post["tipousr"] . "'"
+    );
+    $id = array(
+        "idusuario"=> "'" .$post["idusuario"]."'");
+    $result = $this->UsuarioModel->editarUsuario($data,$id);
+   
+    if ($result['status']) {
+        $result['data'] = $post;
+        $result['status'] = TRUE;
+        $result['message']="Guardado con exito";
+    }else{
+        print_r($result["data"]);
+            die();
+        $result['status'] = FALSE;
+        $result['message']="ERROR";
+    }
+    return $this->jsonResponse($result);
+    
+    
+}
 }

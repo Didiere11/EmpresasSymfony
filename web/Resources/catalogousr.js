@@ -4,6 +4,7 @@ var usuarios = null;
 var tr = null;
 $(document).ready(function () {
     $('.sidenav').sidenav();
+    $("#frm-content").serialize();
 });
 function init() {
     table = $("#usr").DataTable({
@@ -33,30 +34,7 @@ function init() {
         //editar
     });
 
-    /*  table.on('click', '.delete', function () {
-          $tr = $(this).closest('tr');
-          tr = $tr;
-          var id = $(this).attr("data-id");
-          $.ajax({
-              type: "post",
-              url: eliminaUsuario,
-              datatype: 'json',
-              data: { 'pk': id },
-              success: function (respuesta) {
-                  if (respuesta['status']) {
-                      table.row($tr).remove().draw();
-                  M.toast({html: 'Registro Eliminado', classes: 'rounded', displayLength: 4000});
-                      // setRow(respuesta['data'],'delete');
-                } else
-                 M.toast({html: 'Registro no eliminado', classes: 'rounded', displayLength: 4000});
-              }
-          });
-   */
-    /*  table.on('click', '.edit', function () {
-          $tr = $(this).closest('tr');
-          table.row($tr).remove().draw();
-      });*/
-
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     $("#modalReg").modal();
     validateform();
 
@@ -74,37 +52,25 @@ function init() {
         $("#frmUsr").submit();
 
     });
-
-    $(".edit").on("click", function () {
-        $("#idusuario").val($(this).attr("data-id"));
-        $("#nomusuario").val($(this).attr("data-nomusr"));
-        $("#correousuario").val($(this).attr("data-corrusr"));
-        $("#pwdusuario").val($(this).attr("data-pwdusur"));
-        $("#domusuario").val($(this).attr("data-domusr"));
-        $("#nomusuario").focus();
-        $("#modalReg").modal('open');
-    });
-    /*
-        $(".delete").on("click", function () {
-             var id = $(this).attr("data-id");
-              $.ajax({
-                  type:"post",
-                  url:deleteUsuario,
-                  datatype:'json',
-                  data:{'pk':id},
-                  success: function(respuesta){
-                      if(respuesta['status']){
-                       Materialize.toast('Registro eliminado', 5000);
-                       setRow(respuesta['data'],'delete');
-                      }else
-                      Materialize.toast('Error al eliminar Empresa', 5000);
-                   }
-              });//fin ajax
-       
-              
-        });*/
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    $(document).on("click", '.edit', function(){
+        var idusuario = $(this).attr("data-id");
+        var nombre = $(this).attr("data-nomusuario");
+        var correo = $(this).attr("data-correousuario");
+        var pwd = $(this).attr("data-pwdusuario");
+        var domicilio = $(this).attr("data-domusuario");
+        var tipousr = $(this).attr("data-tipousr");
+        $("#idusuario").val(idusuario);
+        $('#nomusuario').val(nombre);
+        $('#correousuario').val(correo);
+        $("#pwdusuario").val(pwd);
+        $("#domusuario").val(domicilio);
+        $("#tipousr").val(tipousr);
+        $('#modalReg').modal('open');
+        $('#nomusuario').focus();           
+    }); 
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function validateform() {
     $("#frmUsr").validate({
         rules: {
@@ -130,73 +96,16 @@ function validateform() {
         }
     });
 }
-/*
-function saveClick() {
-    $.ajax({
-        type: "post",
-        url: insertarUsuario,
-        dataType: 'json',
-        data: $("#frmUsr").serialize(),
-        success: function (response) {
-            if (response['status'] == 1) {
-                $("#nomusuario").val($("#nomusuario").val());
-                M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
-              //  location.reload();
-              setRow(data, action);
-                $("#modalReg").modal('close');
-            }
-            else {
-                M.toast({ html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000 });
-            }
-        }
-    });
-}//fin clic
 
-*/
-
-
-
-//-----------------------------------
-/*function saveClick() {
-    var id = $('#idusuario').val();
-    var sURL = '';
-    if (id > 0)
-        sURL = insertarUsu;
-    else
-        sURL = insertaUsuario;
-    $.ajax({
-        type: "post",
-        url: sURL,
-        datatype: 'json',
-        data: $("#frmUsr").serialize(),
-        success: function (respuesta) {
-            if (respuesta['status']==1) {
-               reset();
-                $("#modalReg").modal('close');
-                if (id == '0') {
-                    M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 })
-                   
-                } else {
-                    M.toast({ html: 'Registro Actualizado', classes: 'rounded', displayLength: 4000 });
-                    
-                }
-            }
-            setRow(respuesta['data'], 'insert');
-        }//fin succes
-    });//fin Ajax
-}//fin clic*/
-//----------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function saveClick() {
     var id = $("#idusuario").val();
-
     if (id > 0) {
-        var urls = editaEmpresa;
+        var urls =  editarUsuario;
     }
     else {
-
         var urls = insertaUsuario;
-
     }
     $.ajax({
         type: "post",
@@ -217,6 +126,7 @@ function saveClick() {
         }
     });
 }
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function setRow(data, action) {
     if (action == 'insert') {
         var row = table.row.add([
@@ -244,7 +154,7 @@ function setRow(data, action) {
         table.row('#' + data.idusuario).remove.draw();
     }//fin segundo if
 }//fin setRow
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function reset() {
     $("#nomusuario").val('');
     $("#correousuario").val('');

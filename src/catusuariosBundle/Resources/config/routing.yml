@@ -9,3 +9,7 @@ catusuario_insertarUsuario:
 catusuario_eliminarUsuario:
     path:     /eliminarUsuario
     defaults: { _controller: catusuariosBundle:Default:eliminarUsuario }
+
+catusuario_editarUsuario:
+    path:     /editarUsuario
+    defaults: { _controller: catusuariosBundle:Default:editarUsuario }
