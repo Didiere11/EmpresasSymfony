@@ -107,12 +107,16 @@ function validaData(){
         dataType: 'json', // formato que regresa la respuesta
         data: $("#frm-acceso").serialize(), // datos a pasar al servidor, en caso de necesitarlo
         success: function(response){
-            
-            if (response['status']){
+            if (response['status']>=1){
+                if (response['status'] == 1) {
+                    window.location.href='http://127.0.0.1/symfony/EmpresasSymfony/web/app_dev.php/'
+                    M.toast({html: 'Acceso Permitido', classes: 'rounded', displayLength: 4000});
+                }else if (response['status']==2) {
+                    window.location.href='http://127.0.0.1/symfony/EmpresasSymfony/web/app_dev.php/catempresas'
+                    M.toast({html: 'Acceso Permitido', classes: 'rounded', displayLength: 4000});
+                }
                 //print_r(resultado);
                 //die();
-                window.location.href='http://127.0.0.1/symfony/EmpresasSymfony/web/app_dev.php/'
-                M.toast({html: 'Acceso Permitido', classes: 'rounded', displayLength: 4000});
             }
             else{
                 M.toast({html: 'Acceso Denegado', classes: 'rounded', displayLength: 4000});

@@ -37,6 +37,10 @@ function init(){
         $("#nomempresa").focus();
         
     });
+    table.on('click', '.edit', function () {
+        $tr = $(this).closest('tr');
+        table.row($tr).remove().draw();
+    });
     $(document).on("click", '.edit', function(){
         var IdEmpresa = $(this).attr("data-id");
         var nombre = $(this).attr("data-nom");
@@ -108,6 +112,7 @@ function saveData(){
                     M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
                     limpiar();
                     $("#modalRegistro").modal('close');
+
                     setRow(response['data'], 'insert');
                 }
                 else{
@@ -130,9 +135,9 @@ $(document).on("click", '.delete', function(){
         success: function (result) {
             if (result['status']) {
                     table.row($tr).remove().draw();
-                    M.toast({ html: 'Usuario eliminado', classes: 'rounded blue lighten-2' });
+                    M.toast({ html: 'Empresa Eliminada', classes: 'rounded blue lighten-2' });
                 } else {
-                    M.toast({ html: 'Usuario no eliminado', classes: 'rounded blue lighten-2' });
+                    M.toast({ html: 'Error al eliminar empresa', classes: 'rounded blue lighten-2' });
                 }
         } 
     });

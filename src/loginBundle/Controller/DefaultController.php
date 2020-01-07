@@ -59,17 +59,18 @@ class DefaultController extends Controller
                 "contraseña"=> "'" . $post["contra"] . "'"
             );
             $result = $this->UsuarioModel->getUsuarios($data);
-            //print_r($result['data']);
-            //die();
+            $aux = $result["data"][0]['idtipousr'];
             if ($result['data']==null) {
                 $result['status'] = FALSE;
                 $result['message']="ERROR";
-            }else{
-               
-                
-                $result['data'] = $post;
-                $result['status'] = TRUE;
-                $result['message']="acceso con exito";
+            }else{ 
+                if ($aux==1) {
+                    $result['status']= 1;
+                    $result['message']="ERROR";
+                }else{
+                    $result['status']= 2;
+                    $result['message']="administrador";
+                }
             }
             
             return $this->jsonResponse($result);
