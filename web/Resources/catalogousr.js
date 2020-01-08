@@ -43,7 +43,7 @@ function init() {
         $("#correousuario").val('');
         $("#pwdusuario").val('');
         $("#domusuario").val('');
-        $("#tipousr").val(1);
+        $("#tipousr").val('');
         $("#modalReg").modal('open');
         $("#nomusuario").focus();
     });
@@ -160,5 +160,5 @@ function reset() {
     $("#correousuario").val('');
     $("#pwdusuario").val('');
     $("#domusuario").val('');
-    $("#tipousr").val(1);
+    $("#tipousr").val('');
 }

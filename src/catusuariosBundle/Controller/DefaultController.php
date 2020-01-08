@@ -85,8 +85,7 @@ class DefaultController extends Controller
         //extraccion de parametros
     $post = $request->request->all();    
     
-    //print_r($post);
-    //die();
+   
     $data = array(
          //--en BD-----------------en formulario
          "nomusuario"=> "'" . $post["nomusuario"] . "'",
@@ -97,6 +96,8 @@ class DefaultController extends Controller
     );
     $id = array(
         "idusuario"=> "'" .$post["idusuario"]."'");
+        print_r($id);
+        die();
     $result = $this->UsuarioModel->editarUsuario($data,$id);
    
     if ($result['status']) {
