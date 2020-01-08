@@ -7,6 +7,7 @@ use Utilerias\SQLBundle\Model\SQLModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use loginBundle\Model\UsuarioModel;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class DefaultController extends Controller
 {
@@ -72,10 +73,12 @@ class DefaultController extends Controller
                     $result['message']="administrador";
                 }
             }
-            
             return $this->jsonResponse($result);
         }
+        //-------------------------------------------------------------------------
+
         return $this->render('loginBundle:Default:login.html.twig');
+        
     }
 
 }
