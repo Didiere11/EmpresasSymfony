@@ -10,30 +10,30 @@ class UsuarioModel {
     public function __construct() {
         $this->SQLModel = new SQLModel();       
     }
-    //public function getUsuarios(){
-      //  $result = $this->SQLModel->selectFromTable('usuario');
-//return $result;
-//}
-public function getUsuarios(){
-    $campos_select = array(
-        'idusuario',
-        'nomusuario',
-        'correo',
-        'contraseña',
-        'domicilio',
-        'idtipousr'
-    );
-  //  $where = array(
-    //    'nocontrol'->''
-    //);
-    $result = $this->SQLModel->selectFromTable('usuario',$campos_select);
-    $data=array();
-    foreach($result['data'] as $key=>$value){
-        $data[$value['idusuario']]=$value;
+    public function getUsuarios(){
+        $fields = ' SELECT ';
+        $fields .= ' u."idusuario",';
+        $fields .= ' u."nomusuario",';
+        $fields .= ' u."correo",';
+        $fields .= ' u."contraseña",';
+        $fields .= ' u."domicilio", ';
+        $fields .= ' u."idtipousr", ';
+        $fields .= ' t."idtipousr",';
+        $fields .= ' t."tipousr"';
+        $fields .= ' FROM "usuario" u ';
+        $fields .= ' INNER JOIN "tipousuario" t on  ';
+        $fields .= ' u."idtipousr" = t."idtipousr" ';
+        $result = $this->SQLModel->executeQuery($fields);
+        return $result;
     }
-    $result['data']=$data;
-    return $result;
-}
+    public function getTipoUsr(){
+        $result = $this->SQLModel->selectFromTable('tipousuario');
+        return $result;
+    }
+    public function getTipo($dataa){
+        $result = $this->SQLModel->selectFromTable('tipousuario','tipousr',$dataa);
+        return $result;
+    }
     public function insertUsuario($data){
         $result = $this->SQLModel->insertIntoTable('usuario',$data,'idusuario');
         return $result;

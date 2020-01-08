@@ -1,6 +1,6 @@
 $(init);
 var table = null;
-var usuarios = null;
+var usuario = null;
 var tr = null;
 $(document).ready(function () {
     $('.sidenav').sidenav();
@@ -40,10 +40,11 @@ function init() {
 
     $("#add-record").on("click", function () {
         $("#nomusuario").val('');
-        $("#correousuario").val('');
-        $("#pwdusuario").val('');
-        $("#domusuario").val('');
-        $("#tipousr").val('');
+        $("#correo").val('');
+        $("#contraseña").val('');
+        $("#domicilio").val('');
+        $("#tipousr").val(1);
+        $('#tipousr').formSelect();
         $("#modalReg").modal('open');
         $("#nomusuario").focus();
     });
@@ -53,20 +54,30 @@ function init() {
 
     });
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+table.on('click', '.edit', function () {
+    $tr = $(this).closest('tr');
+    table.row($tr).remove().draw();
+});
+
     $(document).on("click", '.edit', function(){
         var idusuario = $(this).attr("data-id");
-        var nombre = $(this).attr("data-nomusuario");
-        var correo = $(this).attr("data-correousuario");
-        var pwd = $(this).attr("data-pwdusuario");
-        var domicilio = $(this).attr("data-domusuario");
-        var tipousr = $(this).attr("data-tipousr");
+        var nombre = $(this).attr("data-nom");
+        var correo = $(this).attr("data-corr");
+        var pwd = $(this).attr("data-cont");
+        var domicilio = $(this).attr("data-dom");
+        var tipousr = $(this).attr("data-tipo");
         $("#idusuario").val(idusuario);
         $('#nomusuario').val(nombre);
-        $('#correousuario').val(correo);
-        $("#pwdusuario").val(pwd);
-        $("#domusuario").val(domicilio);
+        $('#correo').val(correo);
+        $("#contraseña").val(pwd);
+        $("#domicilio").val(domicilio);
         $("#tipousr").val(tipousr);
+        $('#tipousr').formSelect();
         $('#modalReg').modal('open');
+        $('#correo').focus();
+        $("#contraseña").focus();
+        $("#domicilio").focus();
         $('#nomusuario').focus();           
     }); 
 }
@@ -100,6 +111,7 @@ function validateform() {
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function saveClick() {
+    
     var id = $("#idusuario").val();
     if (id > 0) {
         var urls =  editarUsuario;
@@ -128,25 +140,30 @@ function saveClick() {
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function setRow(data, action) {
+    var tipousr = $(this).attr("data-tipo");
+    console.log(action);
     if (action == 'insert') {
+        console.log("insert");
         var row = table.row.add([
+            data.idusuario,
             data.nomusuario,
-            data.correousuario,
-            data.pwdusuario,
-            data.domusuario,
+            data.correo,
+            data.contraseña,
+            data.domicilio,
             data.tipousr,
-            '<i class="material-icons edit" data-id="' + data.idusuario + '" data-nomusuario"' + data.nomusuario + '" data-correousuario"' + data.correousuario + '" data-pwdusuario"' + data.pwdusuario + '"  data-domusuario"' + data.domusuario + '" data-tipousr"' + data.idtipousr + '">create</i>' +
-            '<i class="material-icons delete" data-id="' + data.idusuario + '">delete_forever</i>'
+            '<i class="material-icons edit" data-id="' + data.idusuario + '" data-nom="' +  data.nomusuario + '"data-corr="' + data.correo + '" data-cont="' + data.contraseña + '" data-dom="' + data.domicilio + '" data-tipo="' + tipousr + '">create</i>' +
+            '<i class="material-icons delete" data-id="' + data.idempresa + '">delete_forever</i>'
         ]).draw().node();
-        $(row).attr('data-id', data.idusuario);
-        usuarios[data.idusuario] = {
+        $(row).attr('data-id', data.idempresa);
+        usuario[data.idusuario] = {
             "data-id": data.idusuario,
-            "data-nomusuario": data.nomusuario,
-            "data-correousuario": data.correousuario,
-            "data-pwdusuario": data.pwdusuario,
-            "data-domusuario": data.domusuario,
-            "data-tipousr":data.idtipousr,
+            "data-nom": data.nomusuario,
+            "data-corr":  data.correo,
+            "data-cont": data.contraseña,
+            "data-dom": data.domicilio,
+            "data-tipo":tipousr,
         }
+        alert(row);
     }//Fin primer if
     if (action == 'delete') {
         console.log("delete");
@@ -157,8 +174,9 @@ function setRow(data, action) {
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function reset() {
     $("#nomusuario").val('');
-    $("#correousuario").val('');
-    $("#pwdusuario").val('');
-    $("#domusuario").val('');
-    $("#tipousr").val('');
+        $("#correo").val('');
+        $("#contraseña").val('');
+        $("#domicilio").val('');
+        $("#tipousr").val(1);
+        $('#tipousr').formSelect();
 }

@@ -17,6 +17,7 @@
                     <table id="usr" class="highlight border datatable">
                         <thead>
                             <tr>
+                            <th style="width:20%">ID</th>
                             <th style="width:20%">Nombre</th>
                             <th style="width:20%">Correo</th>
                             <th style="width:20%">Contraseña</th>
@@ -29,13 +30,14 @@
                         <tbody>
                             {% for usuarios in content['usuarios'] %}
                             <tr >
+                            <td>{{ usuarios.idusuario }}</td>
                             <td>{{ usuarios.nomusuario }}</td>
                             <td>{{ usuarios.correo }}</td>
                             <td>{{ usuarios.contraseña }}</td>
                             <td>{{ usuarios.domicilio }}</td>
-                            <td>{{ usuarios.idtipousr }}</td>
+                            <td>{{ usuarios.tipousr }}</td>
                             <td>
-                              <i class = "material-icons edit" data-id="{{ usuarios['idusuario'] }}" data-nomusuario="{{ usuarios['nomusuario'] }}" data-correousuario="{{ usuarios['correo'] }}" data-pwdusuario="{{ usuarios['contraseña'] }}" data-domusuario="{{ usuarios['domicilio'] }}" >create</i>
+                              <i class = "material-icons edit" data-id="{{ usuarios['idusuario'] }}" data-nom="{{ usuarios['nomusuario'] }}" data-corr="{{ usuarios['correo'] }}" data-cont="{{ usuarios['contraseña'] }}" data-dom="{{ usuarios['domicilio'] }}" data-tipo="{{ usuarios['idtipousr'] }}" >create</i>
                               <i class = "material-icons delete" data-id="{{ usuarios['idusuario'] }}" >delete_forever</i>
                             </td>
                             </tr>
@@ -61,20 +63,28 @@
                     </div>
                     <div class="input-field s12">
                     <i class="material-icons prefix">mail</i>
-                        <input type="text" id="correousuario" name="correousuario" class="validate">
+                        <input type="text" id="correo" name="correo" class="validate">
                         <label for="correousuario">Correo Usuario:</label>
                     </div>
-                    <div class="input-field s12">
-                    <i class="material-icons prefix">lock_outline</i>
-                        <input type="password" id="pwdusuario" name="pwdusuario" class="validate">
-                        <label for="pwdusuario">Contraseña Usuario:</label>
-                    </div>
+                    
                     <div class="input-field s12">
                     <i class="material-icons prefix">edit_location</i>
-                       
-                        <input type="text" id="domusuario" name="domusuario" class="validate">
+                        <input type="text" id="domicilio" name="domicilio" class="validate">
                         <label for="domusuario">Domicilio Usuario:</label>
-                         <input type="hidden" id="tipousr" name="tipousr" value=1>
+                    </div>
+                    <div class="input-field col s6">
+                    <i class="material-icons prefix">lock_outline</i>
+                        <input type="password" id="contraseña" name="contraseña" class="validate">
+                        <label for="pwdusuario">Contraseña Usuario:</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">people</i>
+                        <select id="tipousr" name="tipousr">
+                         {% for usuarios in content['tipousuario'] %}
+                            <option value="{{ usuarios.idtipousr }}">{{ usuarios.tipousr }}</option>
+                         {% endfor %}
+                        </select>
+                        <label>Tipo de usuario</label>
                     </div>
                 </div>
             </form>
@@ -86,6 +96,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/new.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>

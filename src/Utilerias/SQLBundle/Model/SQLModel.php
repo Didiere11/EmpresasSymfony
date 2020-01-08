@@ -27,7 +27,8 @@ class SQLModel {
         $qry .= ' "' . $this->schema . '"."' . $table . '" ';
         $qry .= $this->buildWhere($where);
         $qry .= $this->buildOrderBy($order);
-        
+        //print_r($qry);
+        //die();
         return $this->PGModel->execQueryString($qry);
     }
 

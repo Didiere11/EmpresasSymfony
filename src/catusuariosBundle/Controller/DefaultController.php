@@ -27,15 +27,20 @@ class DefaultController extends Controller
         $data = array(
             //--en BD-----------------en formulario
             "nomusuario"=> "'" . $post["nomusuario"] . "'",
-            "correo"=> "'" . $post["correousuario"] . "'",
-            "contraseña"=> "'" . $post["pwdusuario"] . "'",
-            "domicilio"=> "'" . $post["domusuario"] . "'",
+            "correo"=> "'" . $post["correo"] . "'",
+            "contraseña"=> "'" . $post["contraseña"] . "'",
+            "domicilio"=> "'" . $post["domicilio"] . "'",
             "idtipousr"=> "'" . $post["tipousr"] . "'"
         );
         
        
         $result = $this->UsuarioModel->insertUsuario($data);
+        $dataa = array(
+            "idtipousr"=> "'" . $post["tipousr"] . "'"
+        );
+        $tipo = $this->UsuarioModel->getTipo($dataa);
         $post['idusuario']=$result["data"][0]['idusuario'];
+        $post['tipousr']=$tipo["data"][0]['tipousr'];
         if ($result['status']==1) {
             //print_r($result['data']);
             //die();
@@ -52,11 +57,12 @@ class DefaultController extends Controller
         }
     }
     public function catusuariosAction()
-    {
-        $result = $this->UsuarioModel->getUsuarios();
+    {   $result = $this->UsuarioModel->getUsuarios();
+        $tipo = $this->UsuarioModel->getTipoUsr();
+        $tipousuario = $tipo['data'];
         $usuarios = $result['data'];
+        $content['tipousuario'] = $tipousuario;
         $content['usuarios'] = $usuarios;
-       
         return $this->render('catusuariosBundle:Default:catusuarios.html.twig', array('content' => $content));
     }
 
@@ -84,29 +90,33 @@ class DefaultController extends Controller
     public function editarUsuarioAction(Request $request){
         //extraccion de parametros
     $post = $request->request->all();    
-    
-   
     $data = array(
          //--en BD-----------------en formulario
-         "nomusuario"=> "'" . $post["nomusuario"] . "'",
-         "correo"=> "'" . $post["correousuario"] . "'",
-         "contraseña"=> "'" . $post["pwdusuario"] . "'",
-         "domicilio"=> "'" . $post["domusuario"] . "'",
-         "idtipousr"=> "'" . $post["tipousr"] . "'"
+        "nomusuario"=> "'" . $post["nomusuario"] . "'",
+        "correo"=> "'" . $post["correo"] . "'",
+        "contraseña"=> "'" . $post["contraseña"] . "'",
+        "domicilio"=> "'" . $post["domicilio"] . "'",
+        "idtipousr"=> "'" . $post["tipousr"] . "'"
     );
+    
     $id = array(
         "idusuario"=> "'" .$post["idusuario"]."'");
-        print_r($id);
-        die();
     $result = $this->UsuarioModel->editarUsuario($data,$id);
+    $dataa = array(
+        "idtipousr"=> "'" . $post["tipousr"] . "'"
+    );
+    $tipo = $this->UsuarioModel->getTipo($dataa);
+    $post['idusuario']=$result["data"][0]['idusuario'];
+    $post['tipousr']=$tipo["data"][0]['tipousr'];
    
-    if ($result['status']) {
+    if ($result['status']==1) {
+        
         $result['data'] = $post;
+        print_r($post);
+        die();
         $result['status'] = TRUE;
         $result['message']="Guardado con exito";
     }else{
-        print_r($result["data"]);
-            die();
         $result['status'] = FALSE;
         $result['message']="ERROR";
     }

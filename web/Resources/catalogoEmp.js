@@ -10,16 +10,6 @@ function init(){
         "aLengthMenu": [[10, 25, 50, 75, 100], [10, 25, 50, 75, 100]],
         "iDisplayLength": 15
     });
-    //console.log(urlvalidausr);
-
-    // Inicializa el NavBar
-    $(document).ready(function(){
-        $('.sidenav').sidenav();
-        $("#frm-content").serialize();
-    });
-    
-    
-    
     //Iniciliza la ventana Modal y la Validación
     $("#modalRegistro").modal();
     validateForm();
@@ -67,19 +57,19 @@ function init(){
 function validateForm(){
     $('#frm-registro').validate({
         rules: {
-            'nomempresa': { required: true },
-            'dirempresa': { required: true },
-            'correoempresa': { required: true },
-            'descripempresa': { required: true },
-            'telefonoempresa': { required: true },
+            'nomempresa': {  required: true, minlength: 4, maxlength: 120 },
+            'dirempresa': { required: true, minlength: 4, maxlength: 120 },
+            'correoempresa': { required: true, email: true, minlength: 4, maxlength: 120 },
+            'descripempresa': { required: true, minlength: 4, maxlength: 120 },
+            'telefonoempresa': { required: true, number:true,minlength: 10, maxlength: 10 },
         },
 
         messages: {
-            'nomempresa': { required: 'Ingresar el nombre de la empresa' },
-            'dirempresa': { required: 'Ingresar la direccion de la Empresa' },
-            'correoempresa': { required: 'Ingresar el correo de la empresa' },
-            'descripempresa': { required: 'Ingresar una brebe descripcion de la empresa' },
-            'telefonoempresa': { required: 'ingresar numero telefonico' }
+            'nomempresa': { required: 'Ingresar el nombre de la empresa', minlength: 'ingrese minimo 4 caracteres', maxlength: 'Ingrese maximo 120 caracteres'},
+            'dirempresa': { required: 'Ingresar la direccion de la Empresa' , minlength: 'ingrese minimo 4 caracteres', maxlength: 'Ingrese maximo 120 caracteres' },
+            'correoempresa': { required: 'Ingresar el correo del Empresa', email: 'Ingrese una direccion de correo valida', minlength: 'ingrese minimo 4 caracteres', maxlength: 'Ingrese maximo 120 caracteres' },
+            'descripempresa': {  required: 'Ingresar la descripcion de la empresa', minlength: 'ingrese minimo 4 caracteres', maxlength: 'Ingrese maximo 250 caracteres' },
+            'telefonoempresa': { required: 'ingresar numero telefonico',number: 'Ingresar puros caracteres de tipo numerico', minlength: 'ingresar numero telefonico a 10 caracteres', maxlength: 'Ingresar numero telefonico a 10 caracteres' }
         },
         errorElement: "div",
         errorClass: "invalid",
@@ -112,7 +102,6 @@ function saveData(){
                     M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
                     limpiar();
                     $("#modalRegistro").modal('close');
-
                     setRow(response['data'], 'insert');
                 }
                 else{
