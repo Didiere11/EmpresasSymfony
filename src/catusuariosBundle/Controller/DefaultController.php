@@ -112,8 +112,8 @@ class DefaultController extends Controller
     if ($result['status']==1) {
         
         $result['data'] = $post;
-        print_r($post);
-        die();
+        //print_r($post);
+        //die();
         $result['status'] = TRUE;
         $result['message']="Guardado con exito";
     }else{

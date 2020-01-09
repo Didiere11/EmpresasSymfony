@@ -29,7 +29,7 @@ function init(){
     });
     table.on('click', '.edit', function () {
         $tr = $(this).closest('tr');
-        table.row($tr).remove().draw();
+        
     });
     $(document).on("click", '.edit', function(){
         var IdEmpresa = $(this).attr("data-id");
@@ -45,6 +45,10 @@ function init(){
         $("#descripempresa").val(descripcion);
         $("#telefonoempresa").val(telefono);
         $('#modalRegistro').modal('open');
+        $('#dirempresa').focus();
+        $("#correoempresa").focus();
+        $("#descripempresa").focus();
+        $("#telefonoempresa").focus();
         $('#nomempresa').focus();           
     });
     // clic del boton de guardar
@@ -102,7 +106,9 @@ function saveData(){
                     M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
                     limpiar();
                     $("#modalRegistro").modal('close');
+                    table.row($tr).remove().draw();
                     setRow(response['data'], 'insert');
+                    
                 }
                 else{
                     M.toast({html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000});

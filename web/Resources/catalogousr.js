@@ -57,7 +57,6 @@ function init() {
 
 table.on('click', '.edit', function () {
     $tr = $(this).closest('tr');
-    table.row($tr).remove().draw();
 });
 
     $(document).on("click", '.edit', function(){
@@ -72,7 +71,7 @@ table.on('click', '.edit', function () {
         $('#correo').val(correo);
         $("#contraseña").val(pwd);
         $("#domicilio").val(domicilio);
-        $("#tipousr").val(tipousr);
+        //$("#tipousr").val(tipousr);
         $('#tipousr').formSelect();
         $('#modalReg').modal('open');
         $('#correo').focus();
@@ -130,6 +129,7 @@ function saveClick() {
                 M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
                 reset();
                 $("#modalReg").modal('close');
+                table.row($tr).remove().draw();
                 setRow(response['data'], 'insert');
             }
             else {
@@ -151,7 +151,7 @@ function setRow(data, action) {
             data.contraseña,
             data.domicilio,
             data.tipousr,
-            '<i class="material-icons edit" data-id="' + data.idusuario + '" data-nom="' +  data.nomusuario + '"data-corr="' + data.correo + '" data-cont="' + data.contraseña + '" data-dom="' + data.domicilio + '" data-tipo="' + tipousr + '">create</i>' +
+            '<i class="material-icons edit" data-id="' + data.idusuario + '" data-nom="' +  data.nomusuario + '"data-corr="' + data.correo + '" data-cont="' + data.contraseña + '" data-dom="' + data.domicilio + '" data-tipo="' + data.idtipousr + '">create</i>' +
             '<i class="material-icons delete" data-id="' + data.idempresa + '">delete_forever</i>'
         ]).draw().node();
         $(row).attr('data-id', data.idempresa);
@@ -161,8 +161,8 @@ function setRow(data, action) {
             "data-corr":  data.correo,
             "data-cont": data.contraseña,
             "data-dom": data.domicilio,
-            "data-tipo":tipousr,
-        }
+            "data-tipo":data.idtipousr,
+                }
         alert(row);
     }//Fin primer if
     if (action == 'delete') {

@@ -19,10 +19,11 @@ function init(){
 
     // Clic del boton circular Agregar Registro Nuevo formulario modal
     $("#add_record").on("click",function(){
-        $("#correousuario").val('');
         $("#nomusuario").val('');
-        $("#pwdusuario").val('');
-        $("#domusuario").val('');
+        $("#correo").val('');
+        $("#contraseña").val('');
+        $("#domicilio").val('');
+        $("#tipousr").val(1);
         $("#modalReg").modal('open');
         $("#nomusuario").focus();
         
@@ -39,11 +40,11 @@ function init(){
 function validateForm(){
     $('#frm-acceso').validate({
         rules: {
-            correo:{required:true, email:true, minlength:4, maxlength:120},
+            corr:{required:true, email:true, minlength:4, maxlength:120},
             contra:{required:true, minlength:4, maxlength:32},
         },
         messages: {
-            correo:{required:"No puedes dejar este campo vacío",email:"Se requiere correo valido",minlength:"Debes ingresar al menos 4 caracteres", maxlength:"No puedes ingresar más de 120 caracteres"},
+            corr:{required:"No puedes dejar este campo vacío",email:"Se requiere correo valido",minlength:"Debes ingresar al menos 4 caracteres", maxlength:"No puedes ingresar más de 120 caracteres"},
             contra:{required:"No puedes dejar este campo vacío",minlength:"Debes ingresar al menos 4 caracteres", maxlength:"No puedes ingresar más de 32 caracteres"},
         },
         errorElement: "div",
@@ -58,16 +59,16 @@ function validateForm(){
     $("#frmUsr").validate({
         rules: {
             'nomusuario': { required: true, minlength:4, maxlength:120 },
-            'correousuario': { required: true, email:true, minlength:4, maxlength:120},
-            'pwdusuario': { required: true, minlength:4, maxlength:40},
-            'domusuario': { required: true, minlength:4, maxlength:250},      
+            'correo': { required: true, email:true, minlength:4, maxlength:120},
+            'contraseña': { required: true, minlength:4, maxlength:40},
+            'domicilio': { required: true, minlength:4, maxlength:250},      
         },
 
         messages: {
             'nomusuario': { required: 'Ingresar el nombre del usuario', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 120 caracteres' },
-            'correousuario': { required: 'Ingresar el correo del usuario', email:'Ingrese una direccion de correo valida', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 120 caracteres' },
-            'pwdusuario': { required: 'Ingresar la contraeña del usuario', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 40 caracteres' },
-            'domusuario': { required: 'Ingresar el domicilio del usuario', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 250 caracteres'  },
+            'correo': { required: 'Ingresar el correo del usuario', email:'Ingrese una direccion de correo valida', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 120 caracteres' },
+            'contraseña': { required: 'Ingresar la contraeña del usuario', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 40 caracteres' },
+            'domicilio': { required: 'Ingresar el domicilio del usuario', minlength:'ingrese minimo 4 caracteres', maxlength:'Ingrese maximo 250 caracteres'  },
         },
         errorElement: "div",
         errorClass: "invalid",
@@ -84,14 +85,14 @@ function validateForm(){
 function saveClick() {
     $.ajax({
         type:"post",
-        url:urllogin,
+        url:insertarUsuario,
         dataType:'json',
         data: $("#frmUsr").serialize(),
         success: function(response){
             if (response['status']==1){
-               $("#nomusuario").val($("#nomusuario").val());
                 M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
                 $("#modalReg").modal('close');
+                reset();    
             }
             else{
                 M.toast({html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000});
@@ -123,4 +124,11 @@ function validaData(){
             }
         }
     });
+}
+function reset() {
+    $("#nomusuario").val('');
+    $("#correo").val('');
+    $("#contraseña").val('');
+    $("#domicilio").val('');
+    $("#tipousr").val(1);   
 }

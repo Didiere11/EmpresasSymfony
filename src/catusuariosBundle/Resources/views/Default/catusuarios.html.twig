@@ -35,7 +35,7 @@
                             <td>{{ usuarios.correo }}</td>
                             <td>{{ usuarios.contraseña }}</td>
                             <td>{{ usuarios.domicilio }}</td>
-                            <td>{{ usuarios.tipousr }}</td>
+                            <td id="{{ usuarios['idtipousr'] }}">{{ usuarios.tipousr }}</td>
                             <td>
                               <i class = "material-icons edit" data-id="{{ usuarios['idusuario'] }}" data-nom="{{ usuarios['nomusuario'] }}" data-corr="{{ usuarios['correo'] }}" data-cont="{{ usuarios['contraseña'] }}" data-dom="{{ usuarios['domicilio'] }}" data-tipo="{{ usuarios['idtipousr'] }}" >create</i>
                               <i class = "material-icons delete" data-id="{{ usuarios['idusuario'] }}" >delete_forever</i>

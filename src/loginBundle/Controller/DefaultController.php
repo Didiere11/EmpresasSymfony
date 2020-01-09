@@ -49,6 +49,7 @@ class DefaultController extends Controller
         
     }
     
+    
     public function loginAction(Request $request)
     {
         if ($request->getMethod() == 'POST') {
@@ -56,7 +57,7 @@ class DefaultController extends Controller
             $post = $request->request->all();
             
             $data = array(
-                "correo"=> "'" . $post["correo"] . "'",
+                "correo"=> "'" . $post["corr"] . "'",
                 "contraseña"=> "'" . $post["contra"] . "'"
             );
             $result = $this->UsuarioModel->getUsuarios($data);

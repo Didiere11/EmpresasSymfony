@@ -20,7 +20,7 @@
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">account_circle</i>
                                
-                                <input type="email" id="correo" name="correo" class="validate">
+                                <input type="email" id="corr" name="corr" class="validate">
                                 <label for="correo">Correo electronico:</label>
                             </div>
                             <div class="input-field col s12">
@@ -48,29 +48,30 @@
         <div class="modal-content">
             <h4 align="center">Usuarios</h4>
             <br>
-            <form method="post" id="frmUsr">
+           <form method="post" id="frmUsr">
                 <div class="row">
                     <div class="input-field s12">
                     <i class="material-icons prefix">account_circle</i>
-                        <input type="hidden" id="pk" name="pk">
+                        <input type="hidden" id="idusuario" name="idusuario">
                         <input type="text" id="nomusuario" name="nomusuario" class="validate">
                         <label for="nomusuario">Nombre Usuario:</label>
                     </div>
                     <div class="input-field s12">
                     <i class="material-icons prefix">mail</i>
-                        <input type="text" id="correousuario" name="correousuario" class="validate">
-                        <label for="correousuario">Correo Usuario:</label>
+                        <input type="text" id="correo" name="correo" class="validate">
+                        <label for="correo">Correo Usuario:</label>
                     </div>
-                    <div class="input-field s12">
-                    <i class="material-icons prefix">lock_outline</i>
-                        <input type="password" id="pwdusuario" name="pwdusuario" class="validate">
-                        <label for="pwdusuario">Contraseña Usuario:</label>
-                    </div>
+                    
                     <div class="input-field s12">
                     <i class="material-icons prefix">edit_location</i>
-                     <input type="hidden" id="tipousr" name="tipousr" value=1>
-                        <input type="text" id="domusuario" name="domusuario" class="validate">
-                        <label for="domusuario">Domicilio Usuario:</label>
+                        <input type="text" id="domicilio" name="domicilio" class="validate">
+                        <label for="domicilio">Domicilio Usuario:</label>
+                    </div>
+                    <div class="input-field col s6">
+                    <i class="material-icons prefix">lock_outline</i>
+                        <input type="hidden" id="tipousr" name="tipousr">
+                        <input type="password" id="contraseña" name="contraseña" class="validate">
+                        <label for="contraseña">Contraseña Usuario:</label>
                     </div>
                 </div>
             </form>
