@@ -82,20 +82,35 @@
                         <label for="telefonoempresa">Telefono Empresa:</label>
                     </div>
                     <div class="input-field_col_s12">
-                    <i class="material-icons prefix">photo</i>
-                    <input type="file" name="addfile" id="addfile">
-                    <label for="arch">Foto:</label>
-                </div>
+                        <i class="material-icons prefix">photo</i>
+                        <input type="file" name="addfile" id="addfile">
+                        <label for="arch">Foto:</label>
+                    </div>
                 </div>
             </form>
             <div class="modal-footer">
                 <a id="guardar" class="modal-action waves-effect waves-green btn-flat" >Guardar</a>
             </div>
             <form id="archivo" style="display:none">
-        <input type="file" id="archivo" name ="archivo">
-        </form>
+                <input type="file" id="archivo" name ="archivo">
+            </form>
         </div>
    </div>
+
+<div class="modal" id="modalVer">
+       <div class="modal-content">
+           <h4 align="center">¿Eliminar el Registro? </h4>
+            <div class="modal-footer">
+                <a id="rechazar" class="btn-large waves-effect waves-light right red">
+                   <i class="material-icons">close</i> 
+                </a>
+
+                <a id="aceptar" class="btn-largewaves-effect waves-light right green">
+                   <i class="material-icons">done</i> 
+                </a>
+            </div>
+        </div>
+</div>
 
 
 {% endblock %}

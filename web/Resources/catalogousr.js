@@ -51,7 +51,6 @@ function init() {
 
     $("#guardar").on("click", function () {
         $("#frmUsr").submit();
-
     });
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -71,7 +70,7 @@ table.on('click', '.edit', function () {
         $('#correo').val(correo);
         $("#contraseña").val(pwd);
         $("#domicilio").val(domicilio);
-        //$("#tipousr").val(tipousr);
+        $("#tipousr").val(tipousr);
         $('#tipousr').formSelect();
         $('#modalReg').modal('open');
         $('#correo').focus();
@@ -125,12 +124,20 @@ function saveClick() {
         data: $("#frmUsr").serialize(),
         success: function (response) {
             if (response['status'] == 1) {
-                $("#nomusuario").val($("#nomusuario").val());
-                M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
-                reset();
-                $("#modalReg").modal('close');
-                table.row($tr).remove().draw();
-                setRow(response['data'], 'insert');
+                if (urls==editarUsuario) {
+                    $("#nomusuario").val($("#nomusuario").val());
+                    M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
+                    reset();
+                    $("#modalReg").modal('close');
+                    table.row($tr).remove().draw();
+                    setRow(response['data'], 'insert');
+                }else{
+                    $("#nomusuario").val($("#nomusuario").val());
+                    M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
+                    reset();
+                    $("#modalReg").modal('close');
+                    setRow(response['data'], 'insert');
+                }
             }
             else {
                 M.toast({ html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000 });

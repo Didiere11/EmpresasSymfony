@@ -25,7 +25,7 @@ class DefaultController extends Controller
     public function insertarEmpresaAction(Request $request){
         if ($request->getMethod() == 'POST') {
             //extraccion de parametros
-            $post = $request->request->all();     
+            $post = $request->request->all();  
         $data = array(
             "nomempresa"=> "'" . $post["nomempresa"] . "'",
             "dirempresa"=> "'" . $post["dirempresa"] . "'",

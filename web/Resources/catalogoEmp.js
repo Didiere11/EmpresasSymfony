@@ -102,12 +102,22 @@ function saveData(){
             data: $("#frm-registro").serialize(),
             success: function(response){
                 if (response['status']==1){
-                   $("#nomempresa").val($("#nomempresa").val());
-                    M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
-                    limpiar();
-                    $("#modalRegistro").modal('close');
-                    table.row($tr).remove().draw();
-                    setRow(response['data'], 'insert');
+                    if (urls==editaEmpresa) {
+                        $("#nomempresa").val($("#nomempresa").val());
+                        M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
+                        limpiar();
+                        $("#modalRegistro").modal('close');
+                        table.row($tr).remove().draw();
+                        setRow(response['data'], 'insert');
+                    }else{
+                        $("#nomempresa").val($("#nomempresa").val());
+                        M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
+                        limpiar();
+                        $("#modalRegistro").modal('close');
+                        setRow(response['data'], 'insert');
+
+                    }
+                   
                     
                 }
                 else{
