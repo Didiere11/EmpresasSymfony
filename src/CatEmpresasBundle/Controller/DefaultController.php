@@ -1,14 +1,10 @@
 <?php
-
 namespace CatEmpresasBundle\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Utilerias\SQLBundle\Model\SQLModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use CatEmpresasBundle\Model\EmpresaModel;
-
-
 class DefaultController extends Controller
 {
     protected $EmpresaModel;
@@ -21,11 +17,10 @@ class DefaultController extends Controller
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
-
     public function insertarEmpresaAction(Request $request){
         if ($request->getMethod() == 'POST') {
             //extraccion de parametros
-            $post = $request->request->all();     
+            $post = $request->request->all();  
         $data = array(
             "nomempresa"=> "'" . $post["nomempresa"] . "'",
             "dirempresa"=> "'" . $post["dirempresa"] . "'",

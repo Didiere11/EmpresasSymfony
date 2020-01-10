@@ -177,5 +177,3 @@ function limpiar(){
         $("#descripempresa").val('');
         $("#telefonoempresa").val('');
 }
-
-

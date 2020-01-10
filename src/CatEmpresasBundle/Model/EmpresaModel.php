@@ -1,12 +1,8 @@
 <?php
-
 namespace CatEmpresasBundle\Model;
-
 use Utilerias\SQLBundle\Model\SQLModel;
-
 class EmpresaModel {
     protected $SQLModel;
-
     public function __construct() {
         $this->SQLModel = new SQLModel();       
     }
