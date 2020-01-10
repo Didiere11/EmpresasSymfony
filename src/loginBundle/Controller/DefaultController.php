@@ -45,10 +45,8 @@ class DefaultController extends Controller
             $result['message']="ERROR";
         }
         return $this->jsonResponse($result);
-        }
-        
+        }   
     }
-    
     
     public function loginAction(Request $request)
     {
