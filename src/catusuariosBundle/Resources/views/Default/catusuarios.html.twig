@@ -17,7 +17,6 @@
                     <table id="usr" class="highlight border datatable">
                         <thead>
                             <tr>
-                            <th style="width:20%">ID</th>
                             <th style="width:20%">Nombre</th>
                             <th style="width:20%">Correo</th>
                             <th style="width:20%">Contraseña</th>
@@ -30,7 +29,7 @@
                         <tbody>
                             {% for usuarios in content['usuarios'] %}
                             <tr >
-                            <td>{{ usuarios.idusuario }}</td>
+                           
                             <td>{{ usuarios.nomusuario }}</td>
                             <td>{{ usuarios.correo }}</td>
                             <td>{{ usuarios.contraseña }}</td>
@@ -50,6 +49,7 @@
     </div>
    <!--F o r m u l a r i o        M o d a l-->
    <div class="modal" id="modalReg">
+  
         <div class="modal-content">
             <h4 align="center">Usuarios</h4>
             <br>
@@ -89,8 +89,25 @@
                 </div>
             </form>
             <div class="modal-footer">
-                <a id="guardar" class="modal-action waves-effect waves-green btn-flat" >Guardar</a>
+                <a id="cancelar" class="modal-action waves-effect waves-red btn-flat" >Cancelar</a>
+                <a id="guardar" class="modal-action waves-effect waves-green btn-flat" >Guardar</a>         
             </div>
+            
+        </div>
+   </div>
+
+   <!--F o r m u l a r i o        M o d a l-->
+
+    <div class="modal" id="modalconfirmacion">
+  
+        <div class="modal-content">
+            <h4 align="center">¿De verdad desea Eliminar el usuario?</h4>
+ 
+            <div class="modal-footer">
+                <a id="cancelarconf" class="modal-action waves-effect waves-red btn-flat" >Cancelar</a>
+                <a id="guardarconf" class="modal-action waves-effect waves-green btn-flat" >Guardar</a>         
+            </div>
+            
         </div>
    </div>
 {% endblock %}
