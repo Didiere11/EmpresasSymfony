@@ -23,85 +23,92 @@ class DefaultController extends Controller
     }
 
     public function insertarEmpresaAction(Request $request){
-        if ($request->getMethod() == 'POST') {
-            //extraccion de parametros
-            $post = $request->request->all();  
-        $data = array(
-            "nomempresa"=> "'" . $post["nomempresa"] . "'",
-            "dirempresa"=> "'" . $post["dirempresa"] . "'",
-            "correoempresa"=> "'" . $post["correoempresa"] . "'",
-            "descripempresa"=> "'" . $post["descripempresa"] . "'",
-            "telefonoempresa"=> "'" . $post["telefonoempresa"] . "'"
+        $post =$request->request->all();
+        $tmp = $_FILES['archivo']["tmp_name"];
+        $tmp = file_get_contents($tmp);
+        $base64 = base64_encode($tmp);
+        $data_Empresas = array(
+            "nombreempresa" => "'" . $post["nombre"] . "'",
+            "direccionempresa" =>"'". $post["direccion"]."'",
+            "descripcionempresa" =>"'". $post["descripcion"]."'",
+            "telefonoempresa" => "'".$post["telefono"]."'",
+            "correoempresa" => "'".$post["correo"]."'",
+
         );
-        
-        $result = $this->EmpresaModel->insertEmpresa($data);
-        $post['idempresa']=$result["data"][0]['idempresa'];
-        if ($result['status']) {
-            $result['data'] = $post; 
-            $result['status'] = TRUE;
-            $result['message']="Guardado con exito";
-        }else{
-            $result['status'] = FALSE;
-            $result['message']="ERROR";
+        $result_Empresas = $this->EmpresaModel->insertarEmpresas($data_Empresas);
+        $post['idempresa']=$result_Empresas["data"][0]['idempresa'];
+        if ($result_Empresas['status']) {
+            $data_img = array(
+                "idempresa" => $result_Empresas["data"][0]["idempresa"] ,
+                "formatoimagen" =>"'".  $_FILES['archivo']["type"]."'",
+                "rutaimagen" =>"'".$base64."'",
+            );
+            $result = $this->EmpresaModel->insertImagen($data_img);
+            $result['status']=true;
+            $result['data']=$post;
+            
+
+        } else {
+            $result_Empresas['status'] = FALSE;
+            $result_Empresas['error'] = "Error";
         }
         return $this->jsonResponse($result);
-        }
-        
+
     }
     public function editarEmpresaAction(Request $request){
-            //extraccion de parametros
-        $post = $request->request->all();    
-        
-       // print_r($id);
-        //die();
-        $data = array(
-            "nomempresa"=> "'" . $post["nomempresa"] . "'",
-            "dirempresa"=> "'" . $post["dirempresa"] . "'",
-            "correoempresa"=> "'" . $post["correoempresa"] . "'",
-            "descripempresa"=> "'" . $post["descripempresa"] . "'",
-            "telefonoempresa"=> "'" . $post["telefonoempresa"] . "'"
-        );
-        $id = array(
-            "idempresa"=> "'" .$post["idempresa"]."'");
-        $result = $this->EmpresaModel->editarEmpresa($data,$id);
+        $post =$request->request->all();
        
-        if ($result['status']) {
-            $result['data'] = $post;
-            $result['status'] = TRUE;
-            $result['message']="Guardado con exito";
-        }else{
-            $result['status'] = FALSE;
-            $result['message']="ERROR";
+        $tmp = $_FILES['archivo']["tmp_name"];
+        $tmp = file_get_contents($tmp);
+        $base64 = base64_encode($tmp);
+        $data_Empresas = array(
+            "nombreempresa" => "'" . $post["nombre"] . "'",
+            "direccionempresa" =>"'". $post["direccion"]."'",
+            "descripcionempresa" =>"'". $post["descripcion"]."'",
+            "telefonoempresa" => "'".$post["telefono"]."'",
+            "correoempresa" => "'".$post["correo"]."'",
+         
+        );
+        $where=array("idempresa" => "'".$post["idempresa"]."'");
+
+        $result_Empresas = $this->EmpresaModel->actualizarEmpresas($data_Empresas,$where);
+
+        if ($result_Empresas['status']) {
+            $data_img = array(
+               
+                "formatoimagen" =>"'".  $_FILES['archivo']["type"]."'",
+                "rutaimagen" =>"'".$base64."'",
+            );
+            $result = $this->EmpresaModel->actualizarImagenes($data_img,$where);
+            $result['status']=true;
+            $result['data']=$post;
+
+        } else {
+            $result_Empresas['status'] = FALSE;
+            $result_Empresas['error'] = "Error";
         }
         return $this->jsonResponse($result);
-        
-        
+
+
     }
     public function eliminarEmpresaAction(Request $request){
-        $post = $request->request->all();
-        $data = array(
-            "idempresa"=> "'" . $post["idempresa"] . "'"
-        );
-        //print_r($data);
-        //die();
-        $result = $this->EmpresaModel->eliminarEmpresa($data);
+        $post =$request->request->all();
+        $result = $this->EmpresaModel->eliminarEmpresas($post);
+
         if ($result['status']) {
             $result['data'] = $post;
             $result['status'] = TRUE;
-            $result['message']="Eliminado con exito";
-        }else{
+            $result['message'] = "Elimidado con exito";
+        } else {
             $result['status'] = FALSE;
-            $result['message']="ERRORRRR";
+            $result['error'] = "Error";
         }
         return $this->jsonResponse($result);
-        
-        
     }
     public function catempresasAction(Request $request){
         $result = $this->EmpresaModel->getEmpresas();
-        $empresa = $result['data'];
-        $content['empresa'] = $empresa;
-       
+        $empresas = $result['data'];
+        $content['empresas'] = $empresas;
         return $this->render('CatEmpresasBundle:Default:catempresas.html.twig', array('content' => $content));
     }
 }

@@ -1,191 +1,281 @@
-$(init);
-var table = null;
-var empresas = null;
+// Inicializa el NavBar
+Dropzone.autoDiscover = false;
+var myDropzone;
+var table = "null";
 var tr = null;
-$(document).ready(function () {
-    $('.sidenav').sidenav();
-});
-function init(){
-    table = $("#empre").DataTable({
-        "aLengthMenu": [[10, 25, 50, 75, 100], [10, 25, 50, 75, 100]],
-        "iDisplayLength": 15
-    });
-    //Iniciliza la ventana Modal y la Validación
-    $("#modalRegistro").modal();
+$(document).ready(function() {
+    table = $('#empresas-table').DataTable();
     validateForm();
+    $('.sidenav').sidenav();
+    $("#empresamodal").modal();
+    $("#PreviewImagen").modal();
+    $('#empresas-guardar').on("click", function() {
+        //document.getElementById('empresa-form').reset();
+        $('#empresa-form').submit();
+    });
+    //insertarEmpresa();
+    //actualizarEmpresa();
+});
+$('#empresa-nuevo').on("click", function() {
+    $("#empresamodal").modal({ dismissible: false }).modal('open');
+    insertarEmpresa();
+});
+$('.edit').on("click", function() {
+    var IdEmpresa = $(this).attr("id-edit");
+    pintarDatos(IdEmpresa);
+    $("#empresas-guardar").attr("IdEmpresa", IdEmpresa);
+    $("#empresamodal").modal({ dismissible: false }).modal('open');
+    actualizarEmpresa(IdEmpresa);
+});
 
-    // Clic del boton circular para validar correo y contraseña
+//sirve para editar los servicio
 
-    // Clic del boton circular Agregar Registro Nuevo formulario modal
-    $("#add-record").on("click",function(){
-        $("#nomempresa").val('');
-        $("#dirempresa").val('');
-        $("#correoempresa").val('');
-        $("#descripempresa").val('');
-        $("#telefonoempresa").val('');
-        $("#modalRegistro").modal('open');
-        $("#nomempresa").focus();
-        
-    });
-    table.on('click', '.edit', function () {
-        $tr = $(this).closest('tr');
-        
-    });
-    $(document).on("click", '.edit', function(){
-        var IdEmpresa = $(this).attr("data-id");
-        var nombre = $(this).attr("data-nom");
-        var direccion = $(this).attr("data-dir");
-        var correo = $(this).attr("data-corr");
-        var descripcion = $(this).attr("data-des");
-        var telefono = $(this).attr("data-tel");
-        $("#idempresa").val(IdEmpresa);
-        $('#nomempresa').val(nombre);
-        $('#dirempresa').val(direccion);
-        $("#correoempresa").val(correo);
-        $("#descripempresa").val(descripcion);
-        $("#telefonoempresa").val(telefono);
-        $('#modalRegistro').modal('open');
-        $('#dirempresa').focus();
-        $("#correoempresa").focus();
-        $("#descripempresa").focus();
-        $("#telefonoempresa").focus();
-        $('#nomempresa').focus();           
-    });
-    // clic del boton de guardar
-    $('#guardar').on("click",function(){
-        validateForm();
-        $('#frm-registro').submit();
-    });     
+$('.delete').on("click", function() {
+    var IdEmpresa = $(this).attr("id-record");
+    $("#EliminarSiNo").modal({ dismissible: false }).modal('open');
+    $("#Aceptar").attr("IdEmpresa", IdEmpresa);
+
+
+});
+
+$('#Aceptar').on("click", function() {
+    var IdEmpresa = $(this).attr("IdEmpresa");
+    eliminarEmpresa(IdEmpresa);
+
+
+});
+
+
+$('#Cerrar').on("click", function() {
+    $("#EliminarSiNo").modal('close');
+});
+
+$('#cancelar').on("click", function() {
+    $("#empresamodal").modal('close');
+    reset();
+});
+
+function pintarDatos(IdEmpresa) {
+    $("#nombre").val(Empresas[IdEmpresa]["NombreEmpresa"]).next().addClass("active");
+    $("#direccion").val(Empresas[IdEmpresa]["DireccionEmpresa"]).next().addClass("active");
+    $("#telefono").val(Empresas[IdEmpresa]["TelefonoEmpresa"]).next().addClass("active");
+    $("#correo").val(Empresas[IdEmpresa]["CorreoEmpresa"]).next().addClass("active");
+    $("#descripcion").val(Empresas[IdEmpresa]["DescripcionEmpresa"]).next().addClass("active");
+    var divrow = $('<div/>', {
+        'class': 'row img'
+    }).appendTo('#empresa-form');
+    var divcol = $('<div/>', {
+        'class': 'col s3'
+    }).appendTo(divrow);
+    var divimg = $('<img/>', {
+        'class': '',
+        'src': 'data:' + Empresas[IdEmpresa]["FormatoImagen"] + ';base64,' + Empresas[IdEmpresa]["RutaImagen"],
+        'width': '200',
+        'height': '100'
+    }).appendTo(divrow);
+
+    $("#IdEmpresa").val(IdEmpresa);
 }
- //asignan las reglas
-function validateForm(){
-    $('#frm-registro').validate({
-        rules: {
-            'nomempresa': {  required: true, minlength: 4, maxlength: 120 },
-            'dirempresa': { required: true, minlength: 4, maxlength: 120 },
-            'correoempresa': { required: true, email: true, minlength: 4, maxlength: 120 },
-            'descripempresa': { required: true, minlength: 4, maxlength: 120 },
-            'telefonoempresa': { required: true, number:true,minlength: 10, maxlength: 10 },
-        },
 
+function validateForm() {
+    $('#empresa-form').validate({
+        rules: {
+            nombre: { required: true, minlength: 4, maxlength: 220 },
+            direccion: { required: true, minlength: 4, maxlength: 220 },
+            telefono: { required: true, number: true, minlength: 7, maxlength: 10 },
+            correo: { required: true, email: true },
+            descripcion: { required: true, minlength: 4, maxlength: 250 },
+            addfile: { required: true },
+        },
         messages: {
-            'nomempresa': { required: 'Ingresar el nombre de la empresa', minlength: 'ingrese minimo 4 caracteres', maxlength: 'Ingrese maximo 120 caracteres'},
-            'dirempresa': { required: 'Ingresar la direccion de la Empresa' , minlength: 'ingrese minimo 4 caracteres', maxlength: 'Ingrese maximo 120 caracteres' },
-            'correoempresa': { required: 'Ingresar el correo del Empresa', email: 'Ingrese una direccion de correo valida', minlength: 'ingrese minimo 4 caracteres', maxlength: 'Ingrese maximo 120 caracteres' },
-            'descripempresa': {  required: 'Ingresar la descripcion de la empresa', minlength: 'ingrese minimo 4 caracteres', maxlength: 'Ingrese maximo 250 caracteres' },
-            'telefonoempresa': { required: 'ingresar numero telefonico',number: 'Ingresar puros caracteres de tipo numerico', minlength: 'ingresar numero telefonico a 10 caracteres', maxlength: 'Ingresar numero telefonico a 10 caracteres' }
+            nombre: { required: "No puedes dejar este campo vacío", email: "Se requiere correo valido", minlength: "Debes ingresar al menos 4 caracteres", maxlength: "No puedes ingresar más de 220 caracteres" },
+            direccion: { required: "No se puede dejar el campo vacio", minlength: "Debes ingresar al menos 4 caracteres", maxlength: "No puedes ingresar más de 220 caracteres" },
+            telefono: { required: "No puedes dejar este campo vacío", minlength: "Debes ingresar al menos 7 caracteres", maxlength: "No puedes ingresar más de 10 caracteres" },
+            descripcion: { required: "No puedes dejar este campo vacío", minlength: "Debes ingresar al menos 4 caracteres", maxlength: "No puedes ingresar más de 250 caracteres" },
+            correo: { required: "No puedes dejar este campo vacion", email: "Este campo debe de ser un correo electronico" },
+            addfile: { required: "Favor de agregar una imagen" },
         },
         errorElement: "div",
         errorClass: "invalid",
-        errorPlacement: function(error, element){
-            error.insertAfter(element)                
+        errorPlacement: function(error, element) {
+            error.insertAfter(element)
         },
-        submitHandler: function(form){
-            saveData();   
+        submitHandler: function(form) {
+            myDropzone.processQueue();
         }
     });
+
 }
-// Envia los datos del formulario de registro a la base de datos para insertar o editar depedniendo la accion
-function saveData(){
-        var id = $("#idempresa").val();
 
-        if (id > 0) {
-            var urls= editaEmpresa; 
-        }
-        else{
-            var urls= insertarEmpresa; 
-        }
-        $.ajax({
-            type:"post",
-            url: urls,
-            dataType:'json',
-            data: $("#frm-registro").serialize(),
-            success: function(response){
-                if (response['status']==1){
-                    if (urls==editaEmpresa) {
-                        $("#nomempresa").val($("#nomempresa").val());
-                        M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
-                        limpiar();
-                        $("#modalRegistro").modal('close');
-                        table.row($tr).remove().draw();
-                        setRow(response['data'], 'insert');
-                    }else{
-                        $("#nomempresa").val($("#nomempresa").val());
-                        M.toast({html: 'Registro exitoso', classes: 'rounded', displayLength: 4000});
-                        limpiar();
-                        $("#modalRegistro").modal('close');
-                        setRow(response['data'], 'insert');
+// Limpia los campos al cerrar la modal
+function reset() {
+    $("#nombre").val('');
+    $("#direccion").val('');
+    $("#telefono").val('');
+    $("#descripcion").val('');
+    $("#correo").val('');
+    myDropzone.removeAllFiles(true);
+    $('.img').hide();
 
-                    }
-                   
-                    
-                }
-                else{
-                    M.toast({html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000});
-                }
-            } 
-        });  
-    }
+};
 
-$(document).on("click", '.delete', function(){
-    $tr = $(this).closest('tr');
-    tr = $tr;
-    var idempresa = $(this).attr("data-id");
-    $("#idempresa").val(idempresa);
+
+
+function eliminarEmpresa(IdEmpresa) {
     $.ajax({
-        type: "post",
-        url: eliminaEmpresa,
+        type: "delete",
+        url: urlEliminar,
         dataType: 'json',
-        data: { 'idempresa': idempresa },
-        success: function (result) {
-            if (result['status']) {
-                    table.row($tr).remove().draw();
-                    M.toast({ html: 'Empresa Eliminada', classes: 'rounded blue lighten-2' });
-                } else {
-                    M.toast({ html: 'Error al eliminar empresa', classes: 'rounded blue lighten-2' });
-                }
-        } 
-    });
+        data: { IdEmpresa },
+        success: function(respuesta) {
+            if (respuesta['status']) {
+                M.toast({ html: 'Registro Eliminado con Exito', classes: 'rounded', displayLength: 4000 });
+                var action = "delete";
+                var base64 = "";
+                setRow(respuesta.data, base64, action);
 
-});
-function setRow(data, action) {
-    console.log(action);
-    if (action == 'insert') {
-        console.log("insert");
-        var row = table.row.add([
-            data.idempresa,
-            data.nomempresa,
-            data.dirempresa,
-            data.correoempresa,
-            data.descripempresa,
-            data.telefonoempresa,
-            '<i class="material-icons edit" data-id="' + data.idempresa + '" data-nom="' +  data.nomempresa + '"data-dir="' + data.dirempresa + '" data-corr="' + data.correoempresa + '" data-des="' + data.descripempresa + '" data-tel="' + data.telefonoempresa + '">create</i>' +
-            '<i class="material-icons delete" data-id="' + data.idempresa + '">delete_forever</i>'
-        ]).draw().node();
-        $(row).attr('data-id', data.idempresa);
-        empresas[data.idempresa] = {
-            "data-id":data.idempresa,
-            "data-nom": data.nomempresa,
-            "data-dir": data.dirempresa,
-            "data-corr": data.correoempresa,
-            "data-des": data.descripcion,
-            "data-tel":data.telefonoempresa,
+            } else {
+                M.toast({ html: 'Error al Eliminar ', classes: 'rounded', displayLength: 4000 });
+            }
         }
-        alert(row);
-    }
-    if (action == 'delete') {
-        console.log("delete");
-
-        table.row('#' + data.idempresa).remove.draw();
-    }
+    });
 }
 
-function limpiar(){
-        $("#nomempresa").val('');
-        $("#dirempresa").val('');
-        $("#correoempresa").val('');
-        $("#descripempresa").val('');
-        $("#telefonoempresa").val('');
+function actualizarEmpresa(IdEmpresa) {
+    //Dropzone class
+    pdf = $(".add-file").dropzone({
+        url: urlActualizar,
+        paramName: "archivo",
+        maxFilesize: 5, //MB
+        maxFiles: 1,
+        method: "post",
+        uploadMultiple: false,
+        previewsContainer: false,
+        dictFileTooBig: "Error, el archivo no debe superar los 10MB",
+        dictInvalidFileType: "Error, tipo de formato no aceptado",
+        acceptedFiles: ".jpeg, .png , .jpg",
+        autoProcessQueue: false,
+        data: { IdEmpresa },
+        error: function(file, errorMessage) {
+            M.toast({ html: errorMessage, classes: 'rounded', displayLength: 4000 });
+        },
+        init: function() {
+            myDropzone = this;
+            $("#empresas-guardar").click(function(e) {
+                $('#empresa-form').submit();
+
+            });
+            this.on("sending", function(file, xhr, formData) {
+                var data = $('#empresa-form').serializeArray();
+                // post = post + "&IdEmpresa=" + ;
+                $.each(data, function(key, el) {
+                    formData.append(el.name, el.value);
+                });
+            });
+            this.on("success", function(file) {
+                var res = JSON.parse(file.xhr.response);
+                var base64 = file.dataURL;
+                var data = res.data;
+                if (res.status) {
+                    M.toast({ html: 'Se actualizo con exitoso', classes: 'rounded', displayLength: 4000 });
+                    var action = "update";
+                    setRow(data, base64, action);
+                    reset();
+                    $("#empresamodal").modal('close');
+                } else {
+                    show_alert("warning", res.data);
+                }
+
+            });
+        }
+
+    });
 }
 
+function insertarEmpresa() {
 
+    //Dropzone class
+    pdf = $(".add-file").dropzone({
+        url: urlInsertar,
+        paramName: "archivo",
+        maxFilesize: 15, //MB
+        maxFiles: 1,
+        method: "post",
+        uploadMultiple: false,
+        previewsContainer: false,
+        dictFileTooBig: "Error, el archivo no debe superar los 10MB",
+        dictInvalidFileType: "Error, tipo de formato no aceptado",
+        acceptedFiles: ".jpeg, .png , .jpg",
+        autoProcessQueue: false,
+        error: function(file, errorMessage) {
+            M.toast({ html: errorMessage, classes: 'rounded', displayLength: 4000 });
+
+        },
+        init: function() {
+            myDropzone = this;
+            $("#empresas-guardar").click(function(e) {
+                $('#empresa-form').submit();
+
+            });
+            this.on("sending", function(file, xhr, formData) {
+                var data = $('#empresa-form').serializeArray();
+                $.each(data, function(key, el) {
+                    formData.append(el.name, el.value);
+                });
+            });
+            this.on("success", function(file) {
+                var res = JSON.parse(file.xhr.response);
+                var base64 = file.dataURL;
+                var data = res.data;
+                if (res.status) {
+                    M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
+                    var action = "insert";
+                    setRow(data, base64, action);
+                    reset();
+                    $("#empresamodal").modal('close');
+                } else {
+                    show_alert("warning", res.data);
+                }
+
+            });
+        }
+
+
+    });
+}
+
+function setRow(data, base64, action) {
+    Empresas[data.IdEmpresa] = data;
+
+    if (action === 'insert') {
+        var row = table.row.add([
+            data.IdEmpresa,
+            data.nombre,
+            data.direccion,
+            data.descripcion,
+            data.telefono,
+            data.correo,
+            "<img src='" + base64 + "' width='200' height='100' ></img>",
+            "<a id='editar' name='editar'  id-edit='" + data.IdEmpresa + "' class='edit btn btn-warning'><i class='material-icons'>create</i></a>" +
+            "<a id='eliminar' name='eliminar' id-record='" + data.IdEmpresa + "' class='delete btn btn-danger' ><i class='material-icons'>delete_sweep</i></a>"
+
+        ]).draw().node();
+
+
+    }
+    if (action === 'update') {
+
+        Empresas[data.IdEmpresa] = data;
+        var row = table.row('#' + data.IdEmpresa).node();
+        $(row).find('td:nth-child(1)').text(data.NombreEmpresa);
+        $(row).find('td:nth-child(2)').text(data.DireccionEmpresa);
+        $(row).find('td:nth-child(3)').text(data.DescripcionEmpresa);
+        $(row).find('td:nth-child(4)').text(data.CorreoEmpresa);
+        $(row).find('td:nth-child(5)').text(data.TelefonoEmpresa);
+        $(row).find('td:nth-child(6)').text(data.RutaImagen);
+    }
+    if (action === 'delete') {
+        table.row('#' + data.IdEmpresa).remove().draw();
+    }
+
+}
