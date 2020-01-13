@@ -20,10 +20,11 @@ $('#empresa-nuevo').on("click", function() {
     $("#empresamodal").modal({ dismissible: false }).modal('open');
     insertarEmpresa();
 });
-$('.edit').on("click", function() {
+
+$(document).on("click", '.edit', function(){
     var IdEmpresa = $(this).attr("id-edit");
     pintarDatos(IdEmpresa);
-    $("#empresas-guardar").attr("IdEmpresa", IdEmpresa);
+    $("#empresas-guardar").attr("idempresa", IdEmpresa);
     $("#empresamodal").modal({ dismissible: false }).modal('open');
     actualizarEmpresa(IdEmpresa);
 });
@@ -33,14 +34,14 @@ $('.edit').on("click", function() {
 $('.delete').on("click", function() {
     var IdEmpresa = $(this).attr("id-record");
     $("#EliminarSiNo").modal({ dismissible: false }).modal('open');
-    $("#Aceptar").attr("IdEmpresa", IdEmpresa);
+    $("#Aceptar").attr("idempresa", IdEmpresa);
 
 
 });
 
 $('#Aceptar').on("click", function() {
-    var IdEmpresa = $(this).attr("IdEmpresa");
-    eliminarEmpresa(IdEmpresa);
+    var idempresa = $(this).attr("idempresa");
+    eliminarEmpresa(idempresa);
 
 
 });
@@ -56,11 +57,11 @@ $('#cancelar').on("click", function() {
 });
 
 function pintarDatos(IdEmpresa) {
-    $("#nombre").val(Empresas[IdEmpresa]["NombreEmpresa"]).next().addClass("active");
-    $("#direccion").val(Empresas[IdEmpresa]["DireccionEmpresa"]).next().addClass("active");
-    $("#telefono").val(Empresas[IdEmpresa]["TelefonoEmpresa"]).next().addClass("active");
-    $("#correo").val(Empresas[IdEmpresa]["CorreoEmpresa"]).next().addClass("active");
-    $("#descripcion").val(Empresas[IdEmpresa]["DescripcionEmpresa"]).next().addClass("active");
+    $("#nombre").val(Empresas[IdEmpresa]["nombreempresa"]).next().addClass("active");
+    $("#direccion").val(Empresas[IdEmpresa]["direccionempresa"]).next().addClass("active");
+    $("#telefono").val(Empresas[IdEmpresa]["telefonoempresa"]).next().addClass("active");
+    $("#correo").val(Empresas[IdEmpresa]["correoempresa"]).next().addClass("active");
+    $("#descripcion").val(Empresas[IdEmpresa]["descripcionempresa"]).next().addClass("active");
     var divrow = $('<div/>', {
         'class': 'row img'
     }).appendTo('#empresa-form');
@@ -69,12 +70,12 @@ function pintarDatos(IdEmpresa) {
     }).appendTo(divrow);
     var divimg = $('<img/>', {
         'class': '',
-        'src': 'data:' + Empresas[IdEmpresa]["FormatoImagen"] + ';base64,' + Empresas[IdEmpresa]["RutaImagen"],
+        'src': 'data:' + Empresas[IdEmpresa]["formatoimagen"] + ';base64,' + Empresas[IdEmpresa]["rutaimagen"],
         'width': '200',
         'height': '100'
     }).appendTo(divrow);
 
-    $("#IdEmpresa").val(IdEmpresa);
+    $("#idempresa").val(IdEmpresa);
 }
 
 function validateForm() {
@@ -121,12 +122,12 @@ function reset() {
 
 
 
-function eliminarEmpresa(IdEmpresa) {
+function eliminarEmpresa(idempresa) {
     $.ajax({
         type: "delete",
         url: urlEliminar,
         dataType: 'json',
-        data: { IdEmpresa },
+        data: { idempresa },
         success: function(respuesta) {
             if (respuesta['status']) {
                 M.toast({ html: 'Registro Eliminado con Exito', classes: 'rounded', displayLength: 4000 });
@@ -167,7 +168,6 @@ function actualizarEmpresa(IdEmpresa) {
             });
             this.on("sending", function(file, xhr, formData) {
                 var data = $('#empresa-form').serializeArray();
-                // post = post + "&IdEmpresa=" + ;
                 $.each(data, function(key, el) {
                     formData.append(el.name, el.value);
                 });
@@ -245,37 +245,37 @@ function insertarEmpresa() {
 }
 
 function setRow(data, base64, action) {
-    Empresas[data.IdEmpresa] = data;
+    Empresas[data.idempresa] = data;
 
     if (action === 'insert') {
         var row = table.row.add([
-            data.IdEmpresa,
+            data.idempresa,
             data.nombre,
             data.direccion,
             data.descripcion,
             data.telefono,
             data.correo,
-            "<img src='" + base64 + "' width='200' height='100' ></img>",
-            "<a id='editar' name='editar'  id-edit='" + data.IdEmpresa + "' class='edit btn btn-warning'><i class='material-icons'>create</i></a>" +
-            "<a id='eliminar' name='eliminar' id-record='" + data.IdEmpresa + "' class='delete btn btn-danger' ><i class='material-icons'>delete_sweep</i></a>"
 
+            '<img src="' + base64 + '" width="200" height="100" ></img>',
+            '<i id="editar" name="editar"  id-edit="' + data.idempresa + '" class="material-icons">create</i>' +
+            '<i id="eliminar" name="eliminar" id-record="' + data.idempresa + '" class="material-icons">delete_forever</i>'
         ]).draw().node();
 
 
     }
     if (action === 'update') {
 
-        Empresas[data.IdEmpresa] = data;
-        var row = table.row('#' + data.IdEmpresa).node();
-        $(row).find('td:nth-child(1)').text(data.NombreEmpresa);
-        $(row).find('td:nth-child(2)').text(data.DireccionEmpresa);
-        $(row).find('td:nth-child(3)').text(data.DescripcionEmpresa);
-        $(row).find('td:nth-child(4)').text(data.CorreoEmpresa);
-        $(row).find('td:nth-child(5)').text(data.TelefonoEmpresa);
-        $(row).find('td:nth-child(6)').text(data.RutaImagen);
+        empresas[data.idempresa] = data;
+        var row = table.row('#' + data.idempresa).node();
+        $(row).find('td:nth-child(1)').text(data.nombreempresa);
+        $(row).find('td:nth-child(2)').text(data.direccionempresa);
+        $(row).find('td:nth-child(3)').text(data.descripcionempresa);
+        $(row).find('td:nth-child(4)').text(data.correoempresa);
+        $(row).find('td:nth-child(5)').text(data.telefonoempresa);
+        $(row).find('td:nth-child(6)').text(data.rutaimagen);
     }
     if (action === 'delete') {
-        table.row('#' + data.IdEmpresa).remove().draw();
+        table.row('#' + data.idempresa).remove().draw();
     }
 
 }

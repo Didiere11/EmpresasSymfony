@@ -3,7 +3,8 @@
 {% block title %}ADMIN EMPRESAS{% endblock %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset("css/dropzone_up.css") }}">
-<link rel="stylesheet" href="{{ asset("css/dataTables.materialize.css") }}">
+<link rel="stylesheet" href="{{ asset("css/jquery.dataTables.min.css") }}">
+
 {% endblock %}
 
 {% block body %}
@@ -29,17 +30,17 @@
         <tbody>
            {% for empresa in content['empresas'] %}
             <tr>
-                <td>{{ empresa.IdEmpresa }}</td>
-                <td>{{ empresa.NombreEmpresa }}</td>
-                <td>{{ empresa.DireccionEmpresa }}</td>
-                <td>{{ empresa.TelefonoEmpresa }}</td>
-                <td>{{ empresa.CorreoEmpresa }}</td>
-                <td>{{ empresa.DescripcionEmpresa }}</td>
-                <td><img src="data:{{empresa.FormatoImagen}};base64,{{ empresa.RutaImagen }}" width="200px" height="100px"/></td>
+                <td>{{ empresa.idempresa }}</td>
+                <td>{{ empresa.nombreempresa }}</td>
+                <td>{{ empresa.direccionempresa }}</td>
+                <td>{{ empresa.telefonoempresa }}</td>
+                <td>{{ empresa.correoempresa }}</td>
+                <td>{{ empresa.descripcionempresa }}</td>
+                <td><img src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="200px" height="100px"/></td>
                 {#<td>{{ empresa.visitas }}</td>#}
                 <td>
-                    <a id="editar" name="editar"  id-edit="{{empresa.IdEmpresa}}" class="edit btn btn-warning" href="#"><i class="material-icons">create</i></a>
-                    <a id="eliminar" name="eliminar" id-record="{{empresa.IdEmpresa}}" class="delete btn btn-danger" href="#"><i class="material-icons">delete_sweep</i></a>
+                    <i id="editar" name="editar" class = "material-icons edit" id-edit="{{empresa.idempresa}}" >create</i>
+                    <i  id="eliminar" name="eliminar" class='material-icons delete' id-record="{{empresa.idempresa}}">delete_forever</i>
                 </td>
             </tr>
             {% endfor %}
@@ -54,51 +55,50 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ver/Editar</h5>
+                <h5 class="modal-title" id="exampleModalLabel">COntrol de Empresas</h5>
             </div>
             <div class="modal-body">
                 <form id="empresa-form">
                     <br></br>
                     <div class="row">
-                        <div class="col s12">
-                            <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre Empresa:" >
+                        <div class="input-field s12">
+                             <i class="material-icons prefix">work</i>
+                            <input type="text" id="nombre" name="nombre" class="form-control">
+                            <label for="nombre">Nombre Empresa:</label>
+                        </div>
+                        <div class="input-field s12">
+                             <i class="material-icons prefix">add_location</i>
+                            <input type="text" id="direccion" name="direccion" class="form-control">
+                            <label for="direccion">Direccion de la Empresa:</label>
+                        </div>
+                        <div class="input-field s12">
+                             <i class="material-icons prefix">dialer_sip</i>
+                            <input type="text" id="telefono" name="telefono" class="form-control">
+                            <label for="telefono">Telefono de la Empresa:</label>
+                        </div>
+                        <div class="input-field s12">
+                             <i class="material-icons prefix">email</i>
+                            <input type="email" id="correo" name="correo" class="form-control">
+                            <label for="correo">Correo de Empresa:</label>
+                        </div>
+                        <div class="input-field s12">
+                             <i class="material-icons prefix">description</i>
+                            <input type="text" id="descripcion" name="descripcion" class="form-control">
+                            <label for="nodescripcionmbre">Descripcion de la Empresa:</label>
                         </div>
                     </div>
-                    <br></br>
                     <div class="row">
                         <div class="col s12">
-                            <input id="direccion" name="direccion"  type="text" class="form-control" placeholder="Direccion Empresa:">
-                        </div>
-                    </div>
-                    <br></br>
-                    <div class="row">
-                        <div class="col s12">
-                            <input id="telefono" name="telefono" type="text" class="form-control" placeholder="Telefono:">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <input id="correo" name="correo" type="email" class="form-control" placeholder="Correo:">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s11">
-                            <input id="descripcion"  name="descripcion"  type="text" class="form-control" placeholder="Descripcion:">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                        <a class="waves-effect waves-light btn add-file" name="addfile" id="addfile"><i class="material-icons left">unarchive</i>Subir imagen</a>
+                        <a class="waves-effect waves-light btn add-file black" name="addfile" id="addfile"><i class="material-icons left">unarchive</i>Subir imagen</a>
                         </div>
                     </div>
                     <br></br>  
 
-                    <input type="hidden" id="IdEmpresa" name="IdEmpresa" value=""></input>
+                    <input type="hidden" id="idempresa" name="idempresa" value=""></input>
             </div>
             <div class="modal-footer">
-                <button id="cancelar" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button"  id="empresas-guardar" class="btn btn-primary">Crear Nuevo Registro</button>
-            </div>
+                <a id="empresas-guardar" class="modal-action waves-effect waves-green btn-flat btn btn-primary" >Guardar</a>
+                <a id="cancelar" class="modal-action waves-effect waves-green btn-flat btn btn-primary btn btn-secondary" data-dismiss="modal" >Cancelar</a>            </div>
             </form>
 
         </div>
@@ -109,7 +109,7 @@
 <div id="EliminarSiNo" name="EliminarSiNo" class="modal">
     <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="EliminarSiNo">¿¿¿¿¿Esta seguro de eliminar registro?????</h5>
+                <h5 class="modal-title" id="EliminarSiNo">¿Eliminar Registro?</h5>
             </div>
             </div>
     <div class="modal-footer">

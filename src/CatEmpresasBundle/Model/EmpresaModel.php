@@ -59,7 +59,6 @@ class EmpresaModel {
         return $result;
     }
     public function actualizarEmpresas($data,$where){
-        // $where=array('IdEmpresa'='IdEmpresa');
          $result = $this->SQLModel->updateFromTable('empresa',$data,$where);
          return $result;
      }
