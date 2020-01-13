@@ -22,11 +22,12 @@ function init() {
             dataType: 'json',
             data: { 'idusuario': idusuario },
             success: function (result) {
+               // alert('de verdad desea borrar el registro')
                 if (result['status']) {
                     table.row($tr).remove().draw();
-                    M.toast({ html: 'Usuario eliminado', classes: 'rounded blue lighten-2' });
+                    M.toast({ html: 'Registro eliminado', classes: 'rounded red lighten-2' });
                 } else {
-                    M.toast({ html: 'Usuario no eliminado', classes: 'rounded blue lighten-2' });
+                    M.toast({ html: 'Registro no eliminado', classes: 'rounded red lighten-2' });
 
                 }
             }
@@ -35,9 +36,12 @@ function init() {
     });
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    $("#modalReg").modal();
+    $("#modalReg").modal({ dismissible: false });
     validateform();
 
+    $("#modalconfirmacion").modal({ dismissible: false });
+    validateform();
+//asfasfsafsafas
     $("#add-record").on("click", function () {
         $("#nomusuario").val('');
         $("#correo").val('');
@@ -47,6 +51,19 @@ function init() {
         $('#tipousr').formSelect();
         $("#modalReg").modal('open');
         $("#nomusuario").focus();
+      //asfasfsafsafas
+    });
+
+    $("#cancelar").on("click", function () {
+        $("#idusuario").val('');
+        $("#nomusuario").val('');
+        $("#correo").val('');
+        $("#contraseña").val('');
+        $("#domicilio").val('');
+        $("#tipousr").val(1);
+        $('#tipousr').formSelect();
+        $("#modalReg").modal('close');
+
     });
 
     $("#guardar").on("click", function () {
@@ -126,21 +143,29 @@ function saveClick() {
             if (response['status'] == 1) {
                 if (urls==editarUsuario) {
                     $("#nomusuario").val($("#nomusuario").val());
+<<<<<<< HEAD
                     M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
+=======
+                    M.toast({ html: 'Registro actualizado', classes: 'rounded green lighten-2', displayLength: 4000 });
+>>>>>>> cfda4d0ebdd354f2cbb3a6a37d918338c86821cc
                     reset();
                     $("#modalReg").modal('close');
                     table.row($tr).remove().draw();
                     setRow(response['data'], 'insert');
                 }else{
                     $("#nomusuario").val($("#nomusuario").val());
+<<<<<<< HEAD
                     M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
+=======
+                    M.toast({ html: 'Registro exitoso', classes: 'rounded green lighten-2', displayLength: 4000 });
+>>>>>>> cfda4d0ebdd354f2cbb3a6a37d918338c86821cc
                     reset();
                     $("#modalReg").modal('close');
                     setRow(response['data'], 'insert');
                 }
             }
             else {
-                M.toast({ html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000 });
+                M.toast({ html: 'Error al Registrar Usuario', classes: 'rounded red lighten-2', displayLength: 4000 });
             }
         }
     });
@@ -152,16 +177,16 @@ function setRow(data, action) {
     if (action == 'insert') {
         console.log("insert");
         var row = table.row.add([
-            data.idusuario,
+           // data.idusuario,
             data.nomusuario,
             data.correo,
             data.contraseña,
             data.domicilio,
             data.tipousr,
             '<i class="material-icons edit" data-id="' + data.idusuario + '" data-nom="' +  data.nomusuario + '"data-corr="' + data.correo + '" data-cont="' + data.contraseña + '" data-dom="' + data.domicilio + '" data-tipo="' + data.idtipousr + '">create</i>' +
-            '<i class="material-icons delete" data-id="' + data.idempresa + '">delete_forever</i>'
+            '<i class="material-icons delete" data-id="' + data.idusuario + '">delete_forever</i>'
         ]).draw().node();
-        $(row).attr('data-id', data.idempresa);
+        $(row).attr('data-id', data.idusuario);
         usuario[data.idusuario] = {
             "data-id": data.idusuario,
             "data-nom": data.nomusuario,
@@ -181,9 +206,11 @@ function setRow(data, action) {
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function reset() {
     $("#nomusuario").val('');
+        $("#idusuario").val('');
         $("#correo").val('');
         $("#contraseña").val('');
         $("#domicilio").val('');
         $("#tipousr").val(1);
         $('#tipousr').formSelect();
+        $("#modalReg").modal('close');
 }
