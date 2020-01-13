@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use loginBundle\Model\UsuarioModel;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+
 class DefaultController extends Controller
 {
     protected $UsuarioModel;
@@ -78,6 +79,10 @@ class DefaultController extends Controller
 
         return $this->render('loginBundle:Default:login.html.twig');
         
+    }
+    public function adminAction(Request $request)
+    {
+        return new Response('<html><body>Admin page!</body></html>');
     }
 
 }
