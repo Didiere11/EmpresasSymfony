@@ -160,22 +160,14 @@ function saveClick() {
             if (response['status'] == 1) {
                 if (urls == editarUsuario) {
                     $("#nomusuario").val($("#nomusuario").val());
-<<<<<<< HEAD
                     M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
-=======
-                    M.toast({ html: 'Registro actualizado', classes: 'rounded green lighten-2', displayLength: 4000 });
->>>>>>> cfda4d0ebdd354f2cbb3a6a37d918338c86821cc
                     reset();
                     $("#modalReg").modal('close');
                     table.row($tr).remove().draw();
                     setRow(response['data'], 'insert');
                 } else {
                     $("#nomusuario").val($("#nomusuario").val());
-<<<<<<< HEAD
                     M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
-=======
-                    M.toast({ html: 'Registro exitoso', classes: 'rounded green lighten-2', displayLength: 4000 });
->>>>>>> cfda4d0ebdd354f2cbb3a6a37d918338c86821cc
                     reset();
                     $("#modalReg").modal('close');
                     setRow(response['data'], 'insert');
