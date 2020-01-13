@@ -21,8 +21,8 @@ class DefaultController extends Controller
     }
     public function indexAction(Request $request){
         $result = $this->EmpresaModel->getEmpresas();
-        $empresa = $result['data'];
-        $content['empresa'] = $empresa;
+        $empresas = $result['data'];
+        $content['empresas'] = $empresas;
        
         return $this->render('indexBundle:Default:index.html.twig', array('content' => $content));
     }

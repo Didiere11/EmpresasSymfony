@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}SIIP{% endblock %}</title>
-        {% block stylesheets %}
-            <!--Los assets son los archivos incluídos en las templates para complementar 
-            la presentación, como hojas de estilo, JavaScript o imágenes -->
+       <meta charset="UTF-8" />
+        <title>{% block title %}Empresas{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }} media="screen,projection"" />
+        <link rel="stylesheet" href="{{ asset("css/materialize.css") }}">
+        <link rel="stylesheet" href="{{ asset("css/materialize.min.css.0.100.2") }}">
+        <link rel="stylesheet" href="{{ asset("css/default.css") }}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        {% block stylesheets %}{% endblock %}
 
-            <link type="text/css" rel="stylesheet" href="{{ asset('css/materialize.min.css') }}" media="screen,projection"/>
-            <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}"/>
-            <link type="text/css" rel="stylesheet" href="{{ asset('css/default.css') }}"/>
-        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
@@ -35,6 +35,9 @@
          </nav>
         {% block body %}{% endblock %}
     </body>
-     {% block javascripts %}
-      {% endblock %}
+    {% block javascripts %}
+        <script type="text/javascript" src="{{ asset('js/jquery-3.1.1.js') }}"></script>
+         <script type="text/javascript" src="{{ asset('js/materialize.js') }}"></script>
+         <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    {% endblock %}
 </html>
