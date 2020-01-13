@@ -262,7 +262,6 @@ function setRow(data, base64, action) {
         ]).draw().node();
 
 
-<<<<<<< HEAD
 function limpiar(){
         $("#nomempresa").val('');
         $("#dirempresa").val('');
@@ -270,7 +269,7 @@ function limpiar(){
         $("#descripempresa").val('');
         $("#telefonoempresa").val('');
 }
-=======
+
     }
     if (action === 'update') {
 
@@ -288,4 +287,3 @@ function limpiar(){
     }
 
 }
->>>>>>> didier
