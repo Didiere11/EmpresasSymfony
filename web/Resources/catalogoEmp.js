@@ -39,7 +39,6 @@ $(document).on("click", '.delete', function () {
     $("#EliminarSiNo").modal({ dismissible: false }).modal('open');
     $("#Aceptar").attr("idempresa", idempresa);
 
-
 });
 
 $('#Aceptar').on("click", function() {
