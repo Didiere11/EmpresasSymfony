@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
-{% block title %}{% endblock %}
+{% block title %}Index{% endblock %}
 {% block body %}
-
-
 			<section>
 		<div class="carousel">
 				<h3 class="blue-text" align="center">Lo más reciente</h3>
@@ -11,43 +9,30 @@
 					<div class="card">
 					
 					<div class="card-image waves-effect waves-block waves-light">
-					<img class="activator" src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="200px" height="100px">
+					<img class="activator" src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="150px" height="200px">
+					<span class="card-title"> {{ empresa.nombreempresa }}</span>
 					</div>
-
-					<div class="card-content">
-					
-						<p align="center">
-						<a href="#" style="color:#07b8ff;">{{ empresa.nombreempresa }}</a>
-						</p>
-						<p align="center">
-						<a href="#" style="color:#07b8ff;">{{ empresa.correoempresa }}</a>
-						</p>
-						<p align="center">
-						<a href="#" style="color:#07b8ff;">{{ empresa.telefonoempresa }}</a>
-						</p>
 					</div>
-
-					</div>
-
 				</div>
 
 				{% endfor %}
 
 			</div>
 
-			</div></div>
-    
+			</div>
+		</div>
+
 		</section>
 	
 	<section>
     <h3 class="blue-text" align="center">Empresas</h3>
 		<div class="row">
 			{% for empresa in content['empresas'] %}
-				<div class="col s6 m3">
+				<div class="col s6 m2">
 					<div class="card">
 						<div class="card-image waves-effect waves-block waves-light">
 
-							<img class="activator" src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="200px" height="100px">
+							<img class="activator" src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="250px" height="250px">
 							<img class="activator">
 						</div>
 						<div class="card-content">
@@ -92,17 +77,20 @@
 				{% endfor %}
 			</div>
 		</section>
-			
-
 
 	{% endblock %}
 	{% block javascripts %}
 		<script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/materialize.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('js/new.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('Resources/login.js') }}"></script>
+		<script>
+		
+		
+		</script>
 		<script type="text/javascript">
 			var urlprincipal = '{{ path('index_homepage' ) }}';
 		</script>
