@@ -27,6 +27,22 @@ class DefaultController extends Controller
             "correoempresa"=> "'" . $post["correoempresa"] . "'",
             "descripempresa"=> "'" . $post["descripempresa"] . "'",
             "telefonoempresa"=> "'" . $post["telefonoempresa"] . "'"
+<<<<<<< HEAD
+=======
+        );
+
+        $post =$request->request->all();
+        $tmp = $_FILES['archivo']["tmp_name"];
+        $tmp = file_get_contents($tmp);
+        $base64 = base64_encode($tmp);
+        $data_Empresas = array(
+            "nombreempresa" => "'" . $post["nombre"] . "'",
+            "direccionempresa" =>"'". $post["direccion"]."'",
+            "descripcionempresa" =>"'". $post["descripcion"]."'",
+            "telefonoempresa" => "'".$post["telefono"]."'",
+            "correoempresa" => "'".$post["correo"]."'",
+
+>>>>>>> 7b4b6f0765b5025a6f51e1c012723e128a91b9e2
         );
         $result_Empresas = $this->EmpresaModel->insertarEmpresas($data_Empresas);
         $post['idempresa']=$result_Empresas["data"][0]['idempresa'];
