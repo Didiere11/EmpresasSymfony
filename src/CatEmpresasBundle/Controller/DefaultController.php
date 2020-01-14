@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use CatEmpresasBundle\Model\EmpresaModel;
 class DefaultController extends Controller
 {
-    protected $EmpresaModel;
+protected $EmpresaModel;
     public function __construct() {
         $this->EmpresaModel = new EmpresaModel();
      }
@@ -102,7 +102,7 @@ class DefaultController extends Controller
         $post =$request->request->all();
         $result = $this->EmpresaModel->eliminarEmpresas($post);
 
-        if ($result['status']) {
+if ($result['status']) {
             $result['data'] = $post;
             $result['status'] = TRUE;
             $result['message'] = "Elimidado con exito";
