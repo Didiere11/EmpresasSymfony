@@ -62,12 +62,12 @@ $('#cancelar').on("click", function() {
     reset();
 });
 
-function pintarDatos(IdEmpresa) {
-    $("#nombre").val(Empresas[IdEmpresa]["nombreempresa"]).next().addClass("active");
-    $("#direccion").val(Empresas[IdEmpresa]["direccionempresa"]).next().addClass("active");
-    $("#telefono").val(Empresas[IdEmpresa]["telefonoempresa"]).next().addClass("active");
-    $("#correo").val(Empresas[IdEmpresa]["correoempresa"]).next().addClass("active");
-    $("#descripcion").val(Empresas[IdEmpresa]["descripcionempresa"]).next().addClass("active");
+function pintarDatos(idempresa) {
+    $("#nombre").val(Empresas[idempresa]["nombreempresa"]).next().addClass("active");
+    $("#direccion").val(Empresas[idempresa]["direccionempresa"]).next().addClass("active");
+    $("#telefono").val(Empresas[idempresa]["telefonoempresa"]).next().addClass("active");
+    $("#correo").val(Empresas[idempresa]["correoempresa"]).next().addClass("active");
+    $("#descripcion").val(Empresas[idempresa]["descripcionempresa"]).next().addClass("active");
     var divrow = $('<div/>', {
         'class': 'row img'
     }).appendTo('#empresa-form');
@@ -76,12 +76,12 @@ function pintarDatos(IdEmpresa) {
     }).appendTo(divrow);
     var divimg = $('<img/>', {
         'class': '',
-        'src': 'data:' + Empresas[IdEmpresa]["formatoimagen"] + ';base64,' + Empresas[IdEmpresa]["rutaimagen"],
+        'src': 'data:' + Empresas[idempresa]["formatoimagen"] + ';base64,' + Empresas[idempresa]["rutaimagen"],
         'width': '200',
         'height': '100'
     }).appendTo(divrow);
 
-    $("#idempresa").val(IdEmpresa);
+    $("#idempresa").val(idempresa);
 }
 
 function validateForm() {
@@ -116,6 +116,7 @@ function validateForm() {
 
 // Limpia los campos al cerrar la modal
 function reset() {
+    $("#idempresa").val('');
     $("#nombre").val('');
     $("#direccion").val('');
     $("#telefono").val('');
@@ -159,7 +160,7 @@ function actualizarEmpresa(idempresa) {
         dictInvalidFileType: "Error, tipo de formato no aceptado",
         acceptedFiles: ".jpeg, .png , .jpg",
         autoProcessQueue: false,
-        data: { IdEmpresa },
+        data: { idempresa },
         error: function(file, errorMessage) {
             M.toast({ html: errorMessage, classes: 'rounded', displayLength: 4000 });
         },
@@ -276,7 +277,7 @@ function limpiar(){
     }
     if (action === 'update') {
 
-        empresas[data.idempresa] = data;
+        Empresas[data.idempresa] = data;
         var row = table.row('#' + data.idempresa).node();
         $(row).find('td:nth-child(1)').text(data.nombreempresa);
         $(row).find('td:nth-child(2)').text(data.direccionempresa);
