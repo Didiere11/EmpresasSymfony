@@ -18,7 +18,6 @@ class DefaultController extends Controller
         return $response;
     }
     public function insertarEmpresaAction(Request $request){
-<<<<<<< HEAD
         if ($request->getMethod() == 'POST') {
             //extraccion de parametros
             $post = $request->request->all();  
@@ -28,7 +27,8 @@ class DefaultController extends Controller
             "correoempresa"=> "'" . $post["correoempresa"] . "'",
             "descripempresa"=> "'" . $post["descripempresa"] . "'",
             "telefonoempresa"=> "'" . $post["telefonoempresa"] . "'"
-=======
+        );
+
         $post =$request->request->all();
         $tmp = $_FILES['archivo']["tmp_name"];
         $tmp = file_get_contents($tmp);
@@ -40,7 +40,6 @@ class DefaultController extends Controller
             "telefonoempresa" => "'".$post["telefono"]."'",
             "correoempresa" => "'".$post["correo"]."'",
 
->>>>>>> didier
         );
         $result_Empresas = $this->EmpresaModel->insertarEmpresas($data_Empresas);
         $post['idempresa']=$result_Empresas["data"][0]['idempresa'];
@@ -62,6 +61,7 @@ class DefaultController extends Controller
         return $this->jsonResponse($result);
 
     }
+}
     public function editarEmpresaAction(Request $request){
         $post =$request->request->all();
        

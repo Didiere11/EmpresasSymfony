@@ -84,6 +84,7 @@ function eliminarUsuario(idusuario) {
 
     $("#guardar").on("click", function () {
         $("#frmUsr").submit();
+
     });
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -92,7 +93,7 @@ function eliminarUsuario(idusuario) {
         $tr = $(this).closest('tr');
     });
 
-    $(document).on("click", '.edit', function () {
+$(document).on("click", '.edit', function () {
         var idusuario = $(this).attr("data-id");
         var nombre = $(this).attr("data-nom");
         var correo = $(this).attr("data-corr");
@@ -104,7 +105,7 @@ function eliminarUsuario(idusuario) {
         $('#correo').val(correo);
         $("#contraseña").val(pwd);
         $("#domicilio").val(domicilio);
-        $("#tipousr").val(tipousr);
+        //$("#tipousr").val(tipousr);
         $('#tipousr').formSelect();
         $('#modalReg').modal('open');
         $('#correo').focus();
@@ -144,7 +145,7 @@ function validateform() {
 
 function saveClick() {
 
-    var id = $("#idusuario").val();
+var id = $("#idusuario").val();
     if (id > 0) {
         var urls = editarUsuario;
     }
@@ -160,22 +161,14 @@ function saveClick() {
             if (response['status'] == 1) {
                 if (urls == editarUsuario) {
                     $("#nomusuario").val($("#nomusuario").val());
-<<<<<<< HEAD
-                    M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
-=======
                     M.toast({ html: 'Registro actualizado', classes: 'rounded green lighten-2', displayLength: 4000 });
->>>>>>> cfda4d0ebdd354f2cbb3a6a37d918338c86821cc
                     reset();
                     $("#modalReg").modal('close');
                     table.row($tr).remove().draw();
                     setRow(response['data'], 'insert');
                 } else {
                     $("#nomusuario").val($("#nomusuario").val());
-<<<<<<< HEAD
-                    M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
-=======
                     M.toast({ html: 'Registro exitoso', classes: 'rounded green lighten-2', displayLength: 4000 });
->>>>>>> cfda4d0ebdd354f2cbb3a6a37d918338c86821cc
                     reset();
                     $("#modalReg").modal('close');
                     setRow(response['data'], 'insert');
@@ -232,5 +225,3 @@ function reset() {
     $('#tipousr').formSelect();
     $("#modalReg").modal('close');
 }
-
-
