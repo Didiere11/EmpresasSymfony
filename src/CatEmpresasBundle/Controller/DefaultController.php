@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use CatEmpresasBundle\Model\EmpresaModel;
 class DefaultController extends Controller
 {
-    protected $EmpresaModel;
+protected $EmpresaModel;
     public function __construct() {
         $this->EmpresaModel = new EmpresaModel();
      }
@@ -27,8 +27,6 @@ class DefaultController extends Controller
             "correoempresa"=> "'" . $post["correoempresa"] . "'",
             "descripempresa"=> "'" . $post["descripempresa"] . "'",
             "telefonoempresa"=> "'" . $post["telefonoempresa"] . "'"
-<<<<<<< HEAD
-=======
         );
 
         $post =$request->request->all();
@@ -42,7 +40,6 @@ class DefaultController extends Controller
             "telefonoempresa" => "'".$post["telefono"]."'",
             "correoempresa" => "'".$post["correo"]."'",
 
->>>>>>> 7b4b6f0765b5025a6f51e1c012723e128a91b9e2
         );
         $result_Empresas = $this->EmpresaModel->insertarEmpresas($data_Empresas);
         $post['idempresa']=$result_Empresas["data"][0]['idempresa'];
@@ -105,7 +102,7 @@ class DefaultController extends Controller
         $post =$request->request->all();
         $result = $this->EmpresaModel->eliminarEmpresas($post);
 
-        if ($result['status']) {
+if ($result['status']) {
             $result['data'] = $post;
             $result['status'] = TRUE;
             $result['message'] = "Elimidado con exito";

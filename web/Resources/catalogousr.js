@@ -161,22 +161,14 @@ var id = $("#idusuario").val();
             if (response['status'] == 1) {
                 if (urls == editarUsuario) {
                     $("#nomusuario").val($("#nomusuario").val());
-<<<<<<< HEAD
-                    M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
-=======
                     M.toast({ html: 'Registro actualizado', classes: 'rounded green lighten-2', displayLength: 4000 });
->>>>>>> 7b4b6f0765b5025a6f51e1c012723e128a91b9e2
                     reset();
                     $("#modalReg").modal('close');
                     table.row($tr).remove().draw();
                     setRow(response['data'], 'insert');
                 } else {
                     $("#nomusuario").val($("#nomusuario").val());
-<<<<<<< HEAD
-                    M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
-=======
                     M.toast({ html: 'Registro exitoso', classes: 'rounded green lighten-2', displayLength: 4000 });
->>>>>>> 7b4b6f0765b5025a6f51e1c012723e128a91b9e2
                     reset();
                     $("#modalReg").modal('close');
                     setRow(response['data'], 'insert');
