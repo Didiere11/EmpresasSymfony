@@ -5,7 +5,7 @@
 
 	<div class="carousel">
 		<h3 class="blue-text" align="center">Lo más reciente</h3>
-		{% for empresa in content['empresa'] %}
+		{% for empresa in content['empresas'] %}
 			<div class="carousel-item" href="#1">
 				<div class="card">
 
@@ -16,7 +16,7 @@
 					<div class="card-content">
 
 						<p align="center">
-							<a href="#" style="color:#07b8ff;">{{ empresa.nomempresa }}</a>
+							<a href="#" style="color:#07b8ff;">{{ empresa.nombreempresa }}</a>
 						</p>
 						<p align="center">
 							<a href="#" style="color:#07b8ff;">{{ empresa.correoempresa }}</a>
@@ -36,51 +36,7 @@
 
 	</div>
 </div>
-</section>
-<section>
-<h3 class="blue-text" align="center">Empresas</h3>
-<div class="row">
-	{% for empresa in content['empresa'] %}
-		<div class="col s6 m3">
-			<div class="card">
-				<div class="card-image waves-effect waves-block waves-light">
-
-
-			<section>
-		<div class="carousel">
-				<h3 class="blue-text" align="center">Lo más reciente</h3>
-				{% for empresa in content['empresas'] %}
-				<div class="carousel-item" href="#1">
-					<div class="card">
-					
-					<div class="card-image waves-effect waves-block waves-light">
-					<img class="activator" src=""data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="200px" height="100px">
-					</div>
-
-					<div class="card-content">
-					
-						<p align="center">
-						<a href="#" style="color:#07b8ff;">{{ empresa.nombreempresa }}</a>
-						</p>
-						<p align="center">
-						<a href="#" style="color:#07b8ff;">{{ empresa.correoempresa }}</a>
-						</p>
-						<p align="center">
-						<a href="#" style="color:#07b8ff;">{{ empresa.telefonoempresa }}</a>
-						</p>
-					</div>
-
-					</div>
-
-				</div>
-
-				{% endfor %}
-
-			</div>
-
-			</div></div>
-    
-		</section>
+</section>	
 	
 	<section>
     <h3 class="blue-text" align="center">Empresas</h3>
@@ -136,21 +92,21 @@
 					<img class="activator">
 				</div>
 				<div class="card-content">
-					<span class="card-title activator grey-text text-darken-4">{{ empresa.nomempresa }}<i class="material-icons right">more_vert</i>
+					<span class="card-title activator grey-text text-darken-4">{{ empresa.nombreempresa }}<i class="material-icons right">more_vert</i>
 					</span>
 					<p>
 						<a></a>
 						{{ empresa.correoempresa }}</p>
 				</div>
 				<div class="card-reveal">
-					<span class="card-title grey-text text-darken-4">{{ empresa.nomempresa }}<i class="material-icons right">close</i>
+					<span class="card-title grey-text text-darken-4">{{ empresa.nombreempresa }}<i class="material-icons right">close</i>
 					</span>
 					<h6>
 						<h6>
 							Direccion:
 						</h6>
 						<p>
-							{{ empresa.dirempresa }}
+							{{ empresa.direccionempresa }}
 						</p>
 						<h6>
 							Correo:
@@ -162,7 +118,7 @@
 							Descripción de la empresa:
 						</h6>
 						<p>
-							{{ empresa.descripempresa }}
+							{{ empresa.descripcionempresa }}
 						</p>
 						<h6>
 							Telefono:
@@ -175,12 +131,10 @@
 				{% endfor %}
 			</div>
 		</section>
-			
-
 			</div>
-		{% endfor %}
 	</div>
-</section>s{% endblock %}{% block javascripts %}
+</section>s{% endblock %}
+{% block javascripts %}
 <script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/new.js') }}"></script>
