@@ -32,7 +32,7 @@
         </thead>
         <tbody>
            {% for empresa in content['empresas'] %}
-            <tr>
+            <tr id="{{ empresa.idempresa }}">
                 <td>{{ empresa.idempresa }}</td>
                 <td>{{ empresa.nombreempresa }}</td>
                 <td>{{ empresa.direccionempresa }}</td>

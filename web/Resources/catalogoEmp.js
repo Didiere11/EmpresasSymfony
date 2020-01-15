@@ -18,37 +18,32 @@ $(document).ready(function() {
 });
 $('#empresa-nuevo').on("click", function() {
     $("#empresamodal").modal({ dismissible: false }).modal('open');
-    $("#nombre").focus()
     insertarEmpresa();
 });
-
-$(document).on("click", '.edit', function(){
-    var idempresa = $(this).attr("id-record");
-    pintarDatos(idempresa);
-    $("#empresas-guardar").attr("idempresa", idempresa);
+$(document).on("click", '.edit', function() {
+    $tr = $(this).closest('tr');
+    tr = $tr;
+    var IdEmpresa = $(this).attr("id-edit");
+    pintarDatos(IdEmpresa);
+    $("#empresas-guardar").attr("idempresa", IdEmpresa);
     $("#empresamodal").modal({ dismissible: false }).modal('open');
-    actualizarEmpresa(idempresa);
-    $("#Aceptar").attr("idempresa", idempresa);
-    $("#EliminarSiNo").modal('close');
+    actualizarEmpresa(IdEmpresa);
+    table.row($tr).node().draw();
 });
-
 //sirve para editar los servicio
 
-$(document).on("click", '.delete', function () {
-    var idempresa = $(this).attr("id-record");
+$(document).on("click", '.delete', function() {
+    var IdEmpresa = $(this).attr("id-record");
     $("#EliminarSiNo").modal({ dismissible: false }).modal('open');
-    $("#Aceptar").attr("idempresa", idempresa);
-
+    $("#Aceptar").attr("idempresa", IdEmpresa);
 });
 
 $('#Aceptar').on("click", function() {
     $tr = $(this).closest('tr');
     tr = $tr;
-    var idempresa = $(this).attr("idempresa");
-    eliminarEmpresa(idempresa);
+    var IdEmpresa = $(this).attr("idempresa");
     table.row($tr).remove().draw();
-    $("#EliminarSiNo").modal('close');
-
+    eliminarEmpresa(IdEmpresa);
 });
 
 $('#Cerrar').on("click", function() {
@@ -61,11 +56,13 @@ $('#cancelar').on("click", function() {
 });
 
 function pintarDatos(idempresa) {
+    $("#idempresa").val(idempresa);
     $("#nombre").val(Empresas[idempresa]["nombreempresa"]).next().addClass("active");
     $("#direccion").val(Empresas[idempresa]["direccionempresa"]).next().addClass("active");
     $("#telefono").val(Empresas[idempresa]["telefonoempresa"]).next().addClass("active");
     $("#correo").val(Empresas[idempresa]["correoempresa"]).next().addClass("active");
     $("#descripcion").val(Empresas[idempresa]["descripcionempresa"]).next().addClass("active");
+    $("#addfile").val('data:' + Empresas[idempresa]["formatoimagen"] + ';base64,' + Empresas[idempresa]["rutaimagen"]).next().addClass("active");
     var divrow = $('<div/>', {
         'class': 'row img'
     }).appendTo('#empresa-form');
@@ -78,7 +75,6 @@ function pintarDatos(idempresa) {
         'width': '200',
         'height': '100'
     }).appendTo(divrow);
-
     $("#idempresa").val(idempresa);
 }
 
@@ -111,10 +107,8 @@ function validateForm() {
     });
 
 }
-
 // Limpia los campos al cerrar la modal
 function reset() {
-    $("#idempresa").val('');
     $("#nombre").val('');
     $("#direccion").val('');
     $("#telefono").val('');
@@ -125,25 +119,6 @@ function reset() {
 
 };
 
-
-/*function eliminarEmpresa(idempresa) {
-    $.ajax({
-        type: "post",
-        url: urlEliminar,
-        dataType: 'json',
-        data: { idempresa },
-        success: function (result) {
-            if (result['status']) {
-                table.row().remove().draw(idempresa);
-                M.toast({ html: 'Empresa eliminada', classes: 'rounded red lighten-2' });
-                $("#modalconfirmacion").modal('close');
-            } else {
-                M.toast({ html: 'Empresa no eliminada', classes: 'rounded red lighten-2' });
-            }
-        }
-    });
-}*/
-
 function eliminarEmpresa(idempresa) {
     $.ajax({
         type: "delete",
@@ -152,7 +127,6 @@ function eliminarEmpresa(idempresa) {
         data: { idempresa },
         success: function(respuesta) {
             if (respuesta['status']) {
-                table.row().remove().draw(idempresa);
                 M.toast({ html: 'Registro Eliminado con Exito', classes: 'rounded', displayLength: 4000 });
                 var action = "delete";
                 var base64 = "";
@@ -167,7 +141,7 @@ function eliminarEmpresa(idempresa) {
 
 function actualizarEmpresa(idempresa) {
     //Dropzone class
-        pdf = $(".add-file").dropzone({
+    pdf = $(".add-file").dropzone({
         url: urlActualizar,
         paramName: "archivo",
         maxFilesize: 5, //MB
@@ -188,9 +162,11 @@ function actualizarEmpresa(idempresa) {
             $("#empresas-guardar").click(function(e) {
                 $('#empresa-form').submit();
 
-            });
+
+});
             this.on("sending", function(file, xhr, formData) {
                 var data = $('#empresa-form').serializeArray();
+                // post = post + "&IdEmpresa=" + ;
                 $.each(data, function(key, el) {
                     formData.append(el.name, el.value);
                 });
@@ -200,7 +176,8 @@ function actualizarEmpresa(idempresa) {
                 var base64 = file.dataURL;
                 var data = res.data;
                 if (res.status) {
-                    M.toast({ html: 'Se actualizo con exitoso', classes: 'rounded', displayLength: 4000 });
+                    M.toast({ html: 'Se actualizo con exito', classes: 'rounded', displayLength: 4000 });
+                    table.row('#' + data.idempresa).remove().draw();
                     var action = "update";
                     setRow(data, base64, action);
                     reset();
@@ -262,8 +239,6 @@ function insertarEmpresa() {
 
             });
         }
-
-
     });
 }
 
@@ -278,35 +253,28 @@ function setRow(data, base64, action) {
             data.descripcion,
             data.telefono,
             data.correo,
-
             '<img src="' + base64 + '" width="200" height="100" ></img>',
-            '<i class="material-icons edit" id="editar" name="editar"   id-record="' + data.idempresa + '" class="material-icons">create</i>' +
+            '<i class="material-icons edit" id="editar" name="editar"  id-edit="' + data.idempresa + '" class="material-icons">create</i>' +
             '<i class="material-icons delete" id="eliminar" name="eliminar" id-record="' + data.idempresa + '" class="material-icons">delete_forever</i>'
         ]).draw().node();
-
-
-function limpiar(){
-        $("#nomempresa").val('');
-        $("#dirempresa").val('');
-        $("#correoempresa").val('');
-        $("#descripempresa").val('');
-        $("#telefonoempresa").val('');
-}
-
     }
     if (action === 'update') {
-
-        Empresas[data.idempresa] = data;
-        var row = table.row('#' + data.idempresa).node();
-        $(row).find('td:nth-child(1)').text(data.nombreempresa);
-        $(row).find('td:nth-child(2)').text(data.direccionempresa);
-        $(row).find('td:nth-child(3)').text(data.descripcionempresa);
-        $(row).find('td:nth-child(4)').text(data.correoempresa);
-        $(row).find('td:nth-child(5)').text(data.telefonoempresa);
-        $(row).find('td:nth-child(6)').text(data.rutaimagen);
+        table.row('#' + data.idempresa).remove().draw();
+        var row = table.row.add([
+            data.idempresa,
+            data.nombre,
+            data.direccion,
+            data.descripcion,
+            data.telefono,
+            data.correo,
+            '<img src="' + base64 + '" width="200" height="100" ></img>',
+            '<i class="material-icons edit" id="editar" name="editar"  id-edit="' + data.idempresa + '" class="material-icons">create</i>' +
+            '<i class="material-icons delete" id="eliminar" name="eliminar" id-record="' + data.idempresa + '" class="material-icons">delete_forever</i>'
+        ]).draw().node();
+        $(row).attr('id', data.idempresa);
     }
     if (action === 'delete') {
-        console.log("delete");
+        Empresas[data.idempresa] = data;
         table.row('#' + data.idempresa).remove().draw();
     }
 
