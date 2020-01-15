@@ -13,48 +13,34 @@ function init() {
     });//definiendo las caracteristicas del datatable 
     // eliminar
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-$(document).on("click", '.delete', function () {
-    var idusuario = $(this).attr("data-id");
-    $("#modalconfirmacion").modal({ dismissible: false }).modal('open');
-    $("#si").attr("idusuario", idusuario);
 
-});
-
-$('#si').on("click", function() {
-    $tr = $(this).closest('tr');
-    tr = $tr;
-    var idusuario = $(this).attr("idusuario");
-    eliminarUsuario(idusuario);
-    table.row($tr).remove().draw();
-    $("#modalconfirmacion").modal('close');
-});
-
-$('#no').on("click", function() {
-    $("#modalconfirmacion").modal('close');
-});
-
-
-function eliminarUsuario(idusuario) {
-    $.ajax({
-        type: "post",
-        url: eliminaUsuario,
-        dataType: 'json',
-        data: { 'idusuario': idusuario },
-        success: function (result) {
-            if (result['status']) {
-                table.row().remove().draw();
-                table.row('idusuario' + data.idusuario).remove.draw();
-                M.toast({ html: 'Usuario eliminado', classes: 'rounded red lighten-2' });
-                var action = 'delete'
-
-                $("#modalconfirmacion").modal('close');
-            } else {
-                M.toast({ html: 'Usuario no eliminado', classes: 'rounded red lighten-2' });
+    table.on('click', '.delete', function () {
+        $tr = $(this).closest('tr');
+        tr = $tr;
+        var idusuario = $(this).attr("data-id");
+        $("#modalconfirmacion").modal({ dismissible: false }).modal('open');
+        $('#si').on("click", function() {
+        $.ajax({
+            type: "post",
+            url: eliminaUsuario,
+            datatype: 'json',
+            data: { 'idusuario': idusuario },
+            success: function (respuesta) {
+                if (respuesta['status']) {
+                    table.row($tr).remove().draw();
+                    M.toast({ html: 'Usuario eliminado', classes: 'rounded red lighten-2' });
+                    $("#modalconfirmacion").modal('close');
+                } else
+                    M.toast({ html: 'Usuario no eliminado', classes: 'rounded red lighten-2' });
+                    $("#modalconfirmacion").modal('close');
             }
-        }
-    }); 
-}
+        });
+    });
+});
+    
+    $('#no').on("click", function() {
+        $("#modalconfirmacion").modal('close');
+    });
 
     $("#modalReg").modal({ dismissible: false });
     validateform();
