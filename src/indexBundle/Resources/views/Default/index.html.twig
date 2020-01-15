@@ -1,97 +1,98 @@
 {% extends 'base.html.twig' %}
 {% block title %}Index{% endblock %}
 {% block body %}
-			<section>
+
+	<section>
+	<div class="parallax-container">
+      <div class="parallax"><img src="{{asset('img/img4.jpg')}}"></div>
+    </div>
+	</section>
+
+	<section>
+	<h3 class="blue-text" align="center">Lo más reciente</h3>
 		<div class="carousel">
-				<h3 class="blue-text" align="center">Lo más reciente</h3>
-				{% for empresa in content['empresas'] %}
-				<div class="carousel-item" href="#1">
-					<div class="card">
-					
-					<div class="card-image waves-effect waves-block waves-light">
-					<img class="activator" src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="150px" height="200px">
-					<span class="card-title"> {{ empresa.nombreempresa }}</span>
-					</div>
-					</div>
-				</div>
-
-				{% endfor %}
-
-			</div>
-
-			</div>
-		</div>
-
-		</section>
+       		{% for empresa in content['empresas'] %}
+					<a class="carousel-item" href="#one!"><img src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="150px" height="200px"></a>
+	 		{% endfor %}
+  		</div>
+    </section>
 	
 	<section>
+	<div class="parallax-container">
+      <div class="parallax"><img src="{{asset('img/img3.jpg')}}"></div>
+    </div>
+	</section>
+
+  <section>
     <h3 class="blue-text" align="center">Empresas</h3>
-		<div class="row">
-			{% for empresa in content['empresas'] %}
-				<div class="col s12 m4">
-					<div class="card">
-						<div class="card-image waves-effect waves-block waves-light">
 
-							<img class="activator" src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="250px" height="250px">
-							<img class="activator">
-						</div>
-						<div class="card-content">
-							<span class="card-title activator grey-text text-darken-4">{{ empresa.nombreempresa }}<i class="material-icons right">more_vert</i>
-							</span>
-							<p>
-								<a></a>
-								{{ empresa.correoempresa }}</p>
-						</div>
-						<div class="card-reveal">
-							<span class="card-title grey-text text-darken-4">{{ empresa.nombreempresa }}<i class="material-icons right">close</i>
-							</span>
-							<h6>
-								<h6>
-									Direccion:
-								</h6>
-								<p>
-									{{ empresa.direccionempresa }}
-								</p>
-								<h6>
-									Correo:
-								</h6>
-								<p>
-									{{ empresa.correoempresa }}
-								</p>
-								<h6>
-									Descripción de la empresa:
-								</h6>
-								<p>
-									{{ empresa.descripcionempresa }}
-								</p>
-								<h6>
-									Telefono:
-								</h6>
-								<p>
-									{{ empresa.telefonoempresa }}
-								</p>
-							</div>
-						</div>
+    <div class="row">
+      {% for empresa in content['empresas'] %}
+        <div class="col s6 m4">
+          <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
 
-					</div>
-				{% endfor %}
-			</div>
-		</section>
 
-	{% endblock %}
-	{% block javascripts %}
-		<script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('js/materialize.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('js/new.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('Resources/login.js') }}"></script>
-		<script>
-		
-		
-		</script>
-		<script type="text/javascript">
-			var urlprincipal = '{{ path('index_homepage' ) }}';
-		</script>
-	{% endblock %}
+              <img class="activator" src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="250px" height="250px">
+              <img class="activator">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">{{ empresa.nombreempresa }}<i class="material-icons right">more_vert</i>
+              </span>
+              <p>
+                <a></a>
+                {{ empresa.correoempresa }}</p>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">{{ empresa.nombreempresa }}<i class="material-icons right">close</i>
+              </span>
+              <h6>
+                <h6>
+                  Direccion:
+                </h6>
+                <p>
+                  {{ empresa.direccionempresa }}
+                </p>
+                <h6>
+                  Correo:
+                </h6>
+                <p>
+                  {{ empresa.correoempresa }}
+                </p>
+                <h6>
+                  Descripción de la empresa:
+                </h6>
+                <p>
+                  {{ empresa.descripcionempresa }}
+                </p>
+                <h6>
+                  Telefono:
+                </h6>
+                <p>
+                  {{ empresa.telefonoempresa }}
+                </p>
+              </div>
+            </div>
+
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+  {% endblock %}
+  {% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/new.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('Resources/login.js') }}"></script>
+    <script>
+    
+    
+    </script>
+    <script type="text/javascript">
+      var urlprincipal = '{{ path('index_homepage' ) }}';
+    </script>
+  {% endblock %}
