@@ -132,7 +132,6 @@ function validateform() {
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function saveClick() {
-
     var id = $("#idusuario").val();
     if (id > 0) {
         var urls = editarUsuario;
@@ -197,8 +196,6 @@ function setRow(data, action) {
     }//Fin primer if
     if (action == 'delete') {
         console.log("delete");
-
-
         table.row('#' + data.idusuario).remove.draw();
     }//fin segundo if
 }//fin setRow
