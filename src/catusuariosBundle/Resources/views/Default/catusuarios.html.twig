@@ -26,8 +26,7 @@
                         </thead>
                         <tbody>
                             {% for usuarios in content['usuarios'] %}
-                             <tr id="{{ empresa.idusuario }}">
-                           
+                            <tr id="{{ usuarios.idusuario }}">
                             <td>{{ usuarios.nomusuario }}</td>
                             <td>{{ usuarios.correo }}</td>
                             <td>{{ usuarios.contraseña }}</td>
