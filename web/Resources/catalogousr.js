@@ -12,40 +12,39 @@ function init() {
         "iDisplayLength": 15
     });//definiendo las caracteristicas del datatable 
     // eliminar
-
-
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     table.on('click', '.delete', function () {
         $tr = $(this).closest('tr');
         tr = $tr;
         var idusuario = $(this).attr("data-id");
         $("#modalconfirmacion").modal({ dismissible: false }).modal('open');
-        $('#si').on("click", function() {
-        $.ajax({
-            type: "post",
-            url: eliminaUsuario,
-            datatype: 'json',
-            data: { 'idusuario': idusuario },
-            success: function (respuesta) {
-                if (respuesta['status']) {
-                    table.row($tr).remove().draw();
-                    M.toast({ html: 'Usuario eliminado', classes: 'rounded red lighten-2' });
+        $('#si').on("click", function () {
+            $.ajax({
+                type: "post",
+                url: eliminaUsuario,
+                datatype: 'json',
+                data: { 'idusuario': idusuario },
+                success: function (respuesta) {
+                    if (respuesta['status']) {
+                        table.row($tr).remove().draw();
+                        M.toast({ html: 'Usuario eliminado', classes: 'rounded red lighten-2' });
+                        $("#modalconfirmacion").modal('close');
+                    } else
+                        M.toast({ html: 'Usuario no eliminado', classes: 'rounded red lighten-2' });
                     $("#modalconfirmacion").modal('close');
-                } else
-                    M.toast({ html: 'Usuario no eliminado', classes: 'rounded red lighten-2' });
-                    $("#modalconfirmacion").modal('close');
-            }
+                }
+            });
         });
     });
-});
-    
-    $('#no').on("click", function() {
+
+    $('#no').on("click", function () {
         $("#modalconfirmacion").modal('close');
     });
 
     $("#modalReg").modal({ dismissible: false });
     validateform();
-  
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     $("#add-record").on("click", function () {
         $("#nomusuario").val('');
@@ -76,13 +75,13 @@ function init() {
 
     });
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     table.on('click', '.edit', function () {
         $tr = $(this).closest('tr');
     });
 
-$(document).on("click", '.edit', function () {
+    $(document).on("click", '.edit', function () {
         var idusuario = $(this).attr("data-id");
         var nombre = $(this).attr("data-nom");
         var correo = $(this).attr("data-corr");
@@ -134,7 +133,7 @@ function validateform() {
 
 function saveClick() {
 
-var id = $("#idusuario").val();
+    var id = $("#idusuario").val();
     if (id > 0) {
         var urls = editarUsuario;
     }
