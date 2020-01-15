@@ -102,15 +102,15 @@ protected $EmpresaModel;
         $post =$request->request->all();
         $result = $this->EmpresaModel->eliminarEmpresas($post);
 
-if ($result['status']) {
-            $result['data'] = $post;
-            $result['status'] = TRUE;
-            $result['message'] = "Elimidado con exito";
-        } else {
-            $result['status'] = FALSE;
-            $result['error'] = "Error";
-        }
-        return $this->jsonResponse($result);
+    if ($result['status']) {
+                $result['data'] = $post;
+                $result['status'] = TRUE;
+                $result['message'] = "Elimidado con exito";
+            } else {
+                $result['status'] = FALSE;
+                $result['error'] = "Error";
+            }
+            return $this->jsonResponse($result);
     }
     public function catempresasAction(Request $request){
         $result = $this->EmpresaModel->getEmpresas();

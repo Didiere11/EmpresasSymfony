@@ -135,6 +135,7 @@
 
 {% block javascripts %}
 {{parent()}}
+<script type="text/javascript" src="{{ asset('js/dropzone_up.js') }}"></script>
 <script type="text/javascript"> 
 var urlEliminar = "{{path('cat_empresas_eliminarEmpresa')}}";
 var Empresas = {{content['empresas']|json_encode()|raw}};
@@ -142,7 +143,7 @@ var urlInsertar = "{{path('cat_empresas_insertarEmpresa')}}";
 var urlActualizar = "{{path('cat_empresas_editarEmpresa')}}";
 </script>
 
-<script type="text/javascript" src="{{ asset('js/dropzone_up.js') }}"></script>
+
 <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.dataTables_.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>

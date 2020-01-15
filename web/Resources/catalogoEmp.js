@@ -23,27 +23,25 @@ $('#empresa-nuevo').on("click", function() {
 $(document).on("click", '.edit', function() {
     $tr = $(this).closest('tr');
     tr = $tr;
-    var IdEmpresa = $(this).attr("id-edit");
-    pintarDatos(IdEmpresa);
-    $("#empresas-guardar").attr("idempresa", IdEmpresa);
+    var idempresa = $(this).attr("id-edit");
+    pintarDatos(idempresa);
+    $("#empresas-guardar").attr("idempresa", idempresa);
     $("#empresamodal").modal({ dismissible: false }).modal('open');
-    actualizarEmpresa(IdEmpresa);
-    table.row($tr).node().draw();
+    actualizarEmpresa(idempresa);
 });
 //sirve para editar los servicio
 
 $(document).on("click", '.delete', function() {
-    var IdEmpresa = $(this).attr("id-record");
+    var idempresa = $(this).attr("id-record");
     $("#EliminarSiNo").modal({ dismissible: false }).modal('open');
-    $("#Aceptar").attr("idempresa", IdEmpresa);
+    $("#Aceptar").attr("idempresa", idempresa);
 });
-
-$('#Aceptar').on("click", function() {
+$(document).on("click", '#Aceptar', function() {
     $tr = $(this).closest('tr');
     tr = $tr;
-    var IdEmpresa = $(this).attr("idempresa");
+    var idempresa = $(this).attr("idempresa");
     table.row($tr).remove().draw();
-    eliminarEmpresa(IdEmpresa);
+    eliminarEmpresa(idempresa);
 });
 
 $('#Cerrar').on("click", function() {
@@ -109,6 +107,7 @@ function validateForm() {
 }
 // Limpia los campos al cerrar la modal
 function reset() {
+    $("#idempresa").val('');
     $("#nombre").val('');
     $("#direccion").val('');
     $("#telefono").val('');
