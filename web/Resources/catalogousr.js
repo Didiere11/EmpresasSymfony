@@ -43,8 +43,11 @@ function eliminarUsuario(idusuario) {
         data: { 'idusuario': idusuario },
         success: function (result) {
             if (result['status']) {
-                table.row().remove().draw(idusuario);
+                table.row().remove().draw();
+                table.row('idusuario' + data.idusuario).remove.draw();
                 M.toast({ html: 'Usuario eliminado', classes: 'rounded red lighten-2' });
+                var action = 'delete'
+
                 $("#modalconfirmacion").modal('close');
             } else {
                 M.toast({ html: 'Usuario no eliminado', classes: 'rounded red lighten-2' });
