@@ -23,7 +23,7 @@ $('#empresa-nuevo').on("click", function() {
 });
 
 $(document).on("click", '.edit', function(){
-    var idempresa = $(this).attr("id-edit");
+    var idempresa = $(this).attr("id-record");
     pintarDatos(idempresa);
     $("#empresas-guardar").attr("idempresa", idempresa);
     $("#empresamodal").modal({ dismissible: false }).modal('open');
@@ -48,7 +48,6 @@ $('#Aceptar').on("click", function() {
     eliminarEmpresa(idempresa);
     table.row($tr).remove().draw();
     $("#EliminarSiNo").modal('close');
-
 
 });
 
@@ -127,12 +126,12 @@ function reset() {
 };
 
 
-function eliminarEmpresa(idempresa) {
+/*function eliminarEmpresa(idempresa) {
     $.ajax({
         type: "post",
         url: urlEliminar,
         dataType: 'json',
-        data: { 'idempresa': idempresa },
+        data: { idempresa },
         success: function (result) {
             if (result['status']) {
                 table.row().remove().draw(idempresa);
@@ -143,11 +142,32 @@ function eliminarEmpresa(idempresa) {
             }
         }
     });
+}*/
+
+function eliminarEmpresa(idempresa) {
+    $.ajax({
+        type: "delete",
+        url: urlEliminar,
+        dataType: 'json',
+        data: { idempresa },
+        success: function(respuesta) {
+            if (respuesta['status']) {
+                table.row().remove().draw(idempresa);
+                M.toast({ html: 'Registro Eliminado con Exito', classes: 'rounded', displayLength: 4000 });
+                var action = "delete";
+                var base64 = "";
+                setRow(respuesta.data, base64, action);
+
+            } else {
+                M.toast({ html: 'Error al Eliminar ', classes: 'rounded', displayLength: 4000 });
+            }
+        }
+    });
 }
 
 function actualizarEmpresa(idempresa) {
     //Dropzone class
-    pdf = $(".add-file").dropzone({
+        pdf = $(".add-file").dropzone({
         url: urlActualizar,
         paramName: "archivo",
         maxFilesize: 5, //MB
@@ -260,7 +280,7 @@ function setRow(data, base64, action) {
             data.correo,
 
             '<img src="' + base64 + '" width="200" height="100" ></img>',
-            '<i class="material-icons edit" id="editar" name="editar"  id-edit="' + data.idempresa + '" class="material-icons">create</i>' +
+            '<i class="material-icons edit" id="editar" name="editar"   id-record="' + data.idempresa + '" class="material-icons">create</i>' +
             '<i class="material-icons delete" id="eliminar" name="eliminar" id-record="' + data.idempresa + '" class="material-icons">delete_forever</i>'
         ]).draw().node();
 
@@ -286,6 +306,7 @@ function limpiar(){
         $(row).find('td:nth-child(6)').text(data.rutaimagen);
     }
     if (action === 'delete') {
+        console.log("delete");
         table.row('#' + data.idempresa).remove().draw();
     }
 
