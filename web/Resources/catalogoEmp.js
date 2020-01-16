@@ -1,3 +1,4 @@
+// Inicializa el NavBar
 Dropzone.autoDiscover = false;
 var myDropzone;
 var table = "null";
@@ -16,7 +17,6 @@ $(document).ready(function() {
     //actualizarEmpresa();
 });
 $('#empresa-nuevo').on("click", function() {
-    $("#idempresa").val('');
     $("#empresamodal").modal({ dismissible: false }).modal('open');
     insertarEmpresa();
 });
@@ -24,11 +24,10 @@ $(document).on("click", '.edit', function() {
     $tr = $(this).closest('tr');
     tr = $tr;
     var idempresa = $(this).attr("id-edit");
-    $("#idempresa").val(idempresa);
     pintarDatos(idempresa);
     $("#empresas-guardar").attr("idempresa", idempresa);
     $("#empresamodal").modal({ dismissible: false }).modal('open');
-    insertarEmpresa();
+    actualizarEmpresa(idempresa);
 });
 //sirve para editar los servicio
 
@@ -108,7 +107,7 @@ function validateForm() {
 }
 // Limpia los campos al cerrar la modal
 function reset() {
-    $("#idempresa").val();
+    $("#idempresa").val('');
     $("#nombre").val('');
     $("#direccion").val('');
     $("#telefono").val('');
@@ -139,17 +138,64 @@ function eliminarEmpresa(idempresa) {
     });
 }
 
-function insertarEmpresa() {
-    var idempresa = $("#idempresa").val();
-    if (idempresa > 0) {
-        var urls = urlActualizar;
-    }
-    else {
-        var urls = urlInsertar;
-    }
+function actualizarEmpresa(idempresa) {
     //Dropzone class
     pdf = $(".add-file").dropzone({
-        url: urls,
+        url: urlActualizar,
+        paramName: "archivo",
+        maxFilesize: 5, //MB
+        maxFiles: 1,
+        method: "post",
+        uploadMultiple: false,
+        previewsContainer: false,
+        dictFileTooBig: "Error, el archivo no debe superar los 10MB",
+        dictInvalidFileType: "Error, tipo de formato no aceptado",
+        acceptedFiles: ".jpeg, .png , .jpg",
+        autoProcessQueue: false,
+        data: { idempresa },
+        error: function(file, errorMessage) {
+            M.toast({ html: errorMessage, classes: 'rounded', displayLength: 4000 });
+        },
+        init: function() {
+            myDropzone = this;
+            $("#empresas-guardar").click(function(e) {
+                $('#empresa-form').submit();
+
+
+});
+            this.on("sending", function(file, xhr, formData) {
+                var data = $('#empresa-form').serializeArray();
+                // post = post + "&IdEmpresa=" + ;
+                $.each(data, function(key, el) {
+                    formData.append(el.name, el.value);
+                });
+            });
+            this.on("success", function(file) {
+                var res = JSON.parse(file.xhr.response);
+                var base64 = file.dataURL;
+                var data = res.data;
+                if (res.status) {
+                    M.toast({ html: 'Se actualizo con exito', classes: 'rounded', displayLength: 4000 });
+                    table.row('#' + data.idempresa).remove().draw();
+                    var action = "update";
+                    setRow(data, base64, action);
+                    reset();
+                    $("#empresamodal").modal('close');
+                } else {
+                    show_alert("warning", res.data);
+                }
+
+            });
+        }
+
+    });
+}
+
+function insertarEmpresa() {
+
+    //Dropzone class
+    pdf = $(".add-file").dropzone({
+        url: urlInsertar,
         paramName: "archivo",
         maxFilesize: 15, //MB
         maxFiles: 1,
@@ -181,20 +227,11 @@ function insertarEmpresa() {
                 var base64 = file.dataURL;
                 var data = res.data;
                 if (res.status) {
-                    if (urls=urlActualizar) {
-                        M.toast({ html: 'Se actualizo con exito', classes: 'rounded', displayLength: 4000 });
-                        table.row('#' + data.idempresa).remove().draw();
-                        var action = "update";
-                        setRow(data, base64, action);
-                        reset();
-                        $("#empresamodal").modal('close');
-                    }else{
-                        M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
-                        var action = "insert";
-                        setRow(data, base64, action);
-                        reset();
-                        $("#empresamodal").modal('close');
-                    }   
+                    M.toast({ html: 'Registro exitoso', classes: 'rounded', displayLength: 4000 });
+                    var action = "insert";
+                    setRow(data, base64, action);
+                    reset();
+                    $("#empresamodal").modal('close');
                 } else {
                     show_alert("warning", res.data);
                 }
