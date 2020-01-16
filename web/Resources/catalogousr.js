@@ -13,30 +13,22 @@ function init() {
     });//definiendo las caracteristicas del datatable 
     // eliminar
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    table.on('click', '.delete', function () {
-        $tr = $(this).closest('tr');
-        tr = $tr;
-        var idusuario = $(this).attr("data-id");
-        $("#modalconfirmacion").modal({ dismissible: false }).modal('open');
-        $('#si').on("click", function () {
-            $.ajax({
-                type: "post",
-                url: eliminaUsuario,
-                datatype: 'json',
-                data: { 'idusuario': idusuario },
-                success: function (respuesta) {
-                    if (respuesta['status']) {
-                        table.row($tr).remove().draw();
-                        M.toast({ html: 'Usuario eliminado', classes: 'rounded red lighten-2' });
-                        $("#modalconfirmacion").modal('close');
-                    } else
-                        M.toast({ html: 'Usuario no eliminado', classes: 'rounded red lighten-2' });
-                    $("#modalconfirmacion").modal('close');
-                }
-            });
-        });
+  table.on('click', '.delete', function () {
+    var idusuario = $(this).attr("data-id");
+    $("#modalconfirmacion").modal({ dismissible: false }).modal('open');
+    $("#si").attr("idusuario", idusuario);
+    $tr = $(this).closest('tr');
+    tr = $tr;
     });
 
+    $("#si").on("click", function(){
+       
+        var idusuario = $(this).attr("idusuario");
+        eliminarUsuario(idusuario);
+        table.row($tr).remove().draw(idusuario);
+        $("#modalconfirmacion").modal('close');
+    });
+    
     $('#no').on("click", function () {
         $("#modalconfirmacion").modal('close');
     });
@@ -209,4 +201,21 @@ function reset() {
     $("#tipousr").val(1);
     $('#tipousr').formSelect();
     $("#modalReg").modal('close');
+}
+
+function eliminarUsuario(idusuario) {
+    $.ajax({
+        type: "delete",
+        url: eliminaUsuario,
+        dataType: 'json',
+        data: { idusuario },
+        success: function(respuesta) {
+            if (respuesta['status']) {
+                //table.remove().draw();
+                M.toast({ html: 'Usuario Eliminado con Exito', classes: 'rounded red', displayLength: 4000 });
+            } else {
+                M.toast({ html: 'Error al Eliminar Usuario', classes: 'rounded red', displayLength: 4000 });
+            }
+        }
+    });
 }
