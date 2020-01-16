@@ -21,14 +21,16 @@ $('#empresa-nuevo').on("click", function() {
     
 });
 $(document).on("click", '.edit', function() {
+    var idempresa = $(this).attr("id-edit");
+    $("#idempresa").val(idempresa);
     $tr = $(this).closest('tr');
     tr = $tr;
-    var idempresa = $(this).attr("id-edit");
     pintarDatos(idempresa);
     $("#empresas-guardar").attr("idempresa", idempresa);
     $("#empresamodal").modal({ dismissible: false }).modal('open');
     actualizarEmpresa(idempresa);
 });
+
 //sirve para editar los servicio
 
 $(document).on("click", '.delete', function() {
@@ -266,10 +268,10 @@ function setRow(data, base64, action) {
             data.telefono,
             data.correo,
             '<img src="' + base64 + '" width="200" height="100" ></img>',
-            '<i class="material-icons edit" id="editar" name="editar"  id-edit="' + data.idempresa + '" data-nom="' + data.nombre + '"data-dir="' + data.direccion + '"data-descrip="' + data.descripcion +  '"data-tel="' + data.telefono + '"data-corr="' + data.corr +  '" class="material-icons">create</i>' +
-            '<i class="material-icons delete" id="eliminar" name="eliminar" id-record="' + data.idempresa + '" class="material-icons">delete_forever</i>'
+            '<i class="material-icons edit"  id-edit="' + data.idempresa + '" data-nom="' + data.nombre + '"data-dir="' + data.direccion + '"data-descrip="' + data.descripcion +  '"data-tel="' + data.telefono + '"data-corr="' + data.corr +  '" class="material-icons">create</i>' +
+            '<i class="material-icons delete" id-record="' + data.idempresa + '" class="material-icons">delete_forever</i>'
         ]).draw().node();
-        $(row).attr('id', data.idempresa);
+        $(row).attr('id-edit', data.idempresa);
     }
     if (action === 'delete') {
         Empresas[data.idempresa] = data;
