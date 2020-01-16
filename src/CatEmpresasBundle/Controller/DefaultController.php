@@ -64,7 +64,6 @@ protected $EmpresaModel;
 }
     public function editarEmpresaAction(Request $request){
         $post =$request->request->all();
-       
         $tmp = $_FILES['archivo']["tmp_name"];
         $tmp = file_get_contents($tmp);
         $base64 = base64_encode($tmp);

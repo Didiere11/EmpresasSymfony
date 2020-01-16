@@ -42,8 +42,8 @@
                 <td><img src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="200px" height="100px"/></td>
                 {#<td>{{ empresa.visitas }}</td>#}
                 <td>
-                    <i id="editar" name="editar" class = "material-icons edit" id-edit="{{empresa.idempresa}}" >create</i>
-                    <i  id="eliminar" name="eliminar" class='material-icons delete' id-record="{{empresa.idempresa}}">delete_forever</i>
+                    <i class="material-icons edit" id-edit="{{empresa.idempresa}}"  data-nom="{{ empresa['nombreempresa'] }}" data-dir="{{ empresa['direccionempresa'] }}"  data-tel="{{ empresa['telefonoempresa'] }}" data-corr="{{ empresa['correoempresa'] }}" data-descrip="{{ empresa['descripcionempresa'] }}">create</i>
+                    <i class='material-icons delete' id-record="{{empresa.idempresa}}">delete_forever</i>
                 </td>
             </tr>
             {% endfor %}
@@ -127,9 +127,7 @@
 
 
 <!--Imagen-->
-<form id="archivo" style="display:none">
-<input type="file" id="archivo" name ="archivo">
-</form>
+
 
 {% endblock %}
 
