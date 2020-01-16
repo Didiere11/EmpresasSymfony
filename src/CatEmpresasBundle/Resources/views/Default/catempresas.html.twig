@@ -1,152 +1,121 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin Empresas{% endblock %}
+{% block title %}Admin Empresas
+{% endblock %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset("css/dropzone_up.css") }}">
-<link rel="stylesheet" href="{{ asset("css/jquery.dataTables.min.css") }}">
+	<link rel="stylesheet" href="{{ asset("css/dropzone_up.css") }}">
+	<link rel="stylesheet" href="{{ asset("css/jquery.dataTables.min.css") }}">
 
 {% endblock %}
 
 {% block body %}
-<div class="row">
-        <div class="col s12 m8 offset-m2">
-            <div class="card">
-    
-    <a id="empresa-nuevo" class="btn-floating btn-large waves-effect waves-light right blue">
-                   <i class="material-icons">add</i> 
-    </a>
-     <div class="card-content">
-       <span class="card-title" align="center">Empresas</span>
-    <table id="empresas-table" class="highlight border datatable">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th style="width:20%">Nombre Empresa</th>
-                <th style="width:20%">Direccion Empresa</th>
-                <th style="width:20%">Telefono</th>
-                <th style="width:20%">Correo Empresa</th>
-                <th style="width:20%">Descripcion Empresa</th>
-                <th style="width:20%">Imagen Empresa</th>
-                <th style="width:20%">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-           {% for empresa in content['empresas'] %}
-            <tr id="{{ empresa.idempresa }}">
-                <td>{{ empresa.idempresa }}</td>
-                <td>{{ empresa.nombreempresa }}</td>
-                <td>{{ empresa.direccionempresa }}</td>
-                <td>{{ empresa.telefonoempresa }}</td>
-                <td>{{ empresa.correoempresa }}</td>
-                <td>{{ empresa.descripcionempresa }}</td>
-                <td><img src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="200px" height="100px"/></td>
-                {#<td>{{ empresa.visitas }}</td>#}
-                <td>
-                    <i class="material-icons edit" id-edit="{{empresa.idempresa}}"  data-nom="{{ empresa['nombreempresa'] }}" data-dir="{{ empresa['direccionempresa'] }}"  data-tel="{{ empresa['telefonoempresa'] }}" data-corr="{{ empresa['correoempresa'] }}" data-descrip="{{ empresa['descripcionempresa'] }}">create</i>
-                    <i class='material-icons delete' id-record="{{empresa.idempresa}}">delete_forever</i>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table> 
-</div>
-</div>
-</div>
-</div>
+	<div class="row">
+		<div class="col s12 m8 offset-m2">
+			<div class="card">
 
-<!--          MODAL              -->
+				<a id="empresa-nuevo" class="btn-floating btn-large waves-effect waves-light right blue">
+					<i class="material-icons">add</i>
+				</a>
+				<div class="card-content">
+					<span class="card-title" align="center">Empresas</span>
+					<table id="empresas-table" class="highlight border datatable">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th style="width:20%">Nombre Empresa</th>
+								<th style="width:20%">Direccion Empresa</th>
+								<th style="width:20%">Telefono</th>
+								<th style="width:20%">Correo Empresa</th>
+								<th style="width:20%">Descripcion Empresa</th>
+								<th style="width:20%">Imagen Empresa</th>
+								<th style="width:20%">Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for empresa in content['empresas'] %}
+								<tr id="{{ empresa.idempresa }}">
+									<td>{{ empresa.idempresa }}</td>
+									<td>{{ empresa.nombreempresa }}</td>
+									<td>{{ empresa.direccionempresa }}</td>
+									<td>{{ empresa.telefonoempresa }}</td>
+									<td>{{ empresa.correoempresa }}</td>
+									<td>{{ empresa.descripcionempresa }}</td>
+									<td><img src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="200px" height="100px"/></td>
+									{#<td>{{ empresa.visitas }}</td>#}
+									<td>
+										<i class="material-icons edit"  id-edit="{{ empresa['idempresa'] }}" data-nom="{{ empresa['nombreempresa'] }}" data-dir="{{ empresa['direccionempresa'] }}" data-tel="{{ empresa['telefonoempresa'] }}"data-corr="{{ empresa['correoempresa'] }}" data-descrip="{{ empresa['descripcionempresa'] }}">create</i>
+										<i class='material-icons delete' id-record="{{empresa.idempresa}}">delete_forever</i>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<div class="modal fade" id="empresamodal" name="empresamodal" tabindex="-1" role="dialog"
-    aria-labelledby="empresa-modal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 align="center" class="modal-title" id="exampleModalLabel">Control de Empresas</h5>
-            </div>
-            <div class="modal-body">
-                <form id="empresa-form">
-                    <br></br>
-                    <div class="row">
-                        <div class="input-field s12">
-                             <i class="material-icons prefix">work</i>
-                            <input type="text" id="nombre" name="nombre" class="form-control">
-                            <label for="nombre">Nombre Empresa:</label>
-                        </div>
-                        <div class="input-field s12">
-                             <i class="material-icons prefix">add_location</i>
-                            <input type="text" id="direccion" name="direccion" class="form-control">
-                            <label for="direccion">Direccion de la Empresa:</label>
-                        </div>
-                        <div class="input-field s12">
-                             <i class="material-icons prefix">dialer_sip</i>
-                            <input type="text" id="telefono" name="telefono" class="form-control">
-                            <label for="telefono">Telefono de la Empresa:</label>
-                        </div>
-                        <div class="input-field s12">
-                             <i class="material-icons prefix">email</i>
-                            <input type="email" id="correo" name="correo" class="form-control">
-                            <label for="correo">Correo de Empresa:</label>
-                        </div>
-                        <div class="input-field s12">
-                             <i class="material-icons prefix">description</i>
-                            <input type="text" id="descripcion" name="descripcion" class="form-control">
-                            <label for="nodescripcionmbre">Descripcion de la Empresa:</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                        <a class="waves-effect waves-light btn add-file black" name="addfile" id="addfile"><i class="material-icons left">unarchive</i>Subir imagen</a>
-                        </div>
-                    </div>
-                    <br></br>  
+	<!--          MODAL              -->
 
-                    <input type="hidden" id="idempresa" name="idempresa" value=""></input>
-            </div>
-            <div class="modal-footer">
-                <a id="empresas-guardar" class="modal-action waves-effect waves-green btn-flat btn btn-primary" >Guardar</a>
-                <a id="cancelar" class="modal-action waves-effect waves-green btn-flat btn btn-primary btn btn-secondary" data-dismiss="modal" >Cancelar</a>            </div>
-            </form>
+	<div class="modal fade" id="empresamodal" name="empresamodal" tabindex="-1" role="dialog" aria-labelledby="empresa-modal" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 align="center" class="modal-title" id="exampleModalLabel">Control de Empresas</h5>
+				</div>
+				<div class="modal-body">
+					<form id="empresa-form">
+						<br></br>
+					<div class="row">
+                    <input type="hidden" id="idempresa" name="idempresa"></input>
+						<div class="input-field s12">
+							<i class="material-icons prefix">work</i>
+							<input type="text" id="nombre" name="nombre" class="form-control">
+							<label for="nombre">Nombre Empresa:</label>
+						</div>
+						<div class="input-field s12">
+							<i class="material-icons prefix">add_location</i>
+							<input type="text" id="direccion" name="direccion" class="form-control">
+							<label for="direccion">Direccion de la Empresa:</label>
+						</div>
+						<div class="input-field s12">
+							<i class="material-icons prefix">dialer_sip</i>
+							<input type="text" id="telefono" name="telefono" class="form-control">
+							<label for="telefono">Telefono de la Empresa:</label>
+						</div>
+						<div class="input-field s12">
+							<i class="material-icons prefix">email</i>
+							<input type="email" id="correo" name="correo" class="form-control">
+							<label for="correo">Correo de Empresa:</label>
+						</div>
+						<div class="input-field s12">
+							<i class="material-icons prefix">description</i>
+							<input type="text" id="descripcion" name="descripcion" class="form-control">
+							<label for="nodescripcionmbre">Descripcion de la Empresa:</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s12">
+							<a class="waves-effect waves-light btn add-file black" name="addfile" id="addfile">
+								<i class="material-icons left">unarchive</i>Subir imagen</a>
+						</div>
+					</div>
+					<br></br>
 
-        </div>
-    </div>
-</div>
+				
+		</div>
+		<div class="modal-footer">
+			<a id="empresas-guardar" class="modal-action waves-effect waves-green btn-flat btn btn-primary">Guardar</a>
+			<a id="cancelar" class="modal-action waves-effect waves-green btn-flat btn btn-primary btn btn-secondary" data-dismiss="modal">Cancelar</a>
+		</div>
+	</form>
 
-
-<div id="EliminarSiNo" name="EliminarSiNo" class="modal">
-    <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="EliminarSiNo">¿Eliminar Registro?</h5>
-            </div>
-            </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="Aceptar" name="Aceptar">Aceptar</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="Cerrar" name="Cerrar">Cerrar</a>
-
-    </div>
-  </div>
-
-
-<!--Imagen-->
-<form id="archivo" style="display:none">
-<input type="file" id="archivo" name ="archivo">
-</form>
-
-{% endblock %}
-
-{% block javascripts %}
-{{parent()}}
-<script type="text/javascript" src="{{ asset('js/dropzone_up.js') }}"></script>
-<script type="text/javascript"> 
-var urlEliminar = "{{path('cat_empresas_eliminarEmpresa')}}";
-var Empresas = {{content['empresas']|json_encode()|raw}};
-var urlInsertar = "{{path('cat_empresas_insertarEmpresa')}}";
-var urlActualizar = "{{path('cat_empresas_editarEmpresa')}}";
-</script>
-
-
-<script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/jquery.dataTables_.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
-<script type="text/javascript" src="{{ asset('Resources/catalogoEmp.js') }}"></script>
-
-{% endblock %}
+</div></div></div><div id="EliminarSiNo" name="EliminarSiNo" class="modal"><div class="modal-content">
+<div class="modal-header">
+	<h5 class="modal-title" id="EliminarSiNo">¿Eliminar Registro?</h5>
+</div></div><div class="modal-footer">
+<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="Aceptar" name="Aceptar">Aceptar</a>
+<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="Cerrar" name="Cerrar">Cerrar</a></div></div><!--Imagen--><form id="archivo" style="display:none"><input type="file" id="archivo" name="archivo"></form>{% endblock %}{% block javascripts %}{{parent()}}<script type="text/javascript" src="{{ asset('js/dropzone_up.js') }}"></script><script type="text/javascript">var urlEliminar = "{{ path('cat_empresas_eliminarEmpresa') }}";
+var Empresas = {{ content['empresas']|json_encode()|raw }};
+var urlInsertar = "{{ path('cat_empresas_insertarEmpresa') }}";
+var urlActualizar = "{{ path('cat_empresas_editarEmpresa') }}";</script><script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script><script type="text/javascript" src="{{ asset('js/jquery.dataTables_.min.js') }}"></script><script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script><script type="text/javascript" src="{{ asset('Resources/catalogoEmp.js') }}"></script>{% endblock %}

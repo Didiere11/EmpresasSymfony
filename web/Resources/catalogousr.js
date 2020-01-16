@@ -28,7 +28,6 @@ function init() {
         table.row($tr).remove().draw(idusuario);
         $("#modalconfirmacion").modal('close');
     });
-    
     $('#no').on("click", function () {
         $("#modalconfirmacion").modal('close');
     });
