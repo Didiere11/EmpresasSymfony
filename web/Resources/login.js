@@ -9,7 +9,7 @@ function init(){
     });
 
     //Iniciliza la ventana Modal y la Validación
-    $("#modalReg").modal();
+    $("#modalReg").modal({ dismissible: false });
     validateForm();
 
     // Clic del boton circular para validar correo y contraseña
@@ -33,6 +33,10 @@ function init(){
     $('#guardar').on("click",function(){
         $('#frmUsr').submit();
     });
+    $('#cerrar').on("click",function(){
+        $("#modalReg").modal('close');
+    });
+       
        
 }
 //valida el formulario y el login ademas
@@ -95,7 +99,8 @@ function saveClick() {
                 reset();    
             }
             else{
-                M.toast({html: 'Error al Registrar Usuario', classes: 'rounded', displayLength: 4000});
+                M.toast({html: 'Error el correo ya esta registrado', classes: 'rounded red', displayLength: 4000});
+                
             }
         }
     });
