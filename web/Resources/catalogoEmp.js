@@ -25,12 +25,12 @@ $(document).on("click", '.edit', function() {
     $("#idempresa").val(idempresa);
     $tr = $(this).closest('tr');
     tr = $tr;
+    var idempresa = $(this).attr("id-edit");
     pintarDatos(idempresa);
     $("#empresas-guardar").attr("idempresa", idempresa);
     $("#empresamodal").modal({ dismissible: false }).modal('open');
     actualizarEmpresa(idempresa);
 });
-
 //sirve para editar los servicio
 
 $(document).on("click", '.delete', function() {
