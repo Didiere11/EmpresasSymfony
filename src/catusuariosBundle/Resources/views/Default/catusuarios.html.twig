@@ -1,8 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}
-
-{% endblock %}
+{% block title %}Admin Usuarios{% endblock %}
 
 {% block body %}
     <div class="row">
@@ -28,8 +26,7 @@
                         </thead>
                         <tbody>
                             {% for usuarios in content['usuarios'] %}
-                            <tr >
-                           
+                            <tr id="{{ usuarios.idusuario }}">
                             <td>{{ usuarios.nomusuario }}</td>
                             <td>{{ usuarios.correo }}</td>
                             <td>{{ usuarios.contraseña }}</td>
