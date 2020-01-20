@@ -28,13 +28,20 @@
                 <!--<li><a href="sass.html">Sass</a></li>
                 <li><a href="badges.html">Components</a></li>-->
                 <li>
+                {% if  content['user']['idtipousr'] is defined and content['user']['idtipousr'] == 2 %}
 					<a href="{{path('cat_empresas_homepage')}}">Empresas</a>
 					</li>
 					<li>
 						<a href="{{path('catusuarios_homepage')}}">Usuarios</a>
 					</li>
+                    
+                {% endif %}    
 					<li>
-						<a href="{{path('login_homepage')}}">Iniciar Sesion</a>
+                        {% if  content['user'] is defined %}
+						<a href="{{path('logout')}}"> {{ content['user']['correo'] }}</a>
+                        {%else%}
+                        <a href="{{path('login_homepage')}}">Iniciar Sesión</a>
+                        {%endif%}
 					</li>
               </ul>
             </div>

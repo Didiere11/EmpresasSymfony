@@ -113,9 +113,13 @@ protected $EmpresaModel;
             return $this->jsonResponse($result);
     }
     public function catempresasAction(Request $request){
+        $profile = $this->getUser();
+        $user = $profile->getData();
+
         $result = $this->EmpresaModel->getEmpresas();
         $empresas = $result['data'];
         $content['empresas'] = $empresas;
+        $content['user'] = $user;
         return $this->render('CatEmpresasBundle:Default:catempresas.html.twig', array('content' => $content));
     }
 }

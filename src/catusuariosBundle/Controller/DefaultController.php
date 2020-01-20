@@ -57,12 +57,19 @@ class DefaultController extends Controller
         }
     }
     public function catusuariosAction()
-    {   $result = $this->UsuarioModel->getUsuarios();
+    
+    {   
+        $profile = $this->getUser();
+        $user = $profile->getData();
+
+        $result = $this->UsuarioModel->getUsuarios();
         $tipo = $this->UsuarioModel->getTipoUsr();
+        
         $tipousuario = $tipo['data'];
         $usuarios = $result['data'];
         $content['tipousuario'] = $tipousuario;
         $content['usuarios'] = $usuarios;
+        $content['user'] = $user;
         return $this->render('catusuariosBundle:Default:catusuarios.html.twig', array('content' => $content));
     }
 
