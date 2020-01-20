@@ -21,28 +21,32 @@ $('#empresa-nuevo').on("click", function() {
     
 });
 $(document).on("click", '.edit', function() {
+    var idempresa = $(this).attr("id-edit");
     var nombre = $(this).attr("data-nom");
     var dire = $(this).attr("data-dir");
     var descr = $(this).attr("data-descrip");
     var tele = $(this).attr("data-tel");
     var corr = $(this).attr("data-corr");
+    $("#empresamodal").modal({ dismissible: false }).modal('open');
+    $("#idempresa").val(idempresa);
     $("#nombre").val(nombre);
     $("#direccion").val(dire);
     $("#telefono").val(tele);
     $("#descripcion").val(descr);
     $("#correo").val(corr);
-    
-    var idempresa = $(this).attr("id-edit");
-    $("#idempresa").val(idempresa);
+    $("#direccion").focus();
+    $("#telefono").focus();
+    $("#descripcion").focus();
+    $("#correo").focus();
+    $("#nombre").focus();
     $tr = $(this).closest('tr');
     tr = $tr;
-    $("#empresas-guardar").attr("idempresa", idempresa);
-    $("#empresamodal").modal({ dismissible: false }).modal('open');
+    var idempresa = $(this).attr("id-edit");
     pintarDatos(idempresa);
+    $("#empresas-guardar").attr("idempresa", idempresa);
     actualizarEmpresa(idempresa);
    
 });
-
 //sirve para editar los servicio
 
 $(document).on("click", '.delete', function() {
