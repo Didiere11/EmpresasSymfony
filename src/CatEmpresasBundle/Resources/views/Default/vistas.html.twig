@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}visitas Empresas
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset("css/dropzone_up.css") }}">
+	<link rel="stylesheet" href="{{ asset("css/jquery.dataTables.min.css") }}">
+
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col s12 m8 offset-m4">
+			<div class="card">
+				<div class="card-content">
+					<span class="card-title" align="center">Visitas</span>
+					<table id="visitas-table" class="highlight border datatable">
+						<thead>
+							<tr>
+								<th style="width:20%">Nombre Empresa</th>
+								<th style="width:20%">vistas</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for empresa in content['empresas'] %}
+								<tr>
+                                <td>{{ empresa.nombreempresa }}</td>
+								<td>{{ empresa.vistas }}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+    {% endblock %}
+    {% block javascripts %}
+    {{parent()}}
+    <script type="text/javascript"> 
+    var Empresas = {{ content['empresas']|json_encode()|raw }};
+    <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables_.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('Resources/catalogoEmp.js') }}"></script>{% endblock %}
