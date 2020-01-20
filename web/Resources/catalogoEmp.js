@@ -21,14 +21,26 @@ $('#empresa-nuevo').on("click", function() {
     
 });
 $(document).on("click", '.edit', function() {
+    var nombre = $(this).attr("data-nom");
+    var dire = $(this).attr("data-dir");
+    var descr = $(this).attr("data-descrip");
+    var tele = $(this).attr("data-tel");
+    var corr = $(this).attr("data-corr");
+    $("#nombre").val(nombre);
+    $("#direccion").val(dire);
+    $("#telefono").val(tele);
+    $("#descripcion").val(descr);
+    $("#correo").val(corr);
+    
     var idempresa = $(this).attr("id-edit");
     $("#idempresa").val(idempresa);
     $tr = $(this).closest('tr');
     tr = $tr;
-    pintarDatos(idempresa);
     $("#empresas-guardar").attr("idempresa", idempresa);
     $("#empresamodal").modal({ dismissible: false }).modal('open');
+    pintarDatos(idempresa);
     actualizarEmpresa(idempresa);
+   
 });
 
 //sirve para editar los servicio
@@ -56,12 +68,6 @@ $('#cancelar').on("click", function() {
 });
 
 function pintarDatos(idempresa) {
-    $("#idempresa").val(idempresa);
-    $("#nombre").val(Empresas[idempresa]["nombreempresa"]).next().addClass("active");
-    $("#direccion").val(Empresas[idempresa]["direccionempresa"]).next().addClass("active");
-    $("#telefono").val(Empresas[idempresa]["telefonoempresa"]).next().addClass("active");
-    $("#correo").val(Empresas[idempresa]["correoempresa"]).next().addClass("active");
-    $("#descripcion").val(Empresas[idempresa]["descripcionempresa"]).next().addClass("active");
     $("#addfile").val('data:' + Empresas[idempresa]["formatoimagen"] + ';base64,' + Empresas[idempresa]["rutaimagen"]).next().addClass("active");
     var divrow = $('<div/>', {
         'class': 'row img'
@@ -249,11 +255,11 @@ function setRow(data, base64, action) {
             data.idempresa,
             data.nombre,
             data.direccion,
-            data.descripcion,
             data.telefono,
             data.correo,
+            data.descripcion,
             '<img src="' + base64 + '" width="200" height="100" ></img>',
-            '<i class="material-icons edit"   id-edit="' + data.idempresa + '" data-nom="' + data.nombre + '"data-dir="' + data.direccion + '"data-descrip="' + data.descripcion +  '"data-tel="' + data.telefono + '"data-corr="' + data.corr +  '" class="material-icons">create</i>' +
+            '<i class="material-icons edit"   id-edit="' + data.idempresa + '" data-nom="' + data.nombre + '"data-dir="' + data.direccion + '"data-descrip="' + data.descripcion +  '"data-tel="' + data.telefono + '"data-corr="' + data.correo +  '" class="material-icons">create</i>' +
             '<i class="material-icons delete" id-record="' + data.idempresa + '" class="material-icons">delete_forever</i>'
 
         ]).draw().node();
@@ -264,11 +270,11 @@ function setRow(data, base64, action) {
             data.idempresa,
             data.nombre,
             data.direccion,
-            data.descripcion,
             data.telefono,
             data.correo,
+            data.descripcion,
             '<img src="' + base64 + '" width="200" height="100" ></img>',
-            '<i class="material-icons edit"  id-edit="' + data.idempresa + '" data-nom="' + data.nombre + '"data-dir="' + data.direccion + '"data-descrip="' + data.descripcion +  '"data-tel="' + data.telefono + '"data-corr="' + data.corr +  '" class="material-icons">create</i>' +
+            '<i class="material-icons edit"  id-edit="' + data.idempresa + '" data-nom="' + data.nombre + '"data-dir="' + data.direccion + '"data-descrip="' + data.descripcion +  '"data-tel="' + data.telefono + '"data-corr="' + data.correo +  '" class="material-icons">create</i>' +
             '<i class="material-icons delete" id-record="' + data.idempresa + '" class="material-icons">delete_forever</i>'
         ]).draw().node();
         $(row).attr('id-edit', data.idempresa);
