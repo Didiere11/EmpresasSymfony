@@ -1,3 +1,7 @@
 index_homepage:
     path:     /
     defaults: { _controller: indexBundle:Default:index }
+
+index_homepage_insertarvista:
+    path:     /insertarvista
+    defaults: { _controller: indexBundle:Default:insertarvista }

@@ -2,6 +2,10 @@ cat_empresas_homepage:
     path:     /catempresas
     defaults: { _controller: CatEmpresasBundle:Default:catempresas }
 
+cat_empresas_visitas:
+    path:     /vistas
+    defaults: { _controller: CatEmpresasBundle:Default:vistas }
+
 cat_empresas_insertarEmpresa:
     path:     /insertarEmpresa
     defaults: { _controller: CatEmpresasBundle:Default:insertarEmpresa }

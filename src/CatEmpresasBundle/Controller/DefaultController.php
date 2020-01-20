@@ -118,4 +118,10 @@ protected $EmpresaModel;
         $content['empresas'] = $empresas;
         return $this->render('CatEmpresasBundle:Default:catempresas.html.twig', array('content' => $content));
     }
+    public function vistasAction(Request $request){
+        $result = $this->EmpresaModel->getVistas();
+        $empresas = $result['data'];
+        $content['empresas'] = $empresas;
+        return $this->render('CatEmpresasBundle:Default:vistas.html.twig', array('content' => $content));
+    }
 }

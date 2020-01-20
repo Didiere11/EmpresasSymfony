@@ -6,6 +6,17 @@ class EmpresaModel {
     public function __construct() {
         $this->SQLModel = new SQLModel();
     } 
+    public function getVistas(){
+        $fields = ' SELECT ';
+        $fields .= ' e."nombreempresa",';
+        $fields .= ' "count"(v."idempresa") as "vistas"';
+        $fields .= ' FROM "vistas" v ';
+        $fields .= ' INNER JOIN "empresa" e on  ';
+        $fields .= ' e."idempresa" = v."idempresa" ';
+        $fields .= ' GROUP BY e."nombreempresa" ';
+        $result = $this->SQLModel->executeQuery($fields);
+        return $result;
+    }
     public function getEmpresas(){
         $fields = ' SELECT ';
         $fields .= ' e."idempresa",';

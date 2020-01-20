@@ -37,5 +37,8 @@ class EmpresaModel {
         $result["data"] = $data;
         return $result;
     }
-    
+    public function insertarvista($data){
+        $result = $this->SQLModel->insertIntoTable('vistas',$data,'idvista');
+        return $result;
+    }
 }

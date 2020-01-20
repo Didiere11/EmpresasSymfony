@@ -26,4 +26,24 @@ class DefaultController extends Controller
        
         return $this->render('indexBundle:Default:index.html.twig', array('content' => $content));
     }
+    public function insertarvistaAction(Request $request){
+        if ($request->getMethod() == 'POST') {
+            //extraccion de parametros
+        $post = $request->request->all();
+        $data = array(
+            "idempresa"=> "'" . $post["idempresa"] . "'",
+        );
+        
+        $result = $this->EmpresaModel->insertarvista($data);
+        if ($result['status']) {
+            $result['data'] = $post;
+            $result['status'] = TRUE;
+            $result['message']="Eliminado con exito";
+        }else{
+            $result['status'] = FALSE;
+            $result['message']="ERRORRRR";
+        }
+        return $this->jsonResponse($result);
+        }
+    }
 }

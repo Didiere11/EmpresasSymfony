@@ -10,7 +10,7 @@
 
 {% block body %}
 	<div class="row">
-		<div class="col s12 m8 offset-m2">
+		<div class="col s12 ">
 			<div class="card">
 
 				<a id="empresa-nuevo" class="btn-floating btn-large waves-effect waves-light right blue">
@@ -18,7 +18,7 @@
 				</a>
 				<div class="card-content">
 					<span class="card-title" align="center">Empresas</span>
-					<table id="empresas-table" class="highlight border datatable">
+					<table id="empresas-table" class=" responsive-table">
 						<thead>
 							<tr>
 								<th>#</th>
@@ -115,7 +115,17 @@
 	<h5 class="modal-title" id="EliminarSiNo">¿Eliminar Registro?</h5>
 </div></div><div class="modal-footer">
 <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="Aceptar" name="Aceptar">Aceptar</a>
-<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="Cerrar" name="Cerrar">Cerrar</a></div></div><!--Imagen--><form id="archivo" style="display:none"><input type="file" id="archivo" name="archivo"></form>{% endblock %}{% block javascripts %}{{parent()}}<script type="text/javascript" src="{{ asset('js/dropzone_up.js') }}"></script><script type="text/javascript">var urlEliminar = "{{ path('cat_empresas_eliminarEmpresa') }}";
+<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="Cerrar" name="Cerrar">Cerrar</a></div></div><!--Imagen--><form id="archivo" style="display:none"><input type="file" id="archivo" name="archivo"></form>
+{% endblock %}
+{% block javascripts %}
+{{parent()}}
+<script type="text/javascript" src="{{ asset('js/dropzone_up.js') }}"></script>
+<script type="text/javascript">var urlEliminar = "{{ path('cat_empresas_eliminarEmpresa') }}";
 var Empresas = {{ content['empresas']|json_encode()|raw }};
 var urlInsertar = "{{ path('cat_empresas_insertarEmpresa') }}";
-var urlActualizar = "{{ path('cat_empresas_editarEmpresa') }}";</script><script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script><script type="text/javascript" src="{{ asset('js/jquery.dataTables_.min.js') }}"></script><script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script><script type="text/javascript" src="{{ asset('Resources/catalogoEmp.js') }}"></script>{% endblock %}
+var urlActualizar = "{{ path('cat_empresas_editarEmpresa') }}";</script>
+<script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.dataTables_.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+<script type="text/javascript" src="{{ asset('Resources/catalogoEmp.js') }}"></script>
+{% endblock %}

@@ -1,4 +1,4 @@
-Dropzone.autoDiscover = false;
+Dropzone.autoDiscover = true;
 var myDropzone;
 var table = "null";
 var tr = null;
@@ -48,6 +48,27 @@ $(document).on("click", '.edit', function() {
    
 });
 //sirve para editar los servicio
+$(document).on("click", '.right', function(){
+    var idempresa = $(this).attr("idempresa");
+    $.ajax({
+        type: "post",
+        url: insertarvis,
+        dataType: "json",
+        data: { idempresa },
+        success: function(respuesta) {
+          if (respuesta["status"]) {
+            //table.remove().draw();
+            M.toast({
+              html: "visita registrada",
+              classes: "rounded ",
+              displayLength: 4000
+            });
+          } else {
+           
+          }
+        }
+      });
+});
 
 $(document).on("click", '.delete', function() {
     var idempresa = $(this).attr("id-record");
