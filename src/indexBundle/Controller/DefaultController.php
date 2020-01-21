@@ -32,11 +32,15 @@ class DefaultController extends Controller
         return $this->render('indexBundle:Default:index.html.twig', array('content' => $content));
     }
     public function insertarvistaAction(Request $request){
+        $profile = $this->getUser();
+        $user = $profile->getData();
+        $content['user'] = $user;
         if ($request->getMethod() == 'POST') {
             //extraccion de parametros
         $post = $request->request->all();
         $data = array(
             "idempresa"=> "'" . $post["idempresa"] . "'",
+            "correo"=> "'" . $content['user']['correo'] . "'",
         );
         
         $result = $this->EmpresaModel->insertarvista($data);
