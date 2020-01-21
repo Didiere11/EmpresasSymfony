@@ -55,3 +55,8 @@ $(document).ready(function(){
 });
 
 $(".dropdown-trigger").dropdown();
+$(document).ready(function(){
+  $('.materialboxed').materialbox();
+});
+
+
