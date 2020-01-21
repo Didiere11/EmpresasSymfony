@@ -35,17 +35,28 @@ class DefaultController extends Controller
     }
     public function insertarvistaAction(Request $request){
         $profile = $this->getUser();
-        $user = $profile->getData();
-        $content['user'] = $user;
+        
         if ($request->getMethod() == 'POST') {
             //extraccion de parametros
-        $post = $request->request->all();
-        $data = array(
-            "idempresa"=> "'" . $post["idempresa"] . "'",
-            "correo"=> "'" . $content['user']['correo'] . "'",
-        );
-        
-        $result = $this->EmpresaModel->insertarvista($data);
+            if ($profile == null) {
+                $post = $request->request->all();
+                $data = array(
+                    "idempresa"=> "'" . $post["idempresa"] . "'",
+                   );
+            }else{
+                $user = $profile->getData();
+                $content['user'] = $user;
+                if ($content['user']['idtipousr'] == 2) {
+                    $result['message']="Visita de administrador";
+                }else{
+                    $post = $request->request->all();
+                    $data = array(
+                        "idempresa"=> "'" . $post["idempresa"] . "'",
+                        "correo"=> "'" . $content['user']['correo'] . "'",
+                    );
+                }
+            }
+       $result = $this->EmpresaModel->insertarvista($data);
         if ($result['status']) {
             $result['data'] = $post;
             $result['status'] = TRUE;
