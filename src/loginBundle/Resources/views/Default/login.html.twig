@@ -3,17 +3,17 @@
 	Login
 {% endblock %}
 {% block body %}
+
 	<div class="row">
-		<div class="col 12 m4 offset-m4">
+		<div class="col s12 m8 offset-m2">
 			<div class="card">
 				<div class="card-image" align="center">
-					<img src="{{asset('img/login.jpg')}}">
+					<img class="responsive-img" src="{{asset('img/login.jpg')}}">
 					<span align="center" class="card-title">
 						<h5>Control de Acceso</h5>
 					</span>
 				</div>
 				<div class="card-content">
-
 					<br>
 					<form id="frm-acceso" method="post">
 						<div class="row">
@@ -28,8 +28,9 @@
 								<input type="password" id="contra" name="contra" class="validate">
 								<label for="contra">Contraseña:</label>
 							</div>
-							<div class="input-field col s12 offset-m4">
+							<div class="input-field col s12 center-align">
 								<a id="un_lock" class="btn-floating btn-large waves-effect waves-light blue">
+								
 									<i class="material-icons">lock_open</i>
 								</a>
 								<a id="add_record" class="btn-floating btn-large waves-effect waves-light blue">
@@ -41,7 +42,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 	<!-- Ventana Modal -->
 	<div class="modal" id="modalReg">
@@ -85,6 +85,7 @@
 {% block javascripts %}
 
 	<script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/materialize.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
@@ -94,5 +95,4 @@
 var insertarUsuario = '{{ path('login_insertarUsuario' ) }}';
 	</script>
 	<script type="text/javascript" src="{{ asset('Resources/login.js') }}"></script>
-
 {% endblock %}

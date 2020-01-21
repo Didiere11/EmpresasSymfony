@@ -28,11 +28,21 @@
   
 </ul>
 
+<ul id="dropdown3" class="dropdown-content">
+  <li><a href="{{path('cat_empresas_visitas')}}">Vista general</a></li>
+  <li class="divider"></li>
+  <li><a href="{{path('cat_empresas_visitageneral')}}">Vistas por empresa</a></li>
+  
+</ul>
 
-
+<ul id="dropdown2" class="dropdown-content">
+  <li><a href="{{path('logout')}}">Cerrar Sesión</a></li>
+  <li class="divider"></li>
+</ul>
              <!-- Código del navbar de materilize -->
             <div class="nav-wrapper blue">
-              <a href="{{path('login_homepage')}}" class="brand-logo">Logo</a>
+              <a href="{{path('index_homepage')}}" class="brand-logo">Logo</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <!--<li><a href="sass.html">Sass</a></li>
                 <li><a href="badges.html">Components</a></li>-->
@@ -50,16 +60,45 @@
                 {% endif %}    
 					<li>
                         {% if  content['user'] is defined %}
-						<a href="{{path('logout')}}"> {{ content['user']['correo'] }}</a>
+                         <a class="dropdown-trigger" href="#!" data-target="dropdown2">{{ content['user']['correo'] }}<i class="material-icons right">arrow_drop_down</i></a>
+						
                         {% else %}
                         <a href="{{path('login_homepage')}}">Iniciar Sesión</a>     
                         {% endif %}
 					</li>
               </ul>
             </div>
+            
          </nav>
+         <ul class="sidenav" id="mobile-demo">
+          <li>
+                        {% if  content['user'] is defined %}
+                       <a href="#"> {{ content['user']['correo'] }}</a>
+                       <li>
+                        <a href="{{path('logout')}}"> Cerrar Sesión</a>
+                    </li>
+						<li>
+                    </li>
+                        {% else %}
+                        <a href="{{path('login_homepage')}}">Iniciar Sesión</a>     
+                        {% endif %}
+					</li>
+            <li>
+                {% if  content['user']['idtipousr'] is defined and content['user']['idtipousr'] == 2 %}
+					<a href="{{path('cat_empresas_homepage')}}">Empresas</a>
+					</li>
+					<li>
+						<a href="{{path('catusuarios_homepage')}}">Usuarios</a>
+					</li>
+                    <li>
+                    <a class="dropdown-trigger" href="#!" data-target="dropdown3">Visitas<i class="material-icons right">arrow_drop_down</i></a>
+                    </li>
+                    
+                    
+                {% endif %}    
+					
 
-         
+        </ul>
         {% block body %}{% endblock %}
     </body>
     {% block javascripts %}
@@ -70,30 +109,5 @@
          <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
     {% endblock %}
 
-      <footer class="page-footer blue">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Footer Content</h5>
-                    <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer
-                        content.</p>
-                </div>
-                <div class="col l4 offset-l2 s12">
-                    <h5 class="white-text">Links</h5>
-                    <ul>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <div class="container">
-                © 2020 Copyright Cgurity Place
-                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-            </div>
-        </div>
-    </footer>
+      
 </html>
