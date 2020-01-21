@@ -123,9 +123,12 @@ protected $EmpresaModel;
         return $this->render('CatEmpresasBundle:Default:catempresas.html.twig', array('content' => $content));
     }
     public function vistasAction(Request $request){
+        $profile = $this->getUser();
+        $user = $profile->getData();
         $result = $this->EmpresaModel->getVistas();
         $empresas = $result['data'];
         $content['empresas'] = $empresas;
+        $content['user'] = $user;
         return $this->render('CatEmpresasBundle:Default:vistas.html.twig', array('content' => $content));
     }
 }

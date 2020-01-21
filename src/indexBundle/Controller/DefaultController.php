@@ -20,14 +20,14 @@ class DefaultController extends Controller
         return $response;
     }
     public function indexAction(Request $request){
-       // $profile = $this->getUser();
-      //  $user = $profile->getData();
+        $profile = $this->getUser();
+        $user = $profile->getData();
 
 
         $result = $this->EmpresaModel->getEmpresas();
         $empresas = $result['data'];
         $content['empresas'] = $empresas;
-//$content['user'] = $user;
+        $content['user'] = $user;
        
         return $this->render('indexBundle:Default:index.html.twig', array('content' => $content));
     }

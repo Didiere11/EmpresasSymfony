@@ -35,7 +35,7 @@
 						<a href="{{path('catusuarios_homepage')}}">Usuarios</a>
 					</li>
                     <li>
-						<a href="{{path('catusuarios_homepage')}}">Usuarios</a>
+						<a href="{{path('cat_empresas_visitas')}}">Vistas</a>
 					</li>
                     
                 {% endif %}    
@@ -43,7 +43,7 @@
                         {% if  content['user'] is defined %}
 						<a href="{{path('logout')}}"> {{ content['user']['correo'] }}</a>
                         {%else%}
-                        <a href="{{path('login_homepage')}}">Iniciar Sesión</a>
+                        <a href="{{path('login_homepage')}}">Iniciar Sesión</a>     
                         {%endif%}
 					</li>
               </ul>

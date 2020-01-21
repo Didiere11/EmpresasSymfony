@@ -90,22 +90,7 @@ class DefaultController extends Controller
                     $result['status']= 1;
                     $result['message']="ERROR";
                 }
-                /*else{
-                    //print_r($result);
-                    //die();
-                    //Creamos el objeto Profile con los datos presentados por el formulario
-                    $profile = new Profile($result["data"][0]['correo'], $result["data"][0]['contraseña'], $this->App['salt'], array('ROLE_ADMIN'));
-                    $profile->setData($result['data'][0]);
-                    $token = new UsernamePasswordToken($profile, $profile->getPassword(), 'main', $profile->getRoles());
-                    $this->container->get('security.token_storage')->setToken($token);
-            
-                    // Creamos e iniciamos la sesión
-                    $session->set('_security_main', serialize($token));
-                   
-                    $result['status']= 2;
-                    $result['message']="administrador";
-                }*/
-            
+               
             return $this->jsonResponse($result);
         }
         //-------------------------------------------------------------------------
