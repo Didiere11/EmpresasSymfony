@@ -1,38 +1,37 @@
 {% extends 'base.html.twig' %}
-{% block title %}Index{% endblock %}
+{% block title %}Index
+{% endblock %}
 {% block body %}
 
 	<section>
-	<div class="parallax-container">
-      <div class="parallax"><img src="{{asset('img/img4.jpg')}}"></div>
-    </div>
+		<div class="parallax-container">
+			<div class="parallax"><img src="{{asset('img/img4.jpg')}}"></div>
+		</div>
 	</section>
 
 	<section>
-	<h3 class="blue-text" align="center">Lo más reciente</h3>
+		<h3 class="blue-text" align="center">Lo más reciente</h3>
 		<div class="carousel">
-       		{% for empresa in content['empresas'] %}
-					<a class="carousel-item" href="#one!"><img src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="150px" height="200px"></a>
-	 		{% endfor %}
-  		</div>
-    </section>
-	
-	<section>
-	<div class="parallax-container">
-      <div class="parallax"><img src="{{asset('img/img3.jpg')}}"></div>
-    </div>
+			{% for empresa in content['empresas'] %}
+				<a class="carousel-item" href="#one!"><img src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="150px" height="200px"></a>
+			{% endfor %}
+		</div>
 	</section>
 
-  <section>
-    <h3 class="blue-text" align="center">Empresas</h3>
+	<section>
+		<div class="parallax-container">
+			<div class="parallax"><img src="{{asset('img/img3.jpg')}}"></div>
+		</div>
+	</section>
 
-    <div class="row">
-      {% for empresa in content['empresas'] %}
-        <div class="col s6 m6 l4">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
+	<section>
+		<h3 class="blue-text" align="center">Empresas</h3>
 
-
+		<div class="row">
+			{% for empresa in content['empresas'] %}
+				<div class="col s6 m6 l4">
+					<div class="card">
+						<div class="card-image waves-effect waves-block waves-light">
               <img class="" src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="250px" height="250px">
               <img class="activator">
             </div>
@@ -74,27 +73,27 @@
               </div>
             </div>
 
-          </div>
-        {% endfor %}
-      </div>
-    </section>
+					</div>
+				{% endfor %}
+			</div>
+		</section>
 
-  {% endblock %}
+	{% endblock %}
 
-  {% block javascripts %}
-  {{parent()}}
-  <script type="text/javascript" src="{{ asset('js/dropzone_up.js') }}"></script>
-  <script type="text/javascript">
-  var Empresas = {{ content['empresas']|json_encode()|raw }};
-  var insertarvis = "{{ path('index_homepage_insertarvista') }}";
-  var urlprincipal = "{{ path('index_homepage' ) }}";  
-  </script>
-  <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('js/jquery.dataTables_.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('Resources/catalogoEmp.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('js/new.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('js/materialize.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-  {% endblock %}
+	{% block javascripts %}
+		{{parent()}}
+		<script type="text/javascript" src="{{ asset('js/dropzone_up.js') }}"></script>
+		<script type="text/javascript">
+			var Empresas = {{ content['empresas']|json_encode()|raw }};
+var insertarvis = "{{ path('index_homepage_insertarvista') }}";
+var urlprincipal = "{{ path('index_homepage' ) }}";
+		</script>
+		<script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/jquery.dataTables_.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('Resources/catalogoEmp.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/new.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/materialize.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+	{% endblock %}
