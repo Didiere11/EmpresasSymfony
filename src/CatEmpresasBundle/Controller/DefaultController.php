@@ -131,4 +131,13 @@ protected $EmpresaModel;
         $content['user'] = $user;
         return $this->render('CatEmpresasBundle:Default:vistas.html.twig', array('content' => $content));
     }
+    public function visitageneralAction(Request $request){
+        $profile = $this->getUser();
+        $user = $profile->getData();
+        $result = $this->EmpresaModel->getVistaGeneral();
+        $empresas = $result['data'];
+        $content['empresas'] = $empresas;
+        $content['user'] = $user;
+        return $this->render('CatEmpresasBundle:Default:vistageneral.html.twig', array('content' => $content));
+    }
 }

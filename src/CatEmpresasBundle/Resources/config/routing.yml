@@ -6,6 +6,10 @@ cat_empresas_visitas:
     path:     /vistas
     defaults: { _controller: CatEmpresasBundle:Default:vistas }
 
+cat_empresas_visitageneral:
+    path:     /visitageneral
+    defaults: { _controller: CatEmpresasBundle:Default:visitageneral }
+
 cat_empresas_insertarEmpresa:
     path:     /insertarEmpresa
     defaults: { _controller: CatEmpresasBundle:Default:insertarEmpresa }

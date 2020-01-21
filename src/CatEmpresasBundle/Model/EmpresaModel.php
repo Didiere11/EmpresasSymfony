@@ -17,6 +17,18 @@ class EmpresaModel {
         $result = $this->SQLModel->executeQuery($fields);
         return $result;
     }
+    public function getVistaGeneral(){
+        $fields = ' SELECT ';
+        $fields .= ' e."nombreempresa",';
+        $fields .= ' v."correo",';
+        $fields .= ' v."fechavista"';
+        $fields .= ' FROM "vistas" v ';
+        $fields .= ' INNER JOIN "empresa" e on  ';
+        $fields .= ' e."idempresa" = v."idempresa" ';
+        $fields .= 'ORDER BY e."nombreempresa" ';
+        $result = $this->SQLModel->executeQuery($fields);
+        return $result;
+    }
     public function getEmpresas(){
         $fields = ' SELECT ';
         $fields .= ' e."idempresa",';
