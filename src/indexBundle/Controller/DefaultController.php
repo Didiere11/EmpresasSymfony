@@ -20,15 +20,17 @@ class DefaultController extends Controller
         return $response;
     }
     public function indexAction(Request $request){
-        $profile = $this->getUser();
-        $user = $profile->getData();
-
-
-        $result = $this->EmpresaModel->getEmpresas();
-        $empresas = $result['data'];
-        $content['empresas'] = $empresas;
-        $content['user'] = $user;
        
+        $profile = $this->getUser();
+            
+        if($profile != ''){
+        $user = $profile->getData();
+        $content['user'] = $user;
+        }
+            $result = $this->EmpresaModel->getEmpresas();
+            $empresas = $result['data'];
+            $content['empresas'] = $empresas;
+            
         return $this->render('indexBundle:Default:index.html.twig', array('content' => $content));
     }
     public function insertarvistaAction(Request $request){
