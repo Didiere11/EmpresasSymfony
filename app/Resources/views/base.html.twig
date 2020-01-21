@@ -19,11 +19,11 @@
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
+    <body>    
          <nav>
              <!-- Código del navbar de materilize -->
             <div class="nav-wrapper blue">
-              <a href="#" class="brand-logo">Logo</a>
+              <a href="{{path('login_homepage')}}" class="brand-logo">Logo</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <!--<li><a href="sass.html">Sass</a></li>
                 <li><a href="badges.html">Components</a></li>-->
@@ -42,9 +42,9 @@
 					<li>
                         {% if  content['user'] is defined %}
 						<a href="{{path('logout')}}"> {{ content['user']['correo'] }}</a>
-                        {%else%}
+                        {% else %}
                         <a href="{{path('login_homepage')}}">Iniciar Sesión</a>     
-                        {%endif%}
+                        {% endif %}
 					</li>
               </ul>
             </div>
