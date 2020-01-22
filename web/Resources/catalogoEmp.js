@@ -27,6 +27,7 @@ $(document).on("click", '.edit', function() {
     var descr = $(this).attr("data-descrip");
     var tele = $(this).attr("data-tel");
     var corr = $(this).attr("data-corr");
+    var img = $(this).attr("data-img");
     $("#empresamodal").modal({ dismissible: false }).modal('open');
     $("#idempresa").val(idempresa);
     $("#nombre").val(nombre);
@@ -34,6 +35,7 @@ $(document).on("click", '.edit', function() {
     $("#telefono").val(tele);
     $("#descripcion").val(descr);
     $("#correo").val(corr);
+    $("#addfile").val(img);
     $("#direccion").focus();
     $("#telefono").focus();
     $("#descripcion").focus();

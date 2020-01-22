@@ -51,7 +51,7 @@
 									<td><img src="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="200px" height="100px"/></td>
 									{#<td>{{ empresa.visitas }}</td>#}
 									<td>
-										<i class="material-icons edit"  id-edit="{{ empresa['idempresa'] }}" data-nom="{{ empresa['nombreempresa'] }}" data-dir="{{ empresa['direccionempresa'] }}" data-tel="{{ empresa['telefonoempresa'] }}"data-corr="{{ empresa['correoempresa'] }}" data-descrip="{{ empresa['descripcionempresa'] }}">create</i>
+										<i class="material-icons edit"  id-edit="{{ empresa['idempresa'] }}" data-nom="{{ empresa['nombreempresa'] }}" data-dir="{{ empresa['direccionempresa'] }}" data-tel="{{ empresa['telefonoempresa'] }}"data-corr="{{ empresa['correoempresa'] }}" data-descrip="{{ empresa['descripcionempresa'] }}" data-img="data:{{empresa.formatoimagen}};base64,{{ empresa.rutaimagen }}" width="200px" height="100px">create</i>
 										<i class='material-icons delete' id-record="{{empresa.idempresa}}">delete_forever</i>
 									</td>
 								</tr>
@@ -104,8 +104,10 @@
 					</div>
 					<div class="row">
 						<div class="col s12">
-							<a class="waves-effect waves-light btn add-file black" name="addfile" id="addfile">
+							<a class=" waves-light btn add-file black" name="addfile" id="addfile">
 								<i class="material-icons left">unarchive</i>Subir imagen</a>
+								<h7>Cargar Imagen !OBLIGATORIO¡</h7>
+								
 						</div>
 					</div>
 					<br></br>
