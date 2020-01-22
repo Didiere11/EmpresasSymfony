@@ -1,13 +1,21 @@
 {% extends "base.html.twig" %}
 
 {% block title %}Admin Usuarios{% endblock %}
-
+     {% block stylesheets %}
+  <style>
+        body {
+            background-image: url("{{ asset('img/fondo.jpg') }}");
+            background-position: center top;
+            background-size: cover;
+        }
+</style>
+  {% endblock %}
 {% block body %}
     <div class="row">
         <div class="col s12 m8 offset-m2">
             <div class="card">
              
-                <a id="add-record" class="btn-floating btn-large waves-effect waves-light right blue">
+                <a id="add-record" class="btn-floating btn-large  right">
                    <i class="material-icons">add</i> 
                 </a>
                 <div class="card-content">

@@ -5,7 +5,15 @@
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{ asset("css/dropzone_up.css") }}">
 	<link rel="stylesheet" href="{{ asset("css/jquery.dataTables.min.css") }}">
-
+   
+  <style>
+        body {
+            background-image: url("{{ asset('img/fondo.jpg') }}");
+            background-position: center top;
+            background-size: cover;
+        }
+</style>
+  
 {% endblock %}
 
 {% block body %}
@@ -13,7 +21,7 @@
 		<div class="col s12 ">
 			<div class="card">
 
-				<a id="empresa-nuevo" class="btn-floating btn-large waves-effect waves-light right">
+				<a id="empresa-nuevo" class="btn-floating btn-large  right">
 					<i class="material-icons">add</i>
 				</a>
 				<div class="card-content">
