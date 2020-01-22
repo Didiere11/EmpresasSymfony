@@ -100,12 +100,40 @@ function init() {
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function validateform() {
+
     $("#frmUsr").validate({
         rules: {
-            nomusuario: { required: true, minlength: 4, maxlength: 120 },
-            correo: { required: true, email: true, minlength: 4, maxlength: 120 },
+            nomusuario: {
+                required: {
+                    depends: function() {
+                        if ($("#nomusuario").val().trim().length == 0) {
+                            $("#nomusuario").val('');
+                        }
+                        return true;
+                    }
+                },
+                minlength: 4,
+                maxlength: 120
+            },
+            correo: {
+                required: true,
+                email: true,
+                minlength: 4,
+                maxlength: 120
+            },
             contraseña: { required: true, minlength: 4, maxlength: 40 },
-            domicilio: { required: true, minlength: 4, maxlength: 250 }
+            domicilio: {
+                required: {
+                    depends: function() {
+                        if ($("#domicilio").val().trim().length == 0) {
+                            $("#domicilio").val('');
+                        }
+                        return true;
+                    }
+                },
+                minlength: 4,
+                maxlength: 250
+            }
         },
 
         messages: {
@@ -142,6 +170,17 @@ function validateform() {
     });
 }
 
+$(function() {
+    $('#correo').on('keypress', function(e) {
+        if (e.which == 32)
+            return false;
+    });
+
+    $('#contraseña').on('keypress', function(e) {
+        if (e.which == 32)
+            return false;
+    });
+});
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function saveClick() {
