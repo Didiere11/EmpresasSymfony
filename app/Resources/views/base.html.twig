@@ -1,113 +1,123 @@
 <!DOCTYPE html>
 <html>
-    <head>
-       <meta charset="UTF-8" />
-        <title>{% block title %}Empresas{% endblock %}</title>
-        
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }} media="screen,projection"" />
-            <link type="text/css" rel="stylesheet" href="{{ asset('css/materialize.min.css') }}" media="screen,projection"/>
-            <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}"/>
-            <link type="text/css" rel="stylesheet" href="{{ asset('css/default.css') }}"/>
-            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-          <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css') }}">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}Empresas{% endblock %}</title>
+
+  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }} media=" screen,projection"" />
+  <link type="text/css" rel="stylesheet" href="{{ asset('css/materialize.min.css') }}" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" />
+  <link type="text/css" rel="stylesheet" href="{{ asset('css/default.css') }}" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet"
+    href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css') }}">
 
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        {% block stylesheets %}{% endblock %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  {% block stylesheets %}{% endblock %}
 
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>    
-         <nav>
-<ul id="dropdown1" class="dropdown-content">
-  <li><a href="{{path('cat_empresas_visitas')}}">Vista general</a></li>
-  <li class="divider"></li>
-  <li><a href="{{path('cat_empresas_visitageneral')}}">Vistas por empresa</a></li>
-  
-</ul>
+  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
 
-<ul id="dropdown3" class="dropdown-content">
-  <li><a href="{{path('cat_empresas_visitas')}}">Vista general</a></li>
-  <li class="divider"></li>
-  <li><a href="{{path('cat_empresas_visitageneral')}}">Vistas por empresa</a></li>
-  
-</ul>
+<body>
 
-<ul id="dropdown2" class="dropdown-content">
-  <li><a href="{{path('logout')}}">Cerrar Sesión</a></li>
-  <li class="divider"></li>
-</ul>
-             <!-- Código del navbar de materilize -->
-            <div class="nav-wrapper blue">
-              <a href="{{path('index_homepage')}}" class="brand-logo">Logo</a>
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-              <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <!--<li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>-->
-                <li>
-                {% if  content['user']['idtipousr'] is defined and content['user']['idtipousr'] == 2 %}
-					<a href="{{path('cat_empresas_homepage')}}">Empresas</a>
-					</li>
-					<li>
-						<a href="{{path('catusuarios_homepage')}}">Usuarios</a>
-					</li>
-                    <li>
-                    <a class="dropdown-trigger" href="#!" data-target="dropdown1">Visitas<i class="material-icons right">arrow_drop_down</i></a>
-                    </li>
-                    
-                {% endif %}    
-					<li>
-                        {% if  content['user'] is defined %}
-                         <a class="dropdown-trigger" href="#!" data-target="dropdown2">{{ content['user']['correo'] }}<i class="material-icons right">arrow_drop_down</i></a>
-						
-                        {% else %}
-                        <a href="{{path('login_homepage')}}">Iniciar Sesión</a>     
-                        {% endif %}
-					</li>
-              </ul>
-            </div>
-            
-         </nav>
-         <ul class="sidenav" id="mobile-demo">
-          <li>
-                        {% if  content['user'] is defined %}
-                       <a href="#"> {{ content['user']['correo'] }}</a>
-                       <li>
-                        <a href="{{path('logout')}}"> Cerrar Sesión</a>
-                    </li>
-						<li>
-                    </li>
-                        {% else %}
-                        <a href="{{path('login_homepage')}}">Iniciar Sesión</a>     
-                        {% endif %}
-					</li>
+
+
+
+  <ul class="sidenav" id="mobile-demo">
+    <li>
+      {% if  content['user'] is defined %}
+      <a href="#"> {{ content['user']['correo'] }}</a>
+    <li>
+      <a href="{{path('logout')}}"> Cerrar Sesión</a>
+    </li>
+    <li>
+    </li>
+    {% else %}
+    <a href="{{path('login_homepage')}}">Iniciar Sesión</a>
+    {% endif %}
+    </li>
+    <li>
+      {% if  content['user']['idtipousr'] is defined and content['user']['idtipousr'] == 2 %}
+      <a href="{{path('cat_empresas_homepage')}}">Empresas</a>
+    </li>
+    <li>
+      <a href="{{path('catusuarios_homepage')}}">Usuarios</a>
+    </li>
+    <li>
+      <a class="dropdown-trigger" href="#!" data-target="dropdown3">Visitas<i
+          class="material-icons right">arrow_drop_down</i></a>
+    </li>
+
+
+    {% endif %}
+  </ul>
+  <div class="navbar-fixed">
+    <nav class="teal">
+
+      <ul id="dropdown1" class="dropdown-content">
+        <li><a href="{{path('cat_empresas_visitas')}}">Vista general</a></li>
+        <li class="divider"></li>
+        <li><a href="{{path('cat_empresas_visitageneral')}}">Vistas por empresa</a></li>
+
+      </ul>
+
+      <ul id="dropdown3" class="dropdown-content">
+        <li><a href="{{path('cat_empresas_visitas')}}">Vista general</a></li>
+        <li class="divider"></li>
+        <li><a href="{{path('cat_empresas_visitageneral')}}">Vistas por empresa</a></li>
+
+      </ul>
+
+      <ul id="dropdown2" class="dropdown-content">
+        <li><a href="{{path('logout')}}">Cerrar Sesión</a></li>
+        <li class="divider"></li>
+      </ul>
+
+
+      <div class="container">
+        <div class="nav-wrapper">
+          <a href="{{path('index_homepage')}}" class="brand-logo">Empresas Bajio</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
             <li>
-                {% if  content['user']['idtipousr'] is defined and content['user']['idtipousr'] == 2 %}
-					<a href="{{path('cat_empresas_homepage')}}">Empresas</a>
-					</li>
-					<li>
-						<a href="{{path('catusuarios_homepage')}}">Usuarios</a>
-					</li>
-                    <li>
-                    <a class="dropdown-trigger" href="#!" data-target="dropdown3">Visitas<i class="material-icons right">arrow_drop_down</i></a>
-                    </li>
-                    
-                    
-                {% endif %}    
-					
+              {% if  content['user']['idtipousr'] is defined and content['user']['idtipousr'] == 2 %}
+              <a href="{{path('cat_empresas_homepage')}}">Empresas</a>
+            </li>
+            <li>
+              <a href="{{path('catusuarios_homepage')}}">Usuarios</a>
+            </li>
+            <li>
+              <a class="dropdown-trigger" href="#!" data-target="dropdown1">Visitas<i
+                  class="material-icons right">arrow_drop_down</i></a>
+            </li>
+            {% endif %}
+            <li>
+              {% if  content['user'] is defined %}
+              <a class="dropdown-trigger" href="#!" data-target="dropdown2">{{ content['user']['correo'] }}<i
+                  class="material-icons right">arrow_drop_down</i></a>
 
-        </ul>
-        {% block body %}{% endblock %}
-    </body>
-    {% block javascripts %}
-        <script type="text/javascript" src="{{ asset('js/jquery-3.1.1.js') }}"></script>
-         <script type="text/javascript" src="{{ asset('js/materialize.js') }}"></script>
-         <script type="text/javascript" src="{{ asset('js/new.js') }}"></script>
-           <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js')}}"></script>
-         <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
-    {% endblock %}
+              {% else %}
+              <a href="{{path('login_homepage')}}">Iniciar Sesión</a>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  {% block body %}{% endblock %}
+</body>
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('js/jquery-3.1.1.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/materialize.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/new.js') }}"></script>
+<script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+{% endblock %}
 
-      
+
 </html>
