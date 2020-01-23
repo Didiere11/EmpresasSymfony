@@ -23,18 +23,24 @@ class DefaultController extends Controller
         if ($request->getMethod() == 'POST') {
             //extraccion de parametros
             $post = $request->request->all();
+
+            $post['nomusuario']=trim($post["nomusuario"]); 
+         //print_r($post);
+          //die();
             
         $data = array(
             //--en BD-----------------en formulario
-            "nomusuario"=> "'" . $post["nomusuario"] . "'",
+            "nomusuario"=> "'" . $post["nomusuario"]. "'",
             "correo"=> "'" . $post["correo"] . "'",
             "contraseña"=> "'" . $post["contraseña"] . "'",
             "domicilio"=> "'" . $post["domicilio"] . "'",
             "idtipousr"=> "'" . $post["tipousr"] . "'"
         );
-        
        
+        
+         
         $result = $this->UsuarioModel->insertUsuario($data);
+       
         $dataa = array(
             "idtipousr"=> "'" . $post["tipousr"] . "'"
         );
