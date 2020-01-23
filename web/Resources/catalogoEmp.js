@@ -18,7 +18,7 @@ $(document).ready(function() {
 $('#empresa-nuevo').on("click", function() {
     $("#empresamodal").modal({ dismissible: false }).modal('open');
     insertarEmpresa();
-    
+
 });
 $(document).on("click", '.edit', function() {
     var idempresa = $(this).attr("id-edit");
@@ -47,10 +47,10 @@ $(document).on("click", '.edit', function() {
     pintarDatos(idempresa);
     $("#empresas-guardar").attr("idempresa", idempresa);
     actualizarEmpresa(idempresa);
-   
+
 });
 //sirve para editar los servicio
-$(document).on("click", '.right', function(){
+$(document).on("click", '.right', function() {
     var idempresa = $(this).attr("idempresa");
     $.ajax({
         type: "post",
@@ -58,18 +58,18 @@ $(document).on("click", '.right', function(){
         dataType: "json",
         data: { idempresa },
         success: function(respuesta) {
-          if (respuesta["status"]) {
-            //table.remove().draw();
-            M.toast({
-              html: "visita registrada",
-              classes: "rounded ",
-              displayLength: 4000
-            });
-          } else {
-           
-          }
+            if (respuesta["status"]) {
+                //table.remove().draw();
+                M.toast({
+                    html: "visita registrada",
+                    classes: "rounded ",
+                    displayLength: 4000
+                });
+            } else {
+
+            }
         }
-      });
+    });
 });
 
 $(document).on("click", '.delete', function() {
@@ -114,11 +114,56 @@ function pintarDatos(idempresa) {
 function validateForm() {
     $('#empresa-form').validate({
         rules: {
-            nombre: { required: true, minlength: 4, maxlength: 220 },
-            direccion: { required: true, minlength: 4, maxlength: 220 },
-            telefono: { required: true, number: true, minlength: 7, maxlength: 10 },
+            nombre: {
+                required: {
+                    depends: function() {
+                        if ($("#nombre").val().trim().length == 0) {
+                            $("#nombre").val('');
+                        }
+                        return true;
+                    }
+                },
+                minlength: 4,
+                maxlength: 220
+            },
+            direccion: {
+                required: {
+                    depends: function() {
+                        if ($("#direccion").val().trim().length == 0) {
+                            $("#direccion").val('');
+                        }
+                        return true;
+                    }
+                },
+                minlength: 4,
+                maxlength: 220
+            },
+            telefono: {
+                required: {
+                    depends: function() {
+                        if ($("#telefono").val().trim().length == 0) {
+                            $("#telefono").val('');
+                        }
+                        return true;
+                    }
+                },
+                number: true,
+                minlength: 7,
+                maxlength: 10
+            },
             correo: { required: true, email: true },
-            descripcion: { required: true, minlength: 4, maxlength: 250 },
+            descripcion: {
+                required: {
+                    depends: function() {
+                        if ($("#descripcion").val().trim().length == 0) {
+                            $("#descripcion").val('');
+                        }
+                        return true;
+                    }
+                },
+                minlength: 4,
+                maxlength: 250
+            },
             addfile: { required: true },
         },
         messages: {
@@ -139,6 +184,13 @@ function validateForm() {
         }
     });
 }
+
+$(function() {
+    $('#correo').on('keypress', function(e) {
+        if (e.which == 32)
+            return false;
+    });
+});
 // Limpia los campos al cerrar la modal
 function reset() {
     $("#idempresa").val('');
@@ -174,7 +226,7 @@ function eliminarEmpresa(idempresa) {
 
 function actualizarEmpresa(idempresa) {
     //Dropzone class
-        pdf = $(".add-file").dropzone({
+    pdf = $(".add-file").dropzone({
         url: urlActualizar,
         paramName: "archivo",
         maxFilesize: 5, //MB
@@ -196,7 +248,7 @@ function actualizarEmpresa(idempresa) {
                 $('#empresa-form').submit();
 
 
-});
+            });
             this.on("sending", function(file, xhr, formData) {
                 var data = $('#empresa-form').serializeArray();
                 // post = post + "&IdEmpresa=" + ;
@@ -286,7 +338,7 @@ function setRow(data, base64, action) {
             data.correo,
             data.descripcion,
             '<img src="' + base64 + '" width="200" height="100" ></img>',
-            '<i class="material-icons edit"   id-edit="' + data.idempresa + '" data-nom="' + data.nombre + '"data-dir="' + data.direccion + '"data-descrip="' + data.descripcion +  '"data-tel="' + data.telefono + '"data-corr="' + data.correo +  '" class="material-icons">create</i>' +
+            '<i class="material-icons edit"   id-edit="' + data.idempresa + '" data-nom="' + data.nombre + '"data-dir="' + data.direccion + '"data-descrip="' + data.descripcion + '"data-tel="' + data.telefono + '"data-corr="' + data.correo + '" class="material-icons">create</i>' +
             '<i class="material-icons delete" id-record="' + data.idempresa + '" class="material-icons">delete_forever</i>'
 
         ]).draw().node();
@@ -301,7 +353,7 @@ function setRow(data, base64, action) {
             data.correo,
             data.descripcion,
             '<img src="' + base64 + '" width="200" height="100" ></img>',
-            '<i class="material-icons edit"  id-edit="' + data.idempresa + '" data-nom="' + data.nombre + '"data-dir="' + data.direccion + '"data-descrip="' + data.descripcion +  '"data-tel="' + data.telefono + '"data-corr="' + data.correo +  '" class="material-icons">create</i>' +
+            '<i class="material-icons edit"  id-edit="' + data.idempresa + '" data-nom="' + data.nombre + '"data-dir="' + data.direccion + '"data-descrip="' + data.descripcion + '"data-tel="' + data.telefono + '"data-corr="' + data.correo + '" class="material-icons">create</i>' +
             '<i class="material-icons delete" id-record="' + data.idempresa + '" class="material-icons">delete_forever</i>'
         ]).draw().node();
         $(row).attr('id-edit', data.idempresa);
